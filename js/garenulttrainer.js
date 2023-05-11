@@ -16,6 +16,8 @@ class GarenUltTrainer {
         this.explanationTextElement = document.getElementById("explanationText");
         this.yesButton = document.getElementById("yes");
         this.noButton = document.getElementById("no");
+        this.progressBar = document.getElementById("progressBar");
+        this.intervalId = null;
     }
 
     drawHpBar() {
@@ -75,6 +77,17 @@ class GarenUltTrainer {
         this.ultLevelElement.innerText = this.ultLevel;
     }
 
+    updateProgressBar() {
+        let newProgressionValue = this.progressBar.style.width.slice(0, -1) - 1;
+        this.progressBar.style.width = newProgressionValue + "%";
+        
+        if (newProgressionValue === 0) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+            this.showExplanation(this.calculateUltDamage());
+        }
+    }
+
     newGame() {
         this.currentHp = this.getRandomInt(0, 5000);
         this.maximumHp = this.getRandomInt(this.currentHp, 5000);
@@ -82,6 +95,9 @@ class GarenUltTrainer {
 
         this.updateHpBar();
         this.updateUltLevel(newUltLevel);
+
+        this.progressBar.style.width = "100%";
+        this.intervalId = setInterval(() => this.updateProgressBar(), 25);
     }
 
     calculateUltDamage() {
