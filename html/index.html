@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Garen Ult Trainer</title>
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <script type="text/javascript" src="/js/garenulttrainer.js"></script>
+    </head>
+    <body>
+        <div class="container text-center">
+            <div class="row p-5">
+                <h1>Garen Ult Trainer</h1>
+            </div>
+            <div class="row">
+                <h5 id="Description">Garen Ult Level</h5>
+            </div>
+            <div class="row pb-4">
+                <h5 id="ultLevel"></h5>
+            </div>
+            <div class="row">
+                <h5>Will it execute?</h5>
+            </div>
+            <div class="row">
+                <div>
+                    <button class="btn btn-primary btn-lg" id="yes" type="button">Yes</button>
+                    <button class="btn btn-danger btn-lg" id="no" type="button">No</button>
+                </div>
+
+            </div>
+            <div class="row p-4">
+                <div class="col">
+                    <canvas id="hpBar"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <h5>Score</h5>
+                    <h5 id="score">0</h5>
+                </div>
+            </div>
+            <div class="row p-3">
+                <h5 class="explanation" id="explanationText" style="visibility: hidden;"></h5>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-success btn-lg explanation" id="explanationButton" type="button" style="visibility: hidden;">OK</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
