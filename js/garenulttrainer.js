@@ -18,6 +18,8 @@ class GarenUltTrainer {
         this.noButton = document.getElementById("no");
         this.progressBar = document.getElementById("progressBar");
         this.intervalId = null;
+        this.highscore = 0;
+        this.highscoreElement = document.getElementById("highscore");
     }
 
     drawHpBar() {
@@ -77,18 +79,27 @@ class GarenUltTrainer {
         this.ultLevelElement.innerText = this.ultLevel;
     }
 
+    resetInterval() {
+        if (this.resetIntervalId === null) {
+            return;
+        }
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+    }
+
     updateProgressBar() {
         let newProgressionValue = this.progressBar.style.width.slice(0, -1) - 1;
         this.progressBar.style.width = newProgressionValue + "%";
         
         if (newProgressionValue === 0) {
-            clearInterval(this.intervalId);
-            this.intervalId = null;
+            this.resetInterval();
             this.showExplanation(this.calculateUltDamage());
         }
     }
 
     newGame() {
+        this.resetInterval();
+
         this.currentHp = this.getRandomInt(0, 5000);
         this.maximumHp = this.getRandomInt(this.currentHp, 5000);
         let newUltLevel = this.getRandomInt(1, 3);
@@ -151,13 +162,32 @@ class GarenUltTrainer {
         this.noButton.onclick = () => this.progress(false);
         this.explanationButtonElement.onclick = () => {
             this.toggleUI();
+            if (this.score > this.highscore) {
+                this.highscore = this.score;
+                this.saveHighscore();
+            }
             this.updateScore(0);
             this.newGame();
         }
     }
 
+    saveHighscore() {
+        localStorage.setItem("highscore", this.highscore);
+        this.highscoreElement.innerText = this.highscore;
+    }
+
+    loadHighscore() {
+        let highscore = localStorage.getItem("highscore");
+        if (highscore === null) {
+            return;
+        }
+        this.highscore = highscore;
+        this.highscoreElement.innerText = highscore;
+    }
+
     main() {
         this.initializeButtons();
+        this.loadHighscore();
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.drawHpBar();
