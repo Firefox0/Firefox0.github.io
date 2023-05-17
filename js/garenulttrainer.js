@@ -16,10 +16,13 @@ class GarenUltTrainer {
         this.explanationTextElement = document.getElementById("explanationText");
         this.yesButton = document.getElementById("yes");
         this.noButton = document.getElementById("no");
-        this.progressBar = document.getElementById("progressBar");
+        this.timerBar = document.getElementById("timerBar");
+        this.timerBar.style.transition = "none";
         this.intervalId = null;
         this.highscore = 0;
         this.highscoreElement = document.getElementById("highscore");
+        this.barWidth = 100;
+        this.difficultySubtractor = 1;
     }
 
     drawHpBar() {
@@ -87,28 +90,26 @@ class GarenUltTrainer {
         this.intervalId = null;
     }
 
-    updateProgressBar() {
-        let newProgressionValue = this.progressBar.style.width.slice(0, -1) - 1;
-        this.progressBar.style.width = newProgressionValue + "%";
-        
-        if (newProgressionValue === 0) {
-            this.resetInterval();
-            this.showExplanation(this.calculateUltDamage());
+    updateTimerBar() {
+        this.barWidth -= this.difficultySubtractor;
+        this.timerBar.style.width = this.barWidth + "%";
+
+        if (this.barWidth <= 0) {
+            this.stopTimer();
+            this.gameOver(this.calculateUltDamage());
         }
     }
 
     newGame() {
-        this.resetInterval();
-
-        this.currentHp = this.getRandomInt(0, 5000);
-        this.maximumHp = this.getRandomInt(this.currentHp, 5000);
+        this.currentHp = this.getRandomInt(250, 3000);
+        this.maximumHp = this.getRandomInt(this.currentHp + 500, 5000);
         let newUltLevel = this.getRandomInt(1, 3);
 
         this.updateHpBar();
         this.updateUltLevel(newUltLevel);
 
-        this.progressBar.style.width = "100%";
-        this.intervalId = setInterval(() => this.updateProgressBar(), 25);
+        this.resetTimer();
+        this.startTimer();
     }
 
     calculateUltDamage() {
@@ -129,12 +130,28 @@ class GarenUltTrainer {
 
     progress(answer) {
         let ultDamage = this.calculateUltDamage();
+        this.stopTimer();
+        this.difficultySubtractor += 0.25;
         if ((ultDamage >= this.currentHp) === answer) {
             this.updateScore(this.score + 1)
             this.newGame();
         } else {
-            this.showExplanation(ultDamage);
+            this.gameOver(ultDamage);
         }
+    }
+
+    startTimer() {
+        this.intervalId = setInterval(() => this.updateTimerBar(), 1000 / 60);
+    }
+
+    stopTimer() {
+        this.difficultySubtractor = 1;
+        this.resetInterval();
+    }
+
+    resetTimer() {
+        this.barWidth = 100;
+        this.timerBar.style.width = "100%";
     }
 
     toggleUI() {
@@ -149,7 +166,7 @@ class GarenUltTrainer {
         }
     }
 
-    showExplanation(ultDamage) {
+    gameOver(ultDamage) {
         this.explanationTextElement.innerHTML = "Enemy current HP: " + this.currentHp + "<br>" +
                                                 "Enemy maximum HP: " + this.maximumHp + "<br>" +
                                                 "Ult damage: " + ultDamage + "<br>" +
@@ -161,6 +178,7 @@ class GarenUltTrainer {
         this.yesButton.onclick = () => this.progress(true);
         this.noButton.onclick = () => this.progress(false);
         this.explanationButtonElement.onclick = () => {
+            this.stopTimer();
             this.toggleUI();
             if (this.score > this.highscore) {
                 this.highscore = this.score;
@@ -192,6 +210,7 @@ class GarenUltTrainer {
         this.canvas.height = this.height;
         this.drawHpBar();
         this.newGame();
+        window.requestAnimationFrame(e => console.log(e));
     }
 }
 
