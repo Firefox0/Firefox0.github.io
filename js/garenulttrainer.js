@@ -45,16 +45,41 @@ class GarenUltTrainer {
 
     }
 
+    drawRectGradient(x, y, width, height, colors, direction) {
+        let gradient = null;
+
+        switch (direction) {
+            case "up":
+                gradient = this.context.createLinearGradient(0, height, 0, 0);
+                break;
+            case "right":
+                gradient = this.context.createLinearGradient(0, 0, height, 0);
+                break;
+            case "down":
+                gradient = this.context.createLinearGradient(0, 0, 0, height);
+                break;
+            case "left":
+                gradient = this.context.createLinearGradient(height, 0, 0, 0);
+                break;
+            default:
+                gradient = this.context.createLinearGradient(0, 0, 0, 0);
+                break;
+        }
+
+        for (let i = 0; i < colors.length; i++) {
+            gradient.addColorStop(i / (colors.length - 1), colors[i]);
+        }
+
+        this.drawRectFill(x, y, width, height, gradient);
+    }
+
     drawRectFill(x, y, width, height, color) {
-        let region = new Path2D();
-        region.rect(x, y, width, height);
-        region.closePath();
         this.context.fillStyle = color;
-        this.context.fill(region, "evenodd");
+        this.context.fillRect(x, y, width, height);
     }
 
     drawHpColors(visibleLineAmount, totalLineAmount, step) {
-        this.drawRectFill(1, 1, visibleLineAmount * step, this.height, "red");
+        this.drawRectGradient(0, 0, visibleLineAmount * step, this.height, ["#dd4f52", "#870a0e"], "down");
         this.drawRectFill(visibleLineAmount * step, 1, (totalLineAmount - visibleLineAmount) * step, this.height, "black");
     }
 
@@ -219,7 +244,6 @@ class GarenUltTrainer {
         this.canvas.height = this.height;
         this.drawHpBar();
         this.newGame();
-        window.requestAnimationFrame(e => console.log(e));
     }
 }
 
