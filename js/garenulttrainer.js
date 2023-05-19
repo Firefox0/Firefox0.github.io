@@ -27,7 +27,6 @@ class GarenUltTrainer {
 
     drawHpBar() {
         this.context.rect(0, 0, this.width, this.height);
-
     }
     
     updateHpBar() {
@@ -194,8 +193,8 @@ class GarenUltTrainer {
     gameOver(ultDamage) {
         this.explanationTextElement.innerHTML = "Enemy current HP: " + this.currentHp + "<br>" +
                                                 "Enemy maximum HP: " + this.maximumHp + "<br>" +
-                                                "Ult damage: " + ultDamage + "<br>" +
-                                                "Remaining HP: " + (this.currentHp - ultDamage); 
+                                                "Ult damage: " + Math.trunc(ultDamage) + "<br>" +
+                                                "Remaining HP: " + Math.trunc(this.currentHp - ultDamage); 
         this.toggleUI();
     }
 
