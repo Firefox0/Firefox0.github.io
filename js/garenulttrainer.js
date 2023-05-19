@@ -191,10 +191,11 @@ class GarenUltTrainer {
     }
 
     gameOver(ultDamage) {
-        this.explanationTextElement.innerHTML = "Enemy current HP: " + this.currentHp + "<br>" +
-                                                "Enemy maximum HP: " + this.maximumHp + "<br>" +
-                                                "Ult damage: " + Math.trunc(ultDamage) + "<br>" +
-                                                "Remaining HP: " + Math.trunc(this.currentHp - ultDamage); 
+        this.explanationTextElement.innerHTML = `Correct answer: ${(ultDamage >= this.currentHp) ? "Yes" : "No"} <br>
+                                                Enemy current HP: ${this.currentHp} <br>
+                                                Enemy maximum HP: ${this.maximumHp} <br>
+                                                Ult damage: ${Math.trunc(ultDamage)} <br>
+                                                Remaining HP: ${Math.trunc(this.currentHp - ultDamage)}`
         this.toggleUI();
     }
 
