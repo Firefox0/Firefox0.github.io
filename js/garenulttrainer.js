@@ -187,6 +187,7 @@ class GarenUltTrainer {
             this.updateScore(0);
             this.newGame();
         }
+        document.getElementById("resetHighscoreButton").onclick = () => this.resetHighscore();
     }
 
     saveHighscore() {
@@ -201,6 +202,14 @@ class GarenUltTrainer {
         }
         this.highscore = highscore;
         this.highscoreElement.innerText = highscore;
+    }
+
+    resetHighscore() {
+        if (this.highscore === 0) {
+            return;
+        }
+        this.highscore = 0;
+        this.saveHighscore();
     }
 
     main() {
