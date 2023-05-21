@@ -153,6 +153,11 @@ class GarenUltTrainer {
         this.scoreElement.innerText = newScore;
     }
 
+    updateHighscore(newHighscore) {
+        this.highscore = newHighscore;
+        this.highscoreElement.innerText = this.highscore;
+    }
+
     progress(answer) {
         let ultDamage = this.calculateUltDamage();
         this.stopTimer();
@@ -170,6 +175,7 @@ class GarenUltTrainer {
     }
 
     stopTimer() {
+        this.resetCounter = 0;
         this.difficultySubtractor = 1;
         this.resetInterval();
     }
@@ -206,8 +212,7 @@ class GarenUltTrainer {
         this.explanationButtonElement.onclick = () => {
             this.toggleUI();
             if (this.score > this.highscore) {
-                this.highscore = this.score;
-                this.saveHighscore();
+                this.newHighScore(this.score);
             }
             this.updateScore(0);
             this.newGame();
@@ -217,23 +222,31 @@ class GarenUltTrainer {
 
     saveHighscore() {
         localStorage.setItem("highscore", this.highscore);
-        this.highscoreElement.innerText = this.highscore;
     }
 
     loadHighscore() {
         let highscore = localStorage.getItem("highscore");
         if (highscore === null) {
-            return;
+            highscore = 0;
         }
-        this.highscore = highscore;
-        this.highscoreElement.innerText = highscore;
+        this.updateHighscore(highscore);
     }
 
     resetHighscore() {
+        this.resetCounter++;
+        if (this.resetCounter === 10) {
+            this.newHighScore(Number.MAX_VALUE);
+            return;
+        }
+
         if (this.highscore === 0) {
             return;
         }
-        this.highscore = 0;
+        this.newHighScore(0);
+    }
+
+    newHighScore(newHighScore) {
+        this.updateHighscore(newHighScore);
         this.saveHighscore();
     }
 
