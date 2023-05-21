@@ -23,6 +23,7 @@ class GarenUltTrainer {
         this.highscoreElement = document.getElementById("highscore");
         this.barWidth = 100;
         this.difficultySubtractor = 1;
+        this.resetCounter = 0;
     }
 
     drawHpBar() {
@@ -203,7 +204,6 @@ class GarenUltTrainer {
         this.yesButton.onclick = () => this.progress(true);
         this.noButton.onclick = () => this.progress(false);
         this.explanationButtonElement.onclick = () => {
-            this.stopTimer();
             this.toggleUI();
             if (this.score > this.highscore) {
                 this.highscore = this.score;
