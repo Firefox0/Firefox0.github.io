@@ -78,7 +78,7 @@ class GarenUltTrainer {
     }
 
     drawHpColors(visibleLineAmount, totalLineAmount, step) {
-        this.drawRectGradient(0, 0, visibleLineAmount * step, this.height, ["#dd4f52", "#870a0e"], "down");
+        this.drawRectGradient(0, 1, visibleLineAmount * step, this.height, ["#dd4f52", "#870a0e"], "down");
         this.drawRectFill(visibleLineAmount * step, 1, (totalLineAmount - visibleLineAmount) * step, this.height, "black");
     }
 
