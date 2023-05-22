@@ -239,6 +239,13 @@ class GarenUltTrainer {
             this.newGame();
         }
         document.getElementById("resetHighscoreButton").onclick = () => this.resetHighscore();
+        let startButton = document.getElementById("startButton");
+        startButton.onclick = () => {
+            startButton.style = "display: none";
+            this.canvas.style = "display: block";
+            this.drawHpBar();
+            this.newGame();
+        }
     }
 
     saveHighscore() {
@@ -276,8 +283,6 @@ class GarenUltTrainer {
         this.loadHighscore();
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        this.drawHpBar();
-        this.newGame();
     }
 }
 
