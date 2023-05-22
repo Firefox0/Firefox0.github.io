@@ -32,7 +32,6 @@ class GarenUltTrainer {
     
     updateHpBar() {
         if (this.currentHp > this.maximumHp) {
-            console.error("Current HP can't be greater than maximum HP");
             return;
         }
         
@@ -125,13 +124,35 @@ class GarenUltTrainer {
         }
     }
 
-    newGame() {
-        this.currentHp = this.getRandomInt(250, 3000);
-        this.maximumHp = this.getRandomInt(this.currentHp + 500, 5000);
-        let newUltLevel = this.getRandomInt(1, 3);
+    createNewHealth() {
+        switch(this.ultLevel) {
+            case 1:
+                this.currentHp = this.getRandomInt(500, 3000);
+                this.maximumHp = this.getRandomInt(this.currentHp * 2.75, this.currentHp * 3.75);
+                break;
+            case 2:
+                this.currentHp = this.getRandomInt(750, 3000);
+                this.maximumHp = this.getRandomInt(this.currentHp * 2.5, this.currentHp * 3.5);
+                break;
+            case 3:
+                this.currentHp = this.getRandomInt(1000, 3000);
+                this.maximumHp = this.getRandomInt(this.currentHp * 2.25, this.currentHp * 3.25);
+                break;
+        }
 
-        this.updateHpBar();
+        let remainingHP = this.currentHp - this.calculateUltDamage(this.ultLevel);
+        if ((remainingHP < 0 && remainingHP >= -200) || remainingHP <= -500 || 
+            (remainingHP >= 0 && remainingHP <= 200) || remainingHP >= 500) {
+                this.createNewHealth();
+        }
+    }
+
+    newGame() {
+        let newUltLevel = this.getRandomInt(1, 3);
         this.updateUltLevel(newUltLevel);
+        
+        this.createNewHealth();
+        this.updateHpBar();
 
         this.resetTimer();
         this.startTimer();
