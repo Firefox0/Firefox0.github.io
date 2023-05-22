@@ -241,8 +241,10 @@ class GarenUltTrainer {
         document.getElementById("resetHighscoreButton").onclick = () => this.resetHighscore();
         let startButton = document.getElementById("startButton");
         startButton.onclick = () => {
-            startButton.style = "display: none";
             this.canvas.style = "display: block";
+            startButton.style = "display: none";
+            this.yesButton.disabled = !this.yesButton.disabled;
+            this.noButton.disabled = !this.noButton.disabled;
             this.drawHpBar();
             this.newGame();
         }
