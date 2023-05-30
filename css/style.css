@@ -1,3 +1,7 @@
+body, .btn:hover {
+    cursor: url("../misc/normal.cur"),auto;
+}
+
 .btn {
     width: 100px;
 }
