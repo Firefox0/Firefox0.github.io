@@ -93,32 +93,31 @@ export default class Hp {
         this.context.stroke();
     }
 
-    static generateHealth(ultLevel) {
-        switch(ultLevel) {
+    static generateHealth() {
+        let tempCurrentHp = 0;
+        let finalHp = Random.getRandomInt(100, 250);
+        if (Random.coinflip()) {
+            finalHp *= -1;
+        }
+
+        switch(Ultimate.getUltLevel()) {
             case 1:
-                this.currentHp = Random.getRandomInt(500, 3000);
-                this.maximumHp = Random.getRandomInt(this.currentHp * 2.75, this.currentHp * 3.75);
+                tempCurrentHp = Random.getRandomInt(500, 2000);
                 break;
             case 2:
-                this.currentHp = Random.getRandomInt(750, 3000);
-                this.maximumHp = Random.getRandomInt(this.currentHp * 2.5, this.currentHp * 3.5);
+                tempCurrentHp = Random.getRandomInt(1000, 2500);
                 break;
             case 3:
-                this.currentHp = Random.getRandomInt(1000, 3000);
-                this.maximumHp = Random.getRandomInt(this.currentHp * 2.25, this.currentHp * 3.25);
+                tempCurrentHp = Random.getRandomInt(1500, 3000);
                 break;
         }
 
-        let ultDamage = Ultimate.calculateUltDamage(this.currentHp, this.maximumHp);
-        let remainingHP = this.currentHp - ultDamage;
-        if ((remainingHP < 0 && remainingHP >= -200) || remainingHP <= -500 || 
-            (remainingHP >= 0 && remainingHP <= 200) || remainingHP >= 500) {
-                this.generateHealth(ultLevel, ultDamage);
-        }
+        this.currentHp = tempCurrentHp;
+        this.maximumHp = Ultimate.calculateMaximumHp(this.currentHp, finalHp);
     }
 
     static newHealth() {
-        this.generateHealth(Ultimate.ultLevel);
+        this.generateHealth();
         this.updateHpBar();
     }
 

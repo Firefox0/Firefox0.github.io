@@ -10,7 +10,7 @@ class GarenUltTrainer {
 
     static newGame() {
         Ultimate.randomizeUltLevel();
-        Hp.newHealth(Ultimate.ultLevel);
+        Hp.newHealth();
 
         Timer.resetTimer();
         Timer.startTimer(() => this.gameOver(Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp)));

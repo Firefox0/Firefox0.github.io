@@ -11,6 +11,10 @@ export default class Ultimate {
         this.ultLevelAnimation = Animations.upAndDown(this.ultLevelElement);
     }
 
+    static getUltLevel() {
+        return this.ultLevel;
+    }
+
     static calculateUltDamage(currentHp, maximumHp) {
         switch (this.ultLevel) {
             case 1:
@@ -19,6 +23,17 @@ export default class Ultimate {
                 return 300 + 0.30 * (maximumHp - currentHp);
             case 3:
                 return 450 + 0.35 * (maximumHp - currentHp);
+        }
+    }
+
+    static calculateMaximumHp(currentHp, finalHp) {
+        switch (this.ultLevel) {
+            case 1:
+                return (currentHp - finalHp - 150) / 0.25 + currentHp;
+            case 2:
+                return (currentHp - finalHp - 300) / 0.3 + currentHp;
+            case 3:
+                return (currentHp - finalHp - 450) / 3.5 + currentHp;
         }
     }
 
