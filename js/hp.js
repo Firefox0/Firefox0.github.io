@@ -82,7 +82,7 @@ export default class Hp {
         this.context.beginPath();
         for (let i = 1; i <= visibleLineAmount; i++) {
             let currentStep = i * step;
-            this.context.moveTo(currentStep, 0);
+            this.context.moveTo(currentStep, 2);
             if (i % 10 === 0) {
                 this.context.lineTo(currentStep, this.canvas.height);
             } else {
