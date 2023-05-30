@@ -1,9 +1,15 @@
 import {getRandomInt} from "./misc.js";
+import Animations from "./animations.js";
 
 export default class Ultimate {
 
     static ultLevelElement = document.getElementById("ultLevel");
     static ultLevel = 0;
+    static ultLevelAnimation = null;
+
+    static {
+        this.ultLevelAnimation = Animations.upAndDown(this.ultLevelElement);
+    }
 
     static calculateUltDamage(currentHp, maximumHp) {
         switch (this.ultLevel) {
@@ -19,6 +25,7 @@ export default class Ultimate {
     static updateUltLevel(newUltLevel) {
         this.ultLevel = newUltLevel;
         this.ultLevelElement.innerText = this.ultLevel;
+        this.ultLevelAnimation.play();
     }
 
     static randomizeUltLevel() {

@@ -1,3 +1,5 @@
+import Animations from "./animations.js";
+
 export default class Score {
 
     static highscoreElement = document.getElementById("highscore");
@@ -5,9 +7,13 @@ export default class Score {
     static currentScore = 0;
     static scoreElement = document.getElementById("score");
     static resetCounter = 0;
+    static scoreAnimation = null;
+    static highscoreAnimation = null;
 
     static {
         document.getElementById("resetHighscoreButton").onclick = () => this.resetHighscore();
+        this.scoreAnimation = Animations.upAndDown(this.scoreElement);
+        this.highscoreAnimation = Animations.upAndDown(this.highscoreElement);
     }
 
     static saveHighscore() {
@@ -43,10 +49,12 @@ export default class Score {
     static updateScore(newScore) {
         this.currentScore = newScore;
         this.scoreElement.innerText = newScore;
+        this.scoreAnimation.play();
     }
 
     static updateHighscore(newHighscore) {
         this.highscore = newHighscore;
         this.highscoreElement.innerText = this.highscore;
+        this.highscoreAnimation.play();
     }
 }
