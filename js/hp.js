@@ -117,7 +117,7 @@ export default class Hp {
         }
     }
 
-    static newHealth(ultLevel) {
+    static newHealth() {
         this.generateHealth(Ultimate.ultLevel);
         this.updateHpBar();
     }
