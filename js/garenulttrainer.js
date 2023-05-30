@@ -4,6 +4,7 @@ import Hp from "./hp.js";
 import Ultimate from "./ultimate.js";
 import Explanation from "./explanation.js";
 import Execution from "./execution.js";
+import Keyboard from "./keyboard.js";
 
 class GarenUltTrainer {
 
@@ -35,7 +36,7 @@ class GarenUltTrainer {
 
     static initializeButtons() {
         Execution.initializeButtons((b) => this.progress(b));
-        Explanation.explanationButtonElement.onclick = () => {
+        Explanation.initializeButton(() => {
             Explanation.toggleUI();
             Execution.toggleUI();
             if (Score.currentScore > Score.highscore) {
@@ -43,17 +44,27 @@ class GarenUltTrainer {
             }
             Score.updateScore(0);
             this.newGame();
-        }
-        Hp.startButton.onclick = () => {
+        });
+        Hp.initializeButton(() => {
             Execution.toggleUI();
             Hp.toggleUI();
             this.newGame();
-        }
+        });
     }
 
     static main() {
         this.initializeButtons();
         Score.loadHighscore();
+        Keyboard.addListeners({
+            "1": () => {
+                Execution.yesButton.click();
+            },
+            "2": () => Execution.noButton.click(),
+            "Enter": () => {
+                Hp.startButton.click();
+                Explanation.explanationButtonElement.click();
+            }
+        });
     }
 }
 

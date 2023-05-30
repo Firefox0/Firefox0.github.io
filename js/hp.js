@@ -10,11 +10,17 @@ export default class Hp {
     static canvas = document.getElementById("hpBar");
     static context = this.canvas.getContext("2d");
     static startButton = document.getElementById("startButton");
+    static startIsVisible = null;
 
     static {
+        this.startIsVisible = this.startButton.style.display !== "none";
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.drawHpBar();
+    }
+
+    static startIsVisible() {
+        return this.startIsVisible;
     }
 
     static drawHpBar() {
@@ -119,5 +125,15 @@ export default class Hp {
     static toggleUI() {
         this.canvas.style = "display: block";
         startButton.style = "display: none";
+    }
+
+    static initializeButton(callback) {
+        this.startButton.onclick = () => {
+            if (!this.startIsVisible) {
+                return;
+            }
+            this.startIsVisible = false;
+            callback();
+        };
     }
 }

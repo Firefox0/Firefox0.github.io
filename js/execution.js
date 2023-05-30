@@ -3,8 +3,18 @@ export default class Execution {
     static noButton = document.getElementById("no");
 
     static initializeButtons(callback) {
-        this.yesButton.onclick = () => callback(true);
-        this.noButton.onclick = () => callback(false);
+        this.yesButton.onclick = () => {
+            if (this.yesButton.hasAttribute("disabled")) {
+                return;
+            }
+            callback(true);
+        }
+        this.noButton.onclick = () => {
+            if (this.noButton.hasAttribute("disabled")) {
+                return;
+            }
+            callback(false);
+        }
     }
 
     static toggleUI() {

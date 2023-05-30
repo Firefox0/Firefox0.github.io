@@ -4,6 +4,15 @@ export default class Explanation {
 
     static explanationButtonElement = document.getElementById("explanationButton");
     static explanationTextElement = document.getElementById("explanationText");
+    static isVisible = null;
+
+    static {
+        this.isVisible = this.explanationButtonElement.style.visibility === "";
+    }
+
+    static isVisible() {
+        return this.isVisible;
+    }
 
     static showExplanation(ultDamage) {
         this.explanationTextElement.innerHTML = `Correct answer: ${(ultDamage >= Hp.currentHp) ? "Yes" : "No"} <br>
@@ -14,12 +23,22 @@ export default class Explanation {
     }
 
     static toggleUI() {
-        if (this.explanationButtonElement.style.visibility === "") {
+        if (this.isVisible) {
             this.explanationButtonElement.style.visibility = "hidden";
             this.explanationTextElement.style.visibility = "hidden";
         } else {
             this.explanationButtonElement.style.visibility = "";
             this.explanationTextElement.style.visibility = "";
+        }
+        this.isVisible = !this.isVisible;
+    }
+
+    static initializeButton(callback) {
+        this.explanationButtonElement.onclick = () => {
+            if (!this.isVisible) {
+                return;
+            }
+            callback();
         }
     }
 }
