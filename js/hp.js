@@ -1,4 +1,4 @@
-import {getRandomInt} from "./misc.js";
+import Random from "./random.js";
 import Ultimate from "./ultimate.js";
 
 export default class Hp {
@@ -90,16 +90,16 @@ export default class Hp {
     static generateHealth(ultLevel) {
         switch(ultLevel) {
             case 1:
-                this.currentHp = getRandomInt(500, 3000);
-                this.maximumHp = getRandomInt(this.currentHp * 2.75, this.currentHp * 3.75);
+                this.currentHp = Random.getRandomInt(500, 3000);
+                this.maximumHp = Random.getRandomInt(this.currentHp * 2.75, this.currentHp * 3.75);
                 break;
             case 2:
-                this.currentHp = getRandomInt(750, 3000);
-                this.maximumHp = getRandomInt(this.currentHp * 2.5, this.currentHp * 3.5);
+                this.currentHp = Random.getRandomInt(750, 3000);
+                this.maximumHp = Random.getRandomInt(this.currentHp * 2.5, this.currentHp * 3.5);
                 break;
             case 3:
-                this.currentHp = getRandomInt(1000, 3000);
-                this.maximumHp = getRandomInt(this.currentHp * 2.25, this.currentHp * 3.25);
+                this.currentHp = Random.getRandomInt(1000, 3000);
+                this.maximumHp = Random.getRandomInt(this.currentHp * 2.25, this.currentHp * 3.25);
                 break;
         }
 

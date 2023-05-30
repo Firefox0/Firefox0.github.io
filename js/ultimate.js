@@ -1,4 +1,4 @@
-import {getRandomInt} from "./misc.js";
+import Random from "./random.js";
 import Animations from "./animations.js";
 
 export default class Ultimate {
@@ -24,12 +24,16 @@ export default class Ultimate {
 
     static updateUltLevel(newUltLevel) {
         this.ultLevel = newUltLevel;
-        this.ultLevelElement.innerText = this.ultLevel;
+        this.ultLevelElement.innerText = newUltLevel;
         this.ultLevelAnimation.play();
     }
 
     static randomizeUltLevel() {
-        let newUltLevel = getRandomInt(1, 3);
+        let newUltLevel = Random.getRandomInt(1, 3);
+        if (newUltLevel === this.ultLevel) {
+            this.randomizeUltLevel();
+            return;
+        }
         this.updateUltLevel(newUltLevel);
     }
 }
