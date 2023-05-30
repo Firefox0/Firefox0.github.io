@@ -8,7 +8,7 @@ export default class Execution {
     }
 
     static toggleUI() {
-        this.yesButton.disabled = !this.yesButton.disabled;
-        this.noButton.disabled = !this.noButton.disabled;
+        this.yesButton.toggleAttribute("disabled");
+        this.noButton.toggleAttribute("disabled");
     }
 }
