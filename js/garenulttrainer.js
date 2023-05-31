@@ -5,12 +5,15 @@ import Ultimate from "./ultimate.js";
 import Explanation from "./explanation.js";
 import Execution from "./execution.js";
 import Keyboard from "./keyboard.js";
+import Settings from "./settings.js";
+import Title from "./title.js";
 
 class GarenUltTrainer {
 
     static newGame() {
+        Title.refreshTitle(Settings.getDifficulty());
         Ultimate.randomizeUltLevel();
-        Hp.newHealth();
+        Hp.newHealth(Settings.getDifficulty());
 
         Timer.resetTimer();
         Timer.startTimer(() => this.gameOver(Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp)));

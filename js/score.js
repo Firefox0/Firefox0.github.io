@@ -1,4 +1,5 @@
 import Animations from "./animations.js";
+import Storage from "./storage.js";
 
 export default class Score {
 
@@ -17,12 +18,8 @@ export default class Score {
         this.loadHighscore();
     }
 
-    static saveHighscore() {
-        localStorage.setItem("highscore", this.highscore);
-    }
-
     static loadHighscore() {
-        let highscore = localStorage.getItem("highscore");
+        let highscore = Storage.getHighscore();
         if (highscore === null || highscore == 0) {
             highscore = 0;
         }
@@ -41,7 +38,7 @@ export default class Score {
 
     static newHighScore(newHighScore) {
         this.updateHighscore(newHighScore);
-        this.saveHighscore();
+        Storage.setHighscore(newHighScore);
     }
 
     static updateScore(newScore) {

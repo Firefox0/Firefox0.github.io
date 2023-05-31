@@ -93,9 +93,11 @@ export default class Hp {
         this.context.stroke();
     }
 
-    static generateHealth() {
+    static generateHealth(difficulty) {
         let tempCurrentHp = 0;
-        let finalHp = Random.getRandomInt(100, 250);
+        difficulty++;
+        difficulty *= 2;
+        let finalHp = Random.getRandomInt(Math.floor(1000 / difficulty), Math.floor(2000 / difficulty));
         if (Random.coinflip()) {
             finalHp *= -1;
         }
@@ -116,8 +118,8 @@ export default class Hp {
         this.maximumHp = Ultimate.calculateMaximumHp(this.currentHp, finalHp);
     }
 
-    static newHealth() {
-        this.generateHealth();
+    static newHealth(difficulty) {
+        this.generateHealth(difficulty);
         this.updateHpBar();
     }
 

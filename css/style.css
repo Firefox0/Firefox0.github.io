@@ -43,6 +43,11 @@ h1, h5, .card-title, button {
     border-color: #a3be8c !important;
 }
 
+.btn-info {
+    background-color: #5e81ac !important;
+    border-color: #5e81ac !important;
+}
+
 .btn-primary:hover {
     background-color: #6d8dad !important;
     border-color: #6d8dad !important;
@@ -58,6 +63,36 @@ h1, h5, .card-title, button {
     border-color: #8faa78 !important;
 }
 
+.btn-info:hover {
+    background-color: #4a6d98 !important;
+    border-color: #4a6d98 !important;
+}
+
 .progress-bar {
     background-color: #5e81ac;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.modal-content {
+    background-color: #eceff4;
+}
+
+.modal-title, .modal-body {
+    color: #2e3440 !important;
+}
+
+.modal-body > p {
+    font-size: large;
+}
+
+.btn-chosen {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
 }
