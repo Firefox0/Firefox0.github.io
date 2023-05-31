@@ -17,7 +17,7 @@ export default class Explanation {
     static showExplanation(ultDamage) {
         this.explanationTextElement.innerHTML = `Correct answer: ${(ultDamage >= Hp.currentHp) ? "Yes" : "No"} <br>
                                                 Enemy current HP: ${Hp.currentHp} <br>
-                                                Enemy maximum HP: ${Hp.maximumHp} <br>
+                                                Enemy maximum HP: ${Math.trunc(Hp.maximumHp)} <br>
                                                 Ult damage: ${Math.trunc(ultDamage)} <br>
                                                 Remaining HP: ${Math.trunc(Hp.currentHp - ultDamage)}`
     }
