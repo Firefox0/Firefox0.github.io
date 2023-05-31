@@ -1,5 +1,6 @@
 import Animations from "./animations.js";
 import Storage from "./storage.js";
+import Settings from "./settings.js";
 
 export default class Score {
 
@@ -19,7 +20,7 @@ export default class Score {
     }
 
     static loadHighscore() {
-        let highscore = Storage.getHighscore();
+        let highscore = Storage.getHighscore(Settings.getDifficulty());
         if (highscore === null || highscore == 0) {
             highscore = 0;
         }
@@ -38,7 +39,7 @@ export default class Score {
 
     static newHighScore(newHighScore) {
         this.updateHighscore(newHighScore);
-        Storage.setHighscore(newHighScore);
+        Storage.setHighscore(newHighScore, Settings.getDifficulty());
     }
 
     static updateScore(newScore) {

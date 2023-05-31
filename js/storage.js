@@ -1,10 +1,10 @@
 export default class Storage {
-    static getHighscore() {
-        return Number(localStorage.getItem("highscore"));
+    static getHighscore(difficulty) {
+        return Number(localStorage.getItem("highscore-" + difficulty));
     }
 
-    static setHighscore(highscore) {
-        localStorage.setItem("highscore", highscore);
+    static setHighscore(highscore, difficulty) {
+        localStorage.setItem("highscore-" + difficulty, highscore);
     }
 
     static getDifficulty() {
