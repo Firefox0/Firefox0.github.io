@@ -11,13 +11,14 @@ export default class Keyboard {
 
     static detectWord(word, callback) {
         let buffer = "";
-        document.onkeydown = (e) => {
+        document.onkeyup = (e) => {
             buffer += e.key;
             if (buffer.length > word.length) {
-                buffer = buffer.substring(1);
+                buffer = buffer.substring(buffer.length - word.length);
             }
             if (buffer === word) {
                 callback();
+                this.detectWord(word, callback);
             }
         }
     }
