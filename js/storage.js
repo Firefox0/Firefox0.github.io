@@ -8,7 +8,11 @@ export default class Storage {
     }
 
     static getDifficulty() {
-        return Number(localStorage.getItem("difficulty"));
+        let difficulty = localStorage.getItem("difficulty");
+        if (difficulty === null) {
+            return difficulty;
+        }
+        return Number(difficulty);
     }
 
     static setDifficulty(difficulty) {
