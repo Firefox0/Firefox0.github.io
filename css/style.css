@@ -15,3 +15,49 @@ body, .btn:hover {
     height: 150px;
     font-size: 50px;
 }
+
+body {
+    background-color: #2e3440;
+}
+
+.card {
+    background-color: #4c566a;
+}
+
+h1, h5, .card-title, button {
+    color: #eceff4 !important;
+}
+
+.btn-primary {
+    background-color: #81a1c1 !important;
+    border-color: #81a1c1 !important;
+}
+
+.btn-danger {
+    background-color: #bf616a !important;
+    border-color: #bf616a !important;
+}
+
+.btn-success {
+    background-color: #a3be8c !important;
+    border-color: #a3be8c !important;
+}
+
+.btn-primary:hover {
+    background-color: #6d8dad !important;
+    border-color: #6d8dad !important;
+}
+
+.btn-danger:hover {
+    background-color: #ab4d56 !important;
+    border-color: #ab4d56 !important;
+}
+
+.btn-success:hover {
+    background-color: #8faa78 !important;
+    border-color: #8faa78 !important;
+}
+
+.progress-bar {
+    background-color: #5e81ac;
+}

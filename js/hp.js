@@ -74,7 +74,7 @@ export default class Hp {
     }
 
     static drawHpColors(visibleLineAmount, totalLineAmount, step) {
-        this.drawRectGradient(0, 1, visibleLineAmount * step, this.canvas.height, ["#dd4f52", "#870a0e"], "down");
+        this.drawRectGradient(0, 1, visibleLineAmount * step, this.canvas.height, ["#bf616a", "#dd4f52", "#870a0e"], "down");
         this.drawRectFill(visibleLineAmount * step, 1, (totalLineAmount - visibleLineAmount) * step, this.height, "black");
     }
 
