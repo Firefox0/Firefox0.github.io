@@ -1,4 +1,19 @@
 export default class Keyboard {
+
+    static {
+        Keyboard.addListeners({
+            "1": () => {
+                Execution.yesButton.click();
+            },
+            "2": () => Execution.noButton.click(),
+            "Enter": () => {
+                Hp.startButton.click();
+                Explanation.explanationButtonElement.click();
+            }
+        });
+        Keyboard.detectWord("demacia", () => Score.newHighScore(Number.MAX_VALUE));
+    }
+
     static addListeners(dict) {
         document.onkeydown = (e) => {
             for (let key in dict) {
