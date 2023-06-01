@@ -14,7 +14,6 @@ class GarenUltTrainer {
         Title.refreshTitle(Settings.getDifficulty());
         Ultimate.randomizeUltLevel();
         Hp.newHealth(Settings.getDifficulty());
-        Score.loadHighscore();
 
         Timer.resetTimer();
         Timer.startTimer(() => this.gameOver(Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp)));
@@ -50,6 +49,7 @@ class GarenUltTrainer {
             this.newGame();
         });
         Hp.initializeButton(() => {
+            Settings.toggleUI();
             Execution.toggleUI();
             Hp.toggleUI();
             this.newGame();

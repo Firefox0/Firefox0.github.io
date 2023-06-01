@@ -1,5 +1,6 @@
 import Storage from "./storage.js";
 import Title from "./title.js";
+import Score from "./score.js";
 
 export default class Settings {
     static settingsButton = document.getElementById("settingsButton");
@@ -63,7 +64,13 @@ export default class Settings {
         this.applyButton.onclick = () => {
             this.difficulty = this.currentDifficultySelection;
             Storage.setDifficulty(this.difficulty);
+            Title.refreshTitle(this.difficulty);
+            Score.loadHighscore();
             this.closeModal();
         }
+    }
+
+    static toggleUI() {
+        this.settingsButton.toggleAttribute("disabled");
     }
 }
