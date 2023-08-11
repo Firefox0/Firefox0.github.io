@@ -5,7 +5,7 @@ import Settings from "./settings.js";
 export default class Score {
 
     static highscoreElement = document.getElementById("highscore");
-    static highscoreButton = document.getElementById("resetHighscoreButton");
+    static resetButton = document.getElementById("resetHighscoreButton");
     static highscore = 0;
     static currentScore = 0;
     static scoreElement = document.getElementById("score");
@@ -25,7 +25,7 @@ export default class Score {
             highscore = 0;
         }
 
-        this.forceUpdateHighscore(highscore);
+        this.updateHighscore(highscore);
     }
 
     static resetHighscore() {
@@ -33,16 +33,8 @@ export default class Score {
             return;
         }
 
-        this.newHighScore(0);
+        this.updateHighscore(0);
         this.toggleButton();
-    }
-
-    static newHighScore() {
-        if (this.highscore >= this.currentScore) {
-            return;
-        }
-        this.updateHighscore();
-        Storage.setHighscore(this.highscore, Settings.getDifficulty());
     }
 
     static updateScore(newScore) {
@@ -51,26 +43,23 @@ export default class Score {
         this.scoreAnimation.play();
     }
 
-    static forceUpdateHighscore(highscore) {
-        this.highscore = highscore;
-        this.highscoreElement.innerText = highscore;
-        this.highScoreUI();
-    }
-
-    static updateHighscore() {
-        this.highscore = this.currentScore;
-        this.highscoreElement.innerText = this.currentScore;
-        this.highScoreUI();
-    }
-
-    static highScoreUI() {
+    static updateHighscore(score) {
+        this.highscore = score;
+        this.highscoreElement.innerText = score;
         this.highscoreAnimation.play();
         if (this.highscore > 0) {
-            this.toggleButton();
+            this.enableButton();
+        } else {
+            this.disableButton();
         }
+        Storage.setHighscore(score, Settings.getDifficulty());
     }
 
-    static toggleButton() {
-        this.highscoreButton.toggleAttribute("disabled");
+    static enableButton() {
+        this.resetButton.removeAttribute("disabled");
+    }
+
+    static disableButton() {
+        this.resetButton.setAttribute("disabled", "");
     }
 }

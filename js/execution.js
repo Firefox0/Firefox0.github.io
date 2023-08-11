@@ -4,6 +4,7 @@ import Score from "./score.js";
 import Hp from "./hp.js";
 import Explanation from "./explanation.js";
 import Settings from "./settings.js";
+import Keyboard from "./keyboard.js";
 
 export default class Execution {
     static yesButton = document.getElementById("yes");
