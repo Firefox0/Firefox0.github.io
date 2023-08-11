@@ -37,9 +37,12 @@ export default class Score {
         this.toggleButton();
     }
 
-    static newHighScore(newHighScore) {
-        this.updateHighscore(newHighScore);
-        Storage.setHighscore(newHighScore, Settings.getDifficulty());
+    static newHighScore() {
+        if (this.highscore >= this.currentScore) {
+            return;
+        }
+        this.updateHighscore();
+        Storage.setHighscore(this.highscore, Settings.getDifficulty());
     }
 
     static updateScore(newScore) {
@@ -48,9 +51,9 @@ export default class Score {
         this.scoreAnimation.play();
     }
 
-    static updateHighscore(newHighscore) {
-        this.highscore = newHighscore;
-        this.highscoreElement.innerText = this.highscore;
+    static updateHighscore() {
+        this.highscore = this.currentScore;
+        this.highscoreElement.innerText = this.currentScore;
         this.highscoreAnimation.play();
         if (this.highscore > 0) {
             this.toggleButton();

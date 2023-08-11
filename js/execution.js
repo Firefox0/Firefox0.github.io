@@ -15,9 +15,10 @@ export default class Execution {
     }
 
     static progress(answer) {
-        let ultDamage = Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp);
+        this.setButtons(false);
         Timer.stopTimer();
         Timer.increaseOffset(0.25);
+        let ultDamage = Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp);
         if ((ultDamage >= Hp.currentHp) === answer) {
             Score.updateScore(Score.currentScore + 1)
             this.newGame();
@@ -27,10 +28,13 @@ export default class Execution {
     }
 
     static newGame() {
-        Title.refreshTitle(Settings.getDifficulty());
+        let difficulty = Settings.getDifficulty();
+        Title.refreshTitle(difficulty);
         Ultimate.randomizeUltLevel();
-        Hp.newHealth(Settings.getDifficulty());
-
+        Hp.newHealth(difficulty);
+        
+        Settings.toggleUI();
+        this.setButtons(true);
         Timer.resetTimer();
         Timer.startTimer(() => this.gameOver(Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp)));
     }
@@ -38,10 +42,12 @@ export default class Execution {
     static gameOver(ultDamage) {
         Explanation.showExplanation(ultDamage);
         Explanation.toggleUI();
-        Execution.toggleUI();
+        Settings.toggleUI();
     }
 
-    static initializeButtons(callback) {
+    static initializeButtons() {
+        this.yesButton.setAttribute("disabled", "");
+        this.noButton.setAttribute("disabled", "");
         this.yesButton.onclick = () => {
             if (this.yesButton.hasAttribute("disabled")) {
                 return;
@@ -56,8 +62,15 @@ export default class Execution {
         }
     }
 
-    static toggleUI() {
-        this.yesButton.toggleAttribute("disabled");
-        this.noButton.toggleAttribute("disabled");
+    static setButtons(bool) {
+        if (bool) {
+            this.yesButton.removeAttribute("disabled");
+            this.noButton.removeAttribute("disabled");
+        } else if (!bool) {
+            this.yesButton.setAttribute("disabled", "");
+            this.noButton.setAttribute("disabled", "");
+        } else {
+            return;
+        }
     }
 }

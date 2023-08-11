@@ -1,4 +1,6 @@
+import Execution from "./execution.js";
 import Hp from "./hp.js";
+import Score from "./score.js";
 
 export default class Explanation {
 
@@ -8,6 +10,7 @@ export default class Explanation {
 
     static {
         this.isVisible = this.explanationButtonElement.style.visibility === "";
+        this.initializeButton();
     }
 
     static isVisible() {
@@ -33,12 +36,14 @@ export default class Explanation {
         this.isVisible = !this.isVisible;
     }
 
-    static initializeButton(callback) {
+    static initializeButton() {
         this.explanationButtonElement.onclick = () => {
             if (!this.isVisible) {
                 return;
             }
-            callback();
+            this.toggleUI();
+            Score.newHighScore();
+            Execution.newGame();
         }
     }
 }

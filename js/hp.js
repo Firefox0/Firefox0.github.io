@@ -1,5 +1,6 @@
 import Random from "./random.js";
 import Ultimate from "./ultimate.js";
+import Execution from "./execution.js";
 
 export default class Hp {
 
@@ -17,6 +18,7 @@ export default class Hp {
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.drawHpBar();
+        this.initializeButton(() => Execution.newGame());
     }
 
     static startIsVisible() {
@@ -134,6 +136,7 @@ export default class Hp {
                 return;
             }
             this.startIsVisible = false;
+            this.toggleUI();
             callback();
         };
     }
