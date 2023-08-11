@@ -15,31 +15,34 @@ export default class Execution {
     }
 
     static progress(answer) {
-        this.setButtons(false);
         Timer.stopTimer();
         Timer.increaseOffset(0.25);
         let ultDamage = Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp);
         if ((ultDamage >= Hp.currentHp) === answer) {
             Score.updateScore(Score.currentScore + 1)
-            this.newGame();
+            this.nextRound();
         } else {
             this.gameOver(ultDamage);
         }
     }
 
-    static newGame() {
+    static nextRound() {
         let difficulty = Settings.getDifficulty();
-        Title.refreshTitle(difficulty);
         Ultimate.randomizeUltLevel();
         Hp.newHealth(difficulty);
-        
-        Settings.toggleUI();
-        this.setButtons(true);
+
         Timer.resetTimer();
         Timer.startTimer(() => this.gameOver(Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp)));
     }
 
+    static newGame() {
+        Score.updateScore(0);
+        this.setButtons(true);
+        this.nextRound();
+    }
+
     static gameOver(ultDamage) {
+        this.setButtons(false);
         Explanation.showExplanation(ultDamage);
         Explanation.toggleUI();
         Settings.toggleUI();
