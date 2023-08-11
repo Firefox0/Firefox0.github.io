@@ -42,7 +42,7 @@ export default class Explanation {
                 return;
             }
             this.toggleUI();
-            Score.newHighScore();
+            Score.updateHighscore();
             Execution.newGame();
         }
     }

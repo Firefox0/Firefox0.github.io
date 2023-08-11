@@ -44,6 +44,10 @@ export default class Score {
     }
 
     static updateHighscore(score) {
+        if (score === undefined) {
+            score = this.currentScore;
+        }
+
         this.highscore = score;
         this.highscoreElement.innerText = score;
         this.highscoreAnimation.play();
