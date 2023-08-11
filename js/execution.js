@@ -3,14 +3,17 @@ import Timer from "./timer.js";
 import Score from "./score.js";
 import Hp from "./hp.js";
 import Explanation from "./explanation.js";
-import Title from "./title.js";
 import Settings from "./settings.js";
 
 export default class Execution {
     static yesButton = document.getElementById("yes");
     static noButton = document.getElementById("no");
+    static startButton = document.getElementById("startButton");
+    static startIsVisible = null;
+    static backButton = document.getElementById("backButton");
 
     static {
+        backButton.style.display = "none";
         this.initializeButtons();
     }
 
@@ -45,7 +48,6 @@ export default class Execution {
         this.setButtons(false);
         Explanation.showExplanation(ultDamage);
         Explanation.toggleUI();
-        Settings.toggleUI();
     }
 
     static initializeButtons() {
@@ -63,6 +65,16 @@ export default class Execution {
             }
             this.progress(false);
         }
+
+        this.startButton.onclick = () => {
+            Settings.hideButton();
+            this.startButton.style.display = "none";
+            Hp.showHpBar();
+            this.backButton.style.display = "block";
+            this.newGame();
+        };
+
+        this.backButton.onclick = () => {this.back();}
     }
 
     static setButtons(bool) {
@@ -75,5 +87,16 @@ export default class Execution {
         } else {
             return;
         }
+    }
+
+    static back() {
+        Timer.stopTimer();
+        Timer.resetTimer();
+        Score.updateScore(0);
+        this.backButton.style.display = "none";
+        this.startButton.style.display = "block";
+        Settings.showButton();
+        this.setButtons(false);
+        Hp.hideHpBar();
     }
 }

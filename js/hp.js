@@ -1,6 +1,7 @@
 import Random from "./random.js";
 import Ultimate from "./ultimate.js";
 import Execution from "./execution.js";
+import Settings from "./settings.js";
 
 export default class Hp {
 
@@ -10,19 +11,11 @@ export default class Hp {
     static height = 150;
     static canvas = document.getElementById("hpBar");
     static context = this.canvas.getContext("2d");
-    static startButton = document.getElementById("startButton");
-    static startIsVisible = null;
 
     static {
-        this.startIsVisible = this.startButton.style.display !== "none";
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.drawHpBar();
-        this.initializeButton(() => Execution.newGame());
-    }
-
-    static startIsVisible() {
-        return this.startIsVisible;
     }
 
     static drawHpBar() {
@@ -125,19 +118,11 @@ export default class Hp {
         this.updateHpBar();
     }
 
-    static toggleUI() {
-        this.canvas.style = "display: block";
-        startButton.style = "display: none";
+    static showHpBar() {
+        this.canvas.style.display = "block";
     }
 
-    static initializeButton(callback) {
-        this.startButton.onclick = () => {
-            if (!this.startIsVisible) {
-                return;
-            }
-            this.startIsVisible = false;
-            this.toggleUI();
-            callback();
-        };
+    static hideHpBar() {
+        this.canvas.style.display = "none";
     }
 }

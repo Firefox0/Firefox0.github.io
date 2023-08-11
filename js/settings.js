@@ -69,8 +69,12 @@ export default class Settings {
             this.closeModal();
         }
     }
-
-    static toggleUI() {
-        this.settingsButton.toggleAttribute("disabled");
+    
+    static showButton() {
+        this.settingsButton.style.display = "block";
+    }
+    
+    static hideButton() {
+        this.settingsButton.style.display = "none";
     }
 }

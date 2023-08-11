@@ -25,7 +25,7 @@ export default class Score {
             highscore = 0;
         }
 
-        this.updateHighscore(highscore);
+        this.forceUpdateHighscore(highscore);
     }
 
     static resetHighscore() {
@@ -51,9 +51,19 @@ export default class Score {
         this.scoreAnimation.play();
     }
 
+    static forceUpdateHighscore(highscore) {
+        this.highscore = highscore;
+        this.highscoreElement.innerText = highscore;
+        this.highScoreUI();
+    }
+
     static updateHighscore() {
         this.highscore = this.currentScore;
         this.highscoreElement.innerText = this.currentScore;
+        this.highScoreUI();
+    }
+
+    static highScoreUI() {
         this.highscoreAnimation.play();
         if (this.highscore > 0) {
             this.toggleButton();
