@@ -15,7 +15,7 @@ export default class Keyboard {
             },
             "r": () => {Score.updateHighscore(0);}
         });
-        Keyboard.detectWord("demacia", () => Score.newHighScore(Number.MAX_VALUE));
+        Keyboard.detectWord("demacia", () => Score.updateHighscore(Number.MAX_VALUE));
     }
 
     static addListeners(dict) {
