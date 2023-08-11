@@ -48,7 +48,7 @@ export default class Execution {
     static gameOver(ultDamage) {
         this.setButtons(false);
         Explanation.showExplanation(ultDamage);
-        Explanation.toggleUI();
+        Explanation.showUI();
     }
 
     static initializeButtons() {
