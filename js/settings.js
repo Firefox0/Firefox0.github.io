@@ -71,10 +71,10 @@ export default class Settings {
     }
     
     static showButton() {
-        this.settingsButton.style.display = "block";
+        this.settingsButton.style.visibility = "visible";
     }
     
     static hideButton() {
-        this.settingsButton.style.display = "none";
+        this.settingsButton.style.visibility = "hidden";
     }
 }

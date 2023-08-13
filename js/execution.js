@@ -14,7 +14,7 @@ export default class Execution {
     static backButton = document.getElementById("backButton");
 
     static {
-        backButton.style.display = "none";
+        backButton.style.visibility = "hidden";
         this.initializeButtons();
     }
 
@@ -71,7 +71,7 @@ export default class Execution {
             Settings.hideButton();
             this.startButton.style.display = "none";
             Hp.showHpBar();
-            this.backButton.style.display = "block";
+            this.backButton.style.visibility = "visible";
             this.newGame();
         };
 
@@ -94,7 +94,7 @@ export default class Execution {
         Timer.stopTimer();
         Timer.resetTimer();
         Score.updateScore(0);
-        this.backButton.style.display = "none";
+        this.backButton.style.visibility = "hidden";
         this.startButton.style.display = "block";
         Settings.showButton();
         this.setButtons(false);
