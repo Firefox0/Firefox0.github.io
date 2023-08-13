@@ -96,3 +96,11 @@ h1, h5, .card-title, button {
     background-color: #000000 !important;
     border-color: #000000 !important;
 }
+
+#discordName {
+    color: white;
+}
+
+#discordIcon {
+    color: white;
+}
