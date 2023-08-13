@@ -20,8 +20,8 @@ export default class Explanation {
     }
 
     static showUI() {
-        this.explanationButtonElement.style.visibility = "";
-        this.explanationTextElement.style.visibility = "";
+        this.explanationButtonElement.style.visibility = "visible";
+        this.explanationTextElement.style.visibility = "visible";
     }
 
     static hideUI() {
