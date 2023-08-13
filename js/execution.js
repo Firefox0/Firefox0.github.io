@@ -99,5 +99,6 @@ export default class Execution {
         Settings.showButton();
         this.setButtons(false);
         Hp.hideHpBar();
+        Explanation.hideUI();
     }
 }
