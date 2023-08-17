@@ -12,6 +12,7 @@ export default class Execution {
     static startButton = document.getElementById("startButton");
     static startIsVisible = null;
     static backButton = document.getElementById("backButton");
+    static footer = document.getElementById("footer");
 
     static {
         this.backButton.classList.replace("visible", "invisible");
@@ -69,13 +70,17 @@ export default class Execution {
 
         this.startButton.onclick = () => {
             Settings.hideButton();
+            this.footer.classList.add("d-none");
             this.startButton.classList.replace("d-block", "d-none");
             Hp.showHpBar();
             this.backButton.classList.replace("invisible", "visible");
             this.newGame();
         };
 
-        this.backButton.onclick = () => {this.back();}
+        this.backButton.onclick = () => {
+            this.footer.classList.remove("d-none");
+            this.back();
+        }
     }
 
     static setButtons(bool) {
