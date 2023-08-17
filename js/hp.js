@@ -119,10 +119,10 @@ export default class Hp {
     }
 
     static showHpBar() {
-        this.canvas.style.display = "block";
+        this.canvas.classList.replace("d-none", "d-block");
     }
 
     static hideHpBar() {
-        this.canvas.style.display = "none";
+        this.canvas.classList.replace("d-block", "d-none");
     }
 }

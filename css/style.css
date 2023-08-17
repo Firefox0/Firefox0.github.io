@@ -24,7 +24,7 @@ body {
     background-color: #4c566a;
 }
 
-h1, h5, .card-title, button {
+h1, h5, .card-title, button, #title {
     color: #eceff4 !important;
 }
 

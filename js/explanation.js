@@ -6,6 +6,7 @@ export default class Explanation {
 
     static explanationButtonElement = document.getElementById("explanationButton");
     static explanationTextElement = document.getElementById("explanationText");
+    static explanationRow = document.getElementById("explanationRow");
 
     static {
         this.initializeButton();
@@ -20,13 +21,11 @@ export default class Explanation {
     }
 
     static showUI() {
-        this.explanationButtonElement.style.visibility = "visible";
-        this.explanationTextElement.style.visibility = "visible";
+        this.explanationRow.classList.replace("d-none", "d-block");
     }
 
     static hideUI() {
-        this.explanationButtonElement.style.visibility = "hidden";
-        this.explanationTextElement.style.visibility = "hidden";
+        this.explanationRow.classList.replace("d-block", "d-none");
     }
 
     static initializeButton() {

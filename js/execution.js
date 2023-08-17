@@ -14,7 +14,7 @@ export default class Execution {
     static backButton = document.getElementById("backButton");
 
     static {
-        backButton.style.visibility = "hidden";
+        this.backButton.classList.replace("visible", "invisible");
         this.initializeButtons();
     }
 
@@ -69,9 +69,9 @@ export default class Execution {
 
         this.startButton.onclick = () => {
             Settings.hideButton();
-            this.startButton.style.display = "none";
+            this.startButton.classList.replace("d-block", "d-none");
             Hp.showHpBar();
-            this.backButton.style.visibility = "visible";
+            this.backButton.classList.replace("invisible", "visible");
             this.newGame();
         };
 
@@ -94,8 +94,8 @@ export default class Execution {
         Timer.stopTimer();
         Timer.resetTimer();
         Score.updateScore(0);
-        this.backButton.style.visibility = "hidden";
-        this.startButton.style.display = "block";
+        this.backButton.classList.replace("visible", "invisible");
+        this.startButton.classList.replace("d-none", "d-block");
         Settings.showButton();
         this.setButtons(false);
         Hp.hideHpBar();

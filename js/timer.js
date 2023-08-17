@@ -21,6 +21,7 @@ export default class Timer {
     static resetTimer() {
         this.offset = 1;
         this.barWidth = 100;
+        this.timerbar
         this.timerBar.style.width = "100%";
     }
 
