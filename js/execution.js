@@ -5,6 +5,7 @@ import Hp from "./hp.js";
 import Explanation from "./explanation.js";
 import Settings from "./settings.js";
 import Keyboard from "./keyboard.js";
+import Difficulty from "./difficulty.js";
 
 export default class Execution {
     static yesButton = document.getElementById("yes");
@@ -32,7 +33,7 @@ export default class Execution {
     }
 
     static nextRound() {
-        let difficulty = Settings.getDifficulty();
+        let difficulty = Difficulty.getDifficulty();
         Ultimate.randomizeUltLevel();
         Hp.newHealth(difficulty);
 

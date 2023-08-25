@@ -1,6 +1,7 @@
 import Animations from "./animations.js";
 import Storage from "./storage.js";
 import Settings from "./settings.js";
+import Difficulty from "./difficulty.js";
 
 export default class Score {
 
@@ -20,7 +21,7 @@ export default class Score {
     }
 
     static loadHighscore() {
-        let highscore = Storage.getHighscore(Settings.getDifficulty());
+        let highscore = Storage.getHighscore(Difficulty.getDifficulty());
         if (highscore === null || highscore == 0) {
             highscore = 0;
         }
@@ -56,7 +57,7 @@ export default class Score {
         } else {
             this.disableButton();
         }
-        Storage.setHighscore(score, Settings.getDifficulty());
+        Storage.setHighscore(score, Difficulty.getDifficulty());
     }
 
     static enableButton() {

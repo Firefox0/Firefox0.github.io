@@ -1,40 +1,17 @@
-import Storage from "./storage.js";
 import Title from "./title.js";
 import Score from "./score.js";
+import Difficulty from "./difficulty.js";
+import Theme from "./theme.js";
 
 export default class Settings {
     static settingsButton = document.getElementById("settingsButton");
     static modal = document.getElementById("exampleModal");
     static modalCloseButton = document.getElementById("modalCloseButton");
-    static difficultyButtons = [
-        document.getElementById("difficultyEasyButton"),
-        document.getElementById("difficultyMediumButton"),
-        document.getElementById("difficultyHardButton"),
-        document.getElementById("difficultyRisteButton")
-    ];
     static applyButton = document.getElementById("modalApplyButton");
-    static difficulty;
-    static currentDifficultySelection;
 
     static {
         this.initializeButtons();
-        let tempDifficulty = Storage.getDifficulty();
-        if (tempDifficulty === null) {
-            tempDifficulty = 1;
-        }
-        this.difficulty = tempDifficulty;
-        this.currentDifficultySelection = tempDifficulty;
-        this.chooseButton(this.difficulty, this.difficulty);
-        Title.refreshTitle(this.difficulty);
-    }
-
-    static getDifficulty() {
-        return this.difficulty;
-    }
-
-    static chooseButton(oldId, newId) {
-        this.difficultyButtons[oldId].classList.remove("btn-chosen");
-        this.difficultyButtons[newId].classList.add("btn-chosen");
+        Difficulty.initialize();
     }
 
     static closeModal() {
@@ -50,21 +27,12 @@ export default class Settings {
 
         this.modalCloseButton.onclick = () => {
             this.closeModal();
-            this.chooseButton(this.currentDifficultySelection, this.difficulty);
-            this.currentDifficultySelection = this.difficulty;
-        }
-
-        for (let i = 0; i < this.difficultyButtons.length; i++) {
-            this.difficultyButtons[i].onclick = () => {
-                this.chooseButton(this.currentDifficultySelection, i);
-                this.currentDifficultySelection = i;
-            }
+            Difficulty.restoreButton();
         }
 
         this.applyButton.onclick = () => {
-            this.difficulty = this.currentDifficultySelection;
-            Storage.setDifficulty(this.difficulty);
-            Title.refreshTitle(this.difficulty);
+            Difficulty.newDifficulty();
+            Title.refreshTitle(Difficulty.getDifficulty());
             Score.loadHighscore();
             this.closeModal();
         }
