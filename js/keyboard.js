@@ -6,7 +6,6 @@ export default class Keyboard {
         Keyboard.addListeners({
             "1": () => {
                 Execution.yesButton.click();
-                console.log("1");
             },
             "2": () => Execution.noButton.click(),
             "Enter": () => {

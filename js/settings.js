@@ -8,10 +8,28 @@ export default class Settings {
     static modal = document.getElementById("exampleModal");
     static modalCloseButton = document.getElementById("modalCloseButton");
     static applyButton = document.getElementById("modalApplyButton");
+    static currentThemeSelection;
+    static currentDifficultySelection;
+
+    static difficultyButtons = [
+        document.getElementById("difficultyEasyButton"),
+        document.getElementById("difficultyMediumButton"),
+        document.getElementById("difficultyHardButton"),
+        document.getElementById("difficultyRisteButton")
+    ];
+
+    static themeButtons = [
+        document.getElementById("themeNordRegular"),
+        document.getElementById("themeNordDark")
+    ];
 
     static {
+        this.currentDifficultySelection = Difficulty.initialize();
+        this.chooseDifficultyButton(this.currentDifficultySelection);
+        Title.refreshTitle(this.currentDifficultySelection);
+        this.currentThemeSelection = Theme.initialize();
+        this.chooseThemeButton(this.currentThemeSelection);
         this.initializeButtons();
-        Difficulty.initialize();
     }
 
     static closeModal() {
@@ -27,17 +45,41 @@ export default class Settings {
 
         this.modalCloseButton.onclick = () => {
             this.closeModal();
-            Difficulty.restoreButton();
         }
 
         this.applyButton.onclick = () => {
-            Difficulty.newDifficulty();
+            Difficulty.newDifficulty(this.currentDifficultySelection);
+            Theme.changeTheme(this.currentThemeSelection);
             Title.refreshTitle(Difficulty.getDifficulty());
             Score.loadHighscore();
             this.closeModal();
         }
+
+        for (let i = 0; i < this.difficultyButtons.length; i++) {
+            this.difficultyButtons[i].onclick = () => {
+                this.chooseDifficultyButton(i);
+                this.currentDifficultySelection = i;
+            }
+        }
+
+        for (let i = 0; i < this.themeButtons.length; i++) {
+            this.themeButtons[i].onclick = () => {
+                this.chooseThemeButton(i);
+                this.currentThemeSelection = i;
+            }
+        }
     }
     
+    static chooseDifficultyButton(id) {
+        this.difficultyButtons[this.currentDifficultySelection].classList.remove("btn-chosen");
+        this.difficultyButtons[id].classList.add("btn-chosen");
+    }
+    
+    static chooseThemeButton(id) {
+        this.themeButtons[this.currentThemeSelection].classList.remove("btn-chosen");
+        this.themeButtons[id].classList.add("btn-chosen");
+    }
+
     static showButton() {
         this.settingsButton.classList.remove("invisible");
     }
