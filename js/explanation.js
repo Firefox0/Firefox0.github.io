@@ -21,11 +21,11 @@ export default class Explanation {
     }
 
     static showUI() {
-        this.explanationRow.classList.replace("d-none", "d-block");
+        this.explanationRow.classList.remove("d-none");
     }
 
     static hideUI() {
-        this.explanationRow.classList.replace("d-block", "d-none");
+        this.explanationRow.classList.add("d-none");
     }
 
     static initializeButton() {

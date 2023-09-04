@@ -16,7 +16,7 @@ export default class Execution {
     static footer = document.getElementById("footer");
 
     static {
-        this.backButton.classList.replace("visible", "invisible");
+        this.backButton.classList.add("invisible");
         this.initializeButtons();
     }
 
@@ -72,9 +72,9 @@ export default class Execution {
         this.startButton.onclick = () => {
             Settings.hideButton();
             this.footer.classList.add("d-none");
-            this.startButton.classList.replace("d-block", "d-none");
+            this.startButton.classList.add("d-none");
             Hp.showHpBar();
-            this.backButton.classList.replace("invisible", "visible");
+            this.backButton.classList.remove("invisible");
             this.newGame();
         };
 
@@ -100,8 +100,8 @@ export default class Execution {
         Timer.stopTimer();
         Timer.resetTimer();
         Score.updateScore(0);
-        this.backButton.classList.replace("visible", "invisible");
-        this.startButton.classList.replace("d-none", "d-block");
+        this.backButton.classList.add("invisible");
+        this.startButton.classList.remove("d-none");
         Settings.showButton();
         this.setButtons(false);
         Hp.hideHpBar();
