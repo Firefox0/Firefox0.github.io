@@ -23,6 +23,7 @@ export default class Execution {
     static progress(answer) {
         Timer.stopTimer();
         Timer.increaseOffset(0.25);
+        
         let ultDamage = Ultimate.calculateUltDamage(Hp.currentHp, Hp.maximumHp);
         if ((ultDamage >= Hp.currentHp) === answer) {
             Score.updateScore(Score.currentScore + 1)
@@ -56,12 +57,14 @@ export default class Execution {
     static initializeButtons() {
         this.yesButton.setAttribute("disabled", "");
         this.noButton.setAttribute("disabled", "");
+
         this.yesButton.onclick = () => {
             if (this.yesButton.hasAttribute("disabled")) {
                 return;
             }
             this.progress(true);
         }
+        
         this.noButton.onclick = () => {
             if (this.noButton.hasAttribute("disabled")) {
                 return;
@@ -88,11 +91,9 @@ export default class Execution {
         if (bool) {
             this.yesButton.removeAttribute("disabled");
             this.noButton.removeAttribute("disabled");
-        } else if (!bool) {
+        } else {
             this.yesButton.setAttribute("disabled", "");
             this.noButton.setAttribute("disabled", "");
-        } else {
-            return;
         }
     }
 
