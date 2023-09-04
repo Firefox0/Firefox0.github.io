@@ -1,5 +1,6 @@
 import Execution from "./execution.js";
 import Score from "./score.js";
+import Explanation from "./explanation.js";
 
 export default class Keyboard {
     static {
@@ -9,7 +10,7 @@ export default class Keyboard {
             },
             "2": () => Execution.noButton.click(),
             "Enter": () => {
-                Hp.startButton.click();
+                Execution.startButton.click();
                 Explanation.explanationButtonElement.click();
             },
             "r": () => {Score.updateHighscore(0);}
