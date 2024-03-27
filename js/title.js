@@ -4,13 +4,13 @@ export default class Title {
     static difficultyToText(difficulty) {
         switch (difficulty) {
             case 0:
-                return "Easy";
+                return "QMaxGaren";
             case 1:
                 return "Medium";
             case 2:
-                return "Hard";
-            case 3:
                 return "Riste";
+            case 3:
+                return "Erislash";
         }
     }
 
