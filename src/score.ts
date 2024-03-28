@@ -11,13 +11,6 @@ let scoreElement: HTMLElement = document.getElementById("score")!;
 let scoreAnimation: any = null;
 let highscoreAnimation: any = null;
 
-function initialize(): void {
-    document.getElementById("resetHighscoreButton")!.onclick = () => resetHighscore();
-    scoreAnimation = Animations.upAndDown(scoreElement);
-    highscoreAnimation = Animations.upAndDown(highscoreElement);
-    loadHighscore();
-}
-
 export function incrementScore(): void {
     updateScore(currentScore + 1);
 }
@@ -37,7 +30,6 @@ function resetHighscore(): void {
     }
 
     updateHighscore(0);
-    //toggleButton();
 }
 
 export function updateScore(newScore: number): void {
@@ -59,7 +51,7 @@ export function updateHighscore(score?: number): void {
     } else {
         disableButton();
     }
-    Storage.setHighscore(String(score), String(Difficulty.getDifficulty()));
+    Storage.setHighscore(score, String(Difficulty.getDifficulty()));
 }
 
 function enableButton(): void {
@@ -70,4 +62,9 @@ function disableButton(): void {
     resetButton.setAttribute("disabled", "");
 }
 
-initialize();
+(() => {
+    document.getElementById("resetHighscoreButton")!.onclick = () => resetHighscore();
+    scoreAnimation = Animations.upAndDown(scoreElement);
+    highscoreAnimation = Animations.upAndDown(highscoreElement);
+    loadHighscore();
+})();

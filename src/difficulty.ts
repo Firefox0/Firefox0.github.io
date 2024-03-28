@@ -2,13 +2,6 @@ import * as Storage from "./storage";
 
 let difficulty: number;
 
-function initialize(): void {
-    difficulty = Number(Storage.get("difficulty"));
-    if (!(difficulty >= 0)) {
-        difficulty = 1;
-    }
-}
-
 export function getDifficulty(): number {
     return difficulty;
 }
@@ -22,4 +15,9 @@ export function newDifficulty(value): void {
     setDifficulty();
 }
 
-initialize();
+(() => {
+    difficulty = Number(Storage.get("difficulty"));
+    if (!(difficulty >= 0)) {
+        difficulty = 1;
+    }
+})();

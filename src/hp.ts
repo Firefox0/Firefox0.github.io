@@ -15,12 +15,6 @@ enum Direction {
     Left
 }
 
-function initialize(): void {
-    canvas.width = width;
-    canvas.height = height;
-    drawHpBar();
-}
-
 export function getCurrentHp() {
     return currentHp;
 }
@@ -138,4 +132,8 @@ export function hideHpBar(): void {
     canvas.classList.add("d-none");
 }
 
-initialize();
+(() => {
+    canvas.width = width;
+    canvas.height = height;
+    drawHpBar();
+})();

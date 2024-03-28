@@ -16,8 +16,5 @@ function difficultyToText(difficulty: number): string {
 }
 
 export function refreshTitle(difficulty: number): void {
-    console.log("inside refresh with title element:", title);
-    console.log("difficulty is:", difficulty);
     title.innerText = `Garen Ult Trainer (${difficultyToText(difficulty)})`;
-    console.log("done?");
 }

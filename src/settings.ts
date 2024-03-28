@@ -2,41 +2,44 @@ import * as Title from "./title";
 import * as Score from "./score";
 import * as Difficulty from "./difficulty";
 import * as Theme from "./theme";
+import * as Cursor from "./cursor";
 
 let settingsButton: HTMLElement = document.getElementById("settingsButton")!;
 let modal: HTMLElement = document.getElementById("exampleModal")!;
 let modalCloseButton: HTMLElement = document.getElementById("modalCloseButton")!;
 let applyButton: HTMLElement = document.getElementById("modalApplyButton")!;
-let currentThemeSelection;
-let currentDifficultySelection;
 
-let difficultyButtons: HTMLElement[] = [
+interface Selector {
+    [value: string]: number
+}
+
+let currentThemeSelection: Selector = {value: -1};
+let currentDifficultySelection: Selector = {value: -1};
+let currentCursorSelection: Selector = {value: 0};
+
+const difficultyButtons: HTMLElement[] = [
     document.getElementById("difficultyEasyButton")!,
     document.getElementById("difficultyMediumButton")!,
     document.getElementById("difficultyHardButton")!,
     document.getElementById("difficultyRisteButton")!
 ];
 
-let themeButtons: HTMLElement[] = [
+const themeButtons: HTMLElement[] = [
     document.getElementById("themeNordRegular")!,
     document.getElementById("themeNordDark")!
 ];
 
-function initialize() {
-    currentDifficultySelection = Difficulty.getDifficulty();
-    chooseDifficultyButton(currentDifficultySelection);
-    Title.refreshTitle(currentDifficultySelection);
-    currentThemeSelection = Theme.initialize();
-    chooseThemeButton(currentThemeSelection);
-    initializeButtons();
-}
+const cursorButtons: HTMLElement[] = [
+    document.getElementById("cursorLegacy")!,
+    document.getElementById("cursorModern")!
+]
 
-function closeModal() {
+function closeModal(): void {
     modal.classList.remove("show");
     modal.style.display = "";
 }
 
-function initializeButtons() {
+function initializeButtons(): void {
     settingsButton.onclick = () => {
         modal.classList.add("show");
         modal.style.display = "block";
@@ -47,38 +50,36 @@ function initializeButtons() {
     }
 
     applyButton.onclick = () => {
-        console.log("HERE");
-        Difficulty.newDifficulty(currentDifficultySelection);
-        Theme.changeTheme(currentThemeSelection);
-        Title.refreshTitle(Difficulty.getDifficulty());
         Score.loadHighscore();
         closeModal();
     }
 
-    for (let i = 0; i < difficultyButtons.length; i++) {
-        difficultyButtons[i].onclick = () => {
-            chooseDifficultyButton(i);
-        }
-    }
+    buttonsInit(themeButtons, currentThemeSelection, () => {
+        Theme.changeTheme(currentThemeSelection.value);
+    });
+    buttonsInit(difficultyButtons, currentDifficultySelection, () => {
+        Difficulty.newDifficulty(currentDifficultySelection.value);
+        Title.refreshTitle(Difficulty.getDifficulty());
+    });
+    buttonsInit(cursorButtons, currentCursorSelection, () => {
+        Cursor.updateCursor(currentCursorSelection.value);
+    });
+}
 
-    for (let i = 0; i < themeButtons.length; i++) {
-        themeButtons[i].onclick = () => {
-            chooseThemeButton(i);
-            currentThemeSelection = i;
+function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector, callback: Function) {
+    console.log(buttons);
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = () => {
+            buttons[currentSelectionObject.value].classList.remove("btn-chosen");
+            buttons[i].classList.add("btn-chosen");
+            currentSelectionObject.value = i;
+            callback();
         }
     }
 }
 
-function chooseDifficultyButton(id) {
-    console.log("INside chosen difficulty button with i:", id);
-    difficultyButtons[currentDifficultySelection].classList.remove("btn-chosen");
-    difficultyButtons[id].classList.add("btn-chosen");
-    currentDifficultySelection = id;
-}
-
-function chooseThemeButton(id) {
-    themeButtons[currentThemeSelection].classList.remove("btn-chosen");
-    themeButtons[id].classList.add("btn-chosen");
+function chooseButton(buttons: HTMLElement[], index: number) {
+    buttons[index].classList.add("btn-chosen");
 }
 
 export function showButton() {
@@ -89,4 +90,11 @@ export function hideButton() {
     settingsButton.classList.add("invisible");
 }
 
-initialize();
+(() => {
+    currentDifficultySelection.value = Difficulty.getDifficulty();
+    chooseButton(difficultyButtons, currentDifficultySelection.value);
+    Title.refreshTitle(currentDifficultySelection.value);
+    currentThemeSelection.value = Theme.initialize();
+    chooseButton(themeButtons, currentThemeSelection.value);
+    initializeButtons();
+})();

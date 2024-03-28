@@ -5,10 +5,6 @@ let ultLevelElement: HTMLElement = document.getElementById("ultLevel")!;
 let ultLevel: number = 0;
 let ultLevelAnimation: any = null;
 
-function initialize(): void {
-    ultLevelAnimation = Animations.upAndDown(ultLevelElement);
-}
-
 export function getUltLevel(): number {
     return ultLevel;
 }
@@ -54,4 +50,6 @@ export function randomizeUltLevel(): void {
     updateUltLevel(newUltLevel);
 }
 
-initialize();
+(() => {
+    ultLevelAnimation = Animations.upAndDown(ultLevelElement);
+})();

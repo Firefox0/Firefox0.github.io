@@ -3,10 +3,6 @@ let intervalId: any = null;
 let barWidth: number = 100;
 let offset: number = 1;
 
-function initialize(): void {
-    timerBar.style.transition = "none";
-}
-
 export function startTimer(callback: Function): void {
     intervalId = setInterval(() => updateTimerBar(callback), 1000 / 60);
 }
@@ -43,4 +39,6 @@ function updateTimerBar(callback: Function): void {
     }
 }
 
-initialize();
+(() => {
+    timerBar.style.transition = "none";
+})();

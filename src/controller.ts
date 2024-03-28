@@ -12,11 +12,6 @@ let startButton: HTMLElement = document.getElementById("startButton")!;
 let backButton: HTMLElement = document.getElementById("backButton")!;
 let footer: HTMLElement = document.getElementById("footer")!;
 
-function initialize() {
-    backButton.classList.add("invisible");
-    initializeButtons();
-}
-
 export function yesClick() {
     yesButton.click();
 }
@@ -127,4 +122,7 @@ function back() {
     Explanation.hideUI();
 }
 
-initialize();
+(() => {
+    backButton.classList.add("invisible");
+    initializeButtons();
+})();
