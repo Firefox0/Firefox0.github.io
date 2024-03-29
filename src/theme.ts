@@ -3,16 +3,14 @@ import * as Storage from "./storage";
 let body: HTMLElement = document.getElementsByTagName("body")[0];
 let cardBodies: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("card-body") as HTMLCollectionOf<HTMLElement>;
 let startButton: HTMLElement = document.getElementById("startButton")!;
-let currentThemeID;
+let currentTheme;
 
-export function initialize() {
-    loadTheme();
-    changeTheme(currentThemeID);
-    return currentThemeID;
+export function getTheme(): number {
+    return currentTheme;
 }
 
-export function changeTheme(themeID: number): void {
-    switch (themeID) {
+export function changeTheme(theme: number): void {
+    switch (theme) {
         case 0:
             body.style.backgroundColor = "#434c5e";
             changeCardBodyColor("#4c566a");
@@ -25,8 +23,7 @@ export function changeTheme(themeID: number): void {
         default:
             return;
     }
-    currentThemeID = themeID;
-    saveTheme();
+    currentTheme = theme;
 }
 
 function changeCardBodyColor(color: string): void {
@@ -35,15 +32,11 @@ function changeCardBodyColor(color: string): void {
     }
 }
 
-function loadTheme(): void {
-    let temp = Number(Storage.getTheme());
-    if (!temp) {
-        currentThemeID = 0;
-        return;
-    }
-    currentThemeID = temp;
+export function saveTheme(): void {
+    Storage.setTheme(currentTheme);
 }
 
-function saveTheme(): void {
-    Storage.setTheme(currentThemeID);
-}
+(() => {
+    currentTheme = Storage.getTheme() ?? 0;
+    changeTheme(currentTheme);
+})();

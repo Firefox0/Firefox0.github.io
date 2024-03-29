@@ -8,6 +8,10 @@ export function getCursor(): number {
     return cursor;
 }
 
+export function saveCursor(): void {
+    Storage.setCursor(cursor);
+}
+
 export function updateCursor(value: number) {
     let path: string;
 
@@ -30,8 +34,6 @@ export function updateCursor(value: number) {
             buttons[i].style.cssText += fullString;
         };
     }
-
-    Storage.setCursor(value);
 }
 
 (() => {

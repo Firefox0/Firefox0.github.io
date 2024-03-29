@@ -17,6 +17,8 @@ let currentThemeSelection: Selector = {value: -1};
 let currentDifficultySelection: Selector = {value: -1};
 let currentCursorSelection: Selector = {value: -1};
 
+let tempSettings: number[] = [];
+
 const difficultyButtons: HTMLElement[] = [
     document.getElementById("difficultyEasyButton")!,
     document.getElementById("difficultyMediumButton")!,
@@ -46,40 +48,45 @@ function initializeButtons(): void {
     }
 
     modalCloseButton.onclick = () => {
+        restoreSettings();
         closeModal();
     }
 
     applyButton.onclick = () => {
         Score.loadHighscore();
+        backupSettings();
+        saveSettings();
         closeModal();
     }
 
     buttonsInit(themeButtons, currentThemeSelection, () => {
-        Theme.changeTheme(currentThemeSelection.value);
+        themeHandler();
     });
     buttonsInit(difficultyButtons, currentDifficultySelection, () => {
-        Difficulty.newDifficulty(currentDifficultySelection.value);
-        Title.refreshTitle(Difficulty.getDifficulty());
+        difficultyHandler();
     });
     buttonsInit(cursorButtons, currentCursorSelection, () => {
-        Cursor.updateCursor(currentCursorSelection.value);
+        cursorHandler();
     });
 }
 
 function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector, callback: Function) {
-    console.log(buttons);
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].onclick = () => {
-            buttons[currentSelectionObject.value].classList.remove("btn-chosen");
-            buttons[i].classList.add("btn-chosen");
+            deselectButton(buttons, currentSelectionObject.value);
+            selectButton(buttons, i);
             currentSelectionObject.value = i;
             callback();
         }
     }
 }
 
-function chooseButton(buttons: HTMLElement[], index: number) {
+function selectButton(buttons: HTMLElement[], index: number) {
     buttons[index].classList.add("btn-chosen");
+}
+
+function deselectButton(buttons: HTMLElement[], index: number) {
+    buttons[index].classList.remove("btn-chosen");
 }
 
 export function showButton() {
@@ -90,16 +97,62 @@ export function hideButton() {
     settingsButton.classList.add("invisible");
 }
 
-(() => {
-    currentDifficultySelection.value = Difficulty.getDifficulty();
-    chooseButton(difficultyButtons, currentDifficultySelection.value);
-    Title.refreshTitle(currentDifficultySelection.value);
+function backupSettings(): void {
+    tempSettings = [
+        currentThemeSelection.value,
+        currentDifficultySelection.value,
+        currentCursorSelection.value
+    ];
+}
 
-    currentThemeSelection.value = Theme.initialize();
-    chooseButton(themeButtons, currentThemeSelection.value);
+function saveSettings(): void {
+    Theme.saveTheme();
+    Difficulty.saveDifficulty();
+    Cursor.saveCursor();
+}
+
+function restoreSettings(): void {
+    deselectButton(themeButtons, currentThemeSelection.value);
+    deselectButton(difficultyButtons, currentDifficultySelection.value);
+    deselectButton(cursorButtons, currentCursorSelection.value);
+
+    [currentThemeSelection.value, 
+    currentDifficultySelection.value,
+    currentCursorSelection.value] = tempSettings;
+
+    selectButton(themeButtons, currentThemeSelection.value);
+    selectButton(difficultyButtons, currentDifficultySelection.value);
+    selectButton(cursorButtons, currentCursorSelection.value);
+
+    themeHandler();
+    difficultyHandler();
+    cursorHandler();
+}
+
+function themeHandler() {
+    Theme.changeTheme(currentThemeSelection.value);
+}
+
+function difficultyHandler() {
+    Title.refreshTitle(currentDifficultySelection.value);
+    Difficulty.newDifficulty(currentDifficultySelection.value);
+}
+
+function cursorHandler() {
+    Cursor.updateCursor(currentCursorSelection.value);
+}
+
+(() => {
+    currentThemeSelection.value = Theme.getTheme();
+    selectButton(themeButtons, currentThemeSelection.value);
+
+    currentDifficultySelection.value = Difficulty.getDifficulty();
+    selectButton(difficultyButtons, currentDifficultySelection.value);
 
     currentCursorSelection.value = Cursor.getCursor();
-    chooseButton(cursorButtons, currentCursorSelection.value);
+    selectButton(cursorButtons, currentCursorSelection.value);
+
+    backupSettings();
 
     initializeButtons();
 })();

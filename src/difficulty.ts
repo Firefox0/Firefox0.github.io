@@ -1,4 +1,5 @@
 import * as Storage from "./storage";
+import * as Title from "./title";
 
 let difficulty: number;
 
@@ -6,13 +7,13 @@ export function getDifficulty(): number {
     return difficulty;
 }
 
-function setDifficulty(): void {
+export function saveDifficulty(): void {
     Storage.setDifficulty(difficulty);
 }
 
 export function newDifficulty(value): void {
     difficulty = value;
-    setDifficulty();
+    saveDifficulty();
 }
 
 (() => {
@@ -20,4 +21,5 @@ export function newDifficulty(value): void {
     if (!(difficulty >= 0)) {
         difficulty = 1;
     }
+    Title.refreshTitle(difficulty);
 })();
