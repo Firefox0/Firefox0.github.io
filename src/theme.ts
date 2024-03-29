@@ -36,7 +36,7 @@ function changeCardBodyColor(color: string): void {
 }
 
 function loadTheme(): void {
-    let temp = Number(Storage.get("theme"));
+    let temp = Number(Storage.getTheme());
     if (!temp) {
         currentThemeID = 0;
         return;
@@ -45,5 +45,5 @@ function loadTheme(): void {
 }
 
 function saveTheme(): void {
-    Storage.set("theme", currentThemeID);
+    Storage.setTheme(currentThemeID);
 }

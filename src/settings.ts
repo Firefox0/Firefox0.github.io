@@ -15,7 +15,7 @@ interface Selector {
 
 let currentThemeSelection: Selector = {value: -1};
 let currentDifficultySelection: Selector = {value: -1};
-let currentCursorSelection: Selector = {value: 0};
+let currentCursorSelection: Selector = {value: -1};
 
 const difficultyButtons: HTMLElement[] = [
     document.getElementById("difficultyEasyButton")!,
@@ -94,7 +94,12 @@ export function hideButton() {
     currentDifficultySelection.value = Difficulty.getDifficulty();
     chooseButton(difficultyButtons, currentDifficultySelection.value);
     Title.refreshTitle(currentDifficultySelection.value);
+
     currentThemeSelection.value = Theme.initialize();
     chooseButton(themeButtons, currentThemeSelection.value);
+
+    currentCursorSelection.value = Cursor.getCursor();
+    chooseButton(cursorButtons, currentCursorSelection.value);
+
     initializeButtons();
 })();

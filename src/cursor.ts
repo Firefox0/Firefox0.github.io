@@ -2,6 +2,11 @@ import * as Storage from "./storage";
 
 let body: HTMLBodyElement = document.getElementsByTagName("body")[0]!;
 let buttons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn") as HTMLCollectionOf<HTMLElement>;
+let cursor: number;
+
+export function getCursor(): number {
+    return cursor;
+}
 
 export function updateCursor(value: number) {
     let path: string;
@@ -30,9 +35,6 @@ export function updateCursor(value: number) {
 }
 
 (() => {
-    let cursor: number | null = Storage.getCursor();
-    if (cursor === null) {
-        cursor = 1;
-    }
+    cursor = Storage.getCursor() ?? 1;
     updateCursor(cursor);
 })();

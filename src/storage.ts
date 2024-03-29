@@ -1,3 +1,10 @@
+const keys = {
+    highscore: "highscore-",
+    cursor: "cursor",
+    difficulty: "difficulty",
+    theme: "theme"
+}
+
 function get(key: string): string | null {
     return localStorage.getItem(key);
 }
@@ -14,26 +21,38 @@ function getNumber(key: string): number | null {
     return Number(value);
 }
 
+function setNumber(key: string, value: number): void {
+    set(key, String(value));
+}
+
 export function getHighscore(difficulty: number): number | null {
-    return getNumber("highscore-" + difficulty);
+    return getNumber(keys.highscore + difficulty);
 }
 
 export function setHighscore(highscore: number, difficulty: number): void {
-    set("highscore-" + difficulty, String(highscore));
+    setNumber(keys.highscore + difficulty, highscore);
 }
 
 export function getCursor(): number | null {
-    return getNumber("cursor");
+    return getNumber(keys.cursor);
 }
 
 export function setCursor(value: number): void {
-    set("cursor", String(value));
+    setNumber(keys.cursor, value);
 }
 
 export function getDifficulty(): number | null {
-    return getNumber("difficulty");
+    return getNumber(keys.difficulty);
 }
 
 export function setDifficulty(difficulty: number): void {
-    set("difficulty", String(difficulty));
+    setNumber(keys.difficulty, difficulty);
+}
+
+export function getTheme(): number | null {
+    return getNumber(keys.theme);
+}
+
+export function setTheme(value: number): void {
+    setNumber(keys.theme, value);
 }
