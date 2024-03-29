@@ -2,11 +2,11 @@ import * as Animations from "./animations";
 import * as Storage from "./storage";
 import * as Difficulty from "./difficulty";
 
-let highscoreElement: HTMLElement = document.getElementById("highscore")!;
-let resetButton = document.getElementById("resetHighscoreButton")!;
+const highscoreElement: HTMLElement = document.getElementById("highscore")!;
+const resetButton = document.getElementById("resetHighscoreButton")!;
+const scoreElement: HTMLElement = document.getElementById("score")!;
 let highscore: number = 0;
 let currentScore: number = 0;
-let scoreElement: HTMLElement = document.getElementById("score")!;
 let scoreAnimation: any = null;
 let highscoreAnimation: any = null;
 

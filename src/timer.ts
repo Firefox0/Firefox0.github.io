@@ -1,4 +1,4 @@
-let timerBar: HTMLElement = document.getElementById("timerBar")!;
+const timerBar: HTMLElement = document.getElementById("timerBar")!;
 let intervalId: any = null;
 let barWidth: number = 100;
 let offset: number = 1;

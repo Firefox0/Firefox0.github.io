@@ -1,7 +1,7 @@
-let helpButton: HTMLElement = document.getElementById("helpButton")!;
-let modal: HTMLElement = document.getElementById("helpModal")!;
-let modalClose: HTMLElement = document.getElementById("helpModalClose")!;
-let closeButton: HTMLElement = document.getElementById("helpModalCloseButton")!;
+const helpButton: HTMLElement = document.getElementById("helpButton")!;
+const modal: HTMLElement = document.getElementById("helpModal")!;
+const modalClose: HTMLElement = document.getElementById("helpModalClose")!;
+const closeButton: HTMLElement = document.getElementById("helpModalCloseButton")!;
 
 export function hide(): void {
     helpButton.classList.add("d-none");

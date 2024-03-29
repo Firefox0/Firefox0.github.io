@@ -1,7 +1,7 @@
 import * as Random from "./random";
 import * as Animations from "./animations";
 
-let ultLevelElement: HTMLElement = document.getElementById("ultLevel")!;
+const ultLevelElement: HTMLElement = document.getElementById("ultLevel")!;
 let ultLevel: number = 0;
 let ultLevelAnimation: any = null;
 

@@ -5,8 +5,8 @@ let currentHp: number = 0;
 let maximumHp: number = 0;
 let width: number = 750;
 let height: number = 150;
-let canvas: any = document.getElementById("hpBar")!;
-let context: any = canvas.getContext("2d");
+const canvas: any = document.getElementById("hpBar")!;
+const context: any = canvas.getContext("2d");
 
 enum Direction {
     Up,
@@ -15,11 +15,11 @@ enum Direction {
     Left
 }
 
-export function getCurrentHp() {
+export function getCurrentHp(): number {
     return currentHp;
 }
 
-export function getMaximumHp() {
+export function getMaximumHp(): number {
     return maximumHp;
 }
 

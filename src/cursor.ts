@@ -1,7 +1,7 @@
 import * as Storage from "./storage";
 
-let body: HTMLBodyElement = document.getElementsByTagName("body")[0]!;
-let buttons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn") as HTMLCollectionOf<HTMLElement>;
+const body: HTMLBodyElement = document.getElementsByTagName("body")[0]!;
+const buttons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn") as HTMLCollectionOf<HTMLElement>;
 let cursor: number;
 
 export function getCursor(): number {
@@ -12,7 +12,7 @@ export function saveCursor(): void {
     Storage.setCursor(cursor);
 }
 
-export function updateCursor(value: number) {
+export function updateCursor(value: number): void {
     let path: string;
 
     switch (value) {

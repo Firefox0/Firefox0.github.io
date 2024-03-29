@@ -4,10 +4,10 @@ import * as Difficulty from "./difficulty";
 import * as Theme from "./theme";
 import * as Cursor from "./cursor";
 
-let settingsButton: HTMLElement = document.getElementById("settingsButton")!;
-let modal: HTMLElement = document.getElementById("exampleModal")!;
-let modalCloseButton: HTMLElement = document.getElementById("modalCloseButton")!;
-let applyButton: HTMLElement = document.getElementById("modalApplyButton")!;
+const settingsButton: HTMLElement = document.getElementById("settingsButton")!;
+const modal: HTMLElement = document.getElementById("exampleModal")!;
+const modalCloseButton: HTMLElement = document.getElementById("modalCloseButton")!;
+const applyButton: HTMLElement = document.getElementById("modalApplyButton")!;
 
 interface Selector {
     [value: string]: number
@@ -70,7 +70,8 @@ function initializeButtons(): void {
     });
 }
 
-function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector, callback: Function) {
+function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector, 
+                     callback: Function): void {
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].onclick = () => {
             deselectButton(buttons, currentSelectionObject.value);
@@ -81,19 +82,19 @@ function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector, c
     }
 }
 
-function selectButton(buttons: HTMLElement[], index: number) {
+function selectButton(buttons: HTMLElement[], index: number): void {
     buttons[index].classList.add("btn-chosen");
 }
 
-function deselectButton(buttons: HTMLElement[], index: number) {
+function deselectButton(buttons: HTMLElement[], index: number): void {
     buttons[index].classList.remove("btn-chosen");
 }
 
-export function showButton() {
+export function showButton(): void {
     settingsButton.classList.remove("invisible");
 }
 
-export function hideButton() {
+export function hideButton(): void {
     settingsButton.classList.add("invisible");
 }
 
@@ -129,16 +130,16 @@ function restoreSettings(): void {
     cursorHandler();
 }
 
-function themeHandler() {
+function themeHandler(): void {
     Theme.changeTheme(currentThemeSelection.value);
 }
 
-function difficultyHandler() {
+function difficultyHandler(): void {
     Title.refreshTitle(currentDifficultySelection.value);
     Difficulty.newDifficulty(currentDifficultySelection.value);
 }
 
-function cursorHandler() {
+function cursorHandler(): void {
     Cursor.updateCursor(currentCursorSelection.value);
 }
 

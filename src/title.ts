@@ -1,4 +1,4 @@
-let title: HTMLElement = document.getElementById("title")!;
+const title: HTMLElement = document.getElementById("title")!;
 
 function difficultyToText(difficulty: number): string {
     switch (difficulty) {

@@ -7,25 +7,25 @@ import * as Settings from "./settings";
 import * as Difficulty from "./difficulty";
 import * as Help from "./help";
 
-let yesButton: HTMLElement= document.getElementById("yes")!;
-let noButton: HTMLElement = document.getElementById("no")!;
-let startButton: HTMLElement = document.getElementById("startButton")!;
-let backButton: HTMLElement = document.getElementById("backButton")!;
-let footer: HTMLElement = document.getElementById("footer")!;
+const yesButton: HTMLElement= document.getElementById("yes")!;
+const noButton: HTMLElement = document.getElementById("no")!;
+const startButton: HTMLElement = document.getElementById("startButton")!;
+const backButton: HTMLElement = document.getElementById("backButton")!;
+const footer: HTMLElement = document.getElementById("footer")!;
 
-export function yesClick() {
+export function yesClick(): void {
     yesButton.click();
 }
 
-export function noClick() {
+export function noClick(): void {
     noButton.click();
 }
 
-export function startClick() {
+export function startClick(): void {
     startButton.click();
 }
 
-function progress(answer) {
+function progress(answer: boolean): void {
     Timer.stopTimer();
     Timer.increaseOffset(0.25);
     
@@ -40,7 +40,7 @@ function progress(answer) {
     }
 }
 
-function nextRound() {
+function nextRound(): void {
     let difficulty = Difficulty.getDifficulty();
     Ultimate.randomizeUltLevel();
     Hp.newHealth(difficulty);
@@ -49,19 +49,19 @@ function nextRound() {
     Timer.startTimer(() => gameOver(Ultimate.calculateUltDamage(Hp.getCurrentHp(), Hp.getMaximumHp())));
 }
 
-export function newGame() {
+export function newGame(): void {
     Score.updateScore(0);
     setButtons(true);
     nextRound();
 }
 
-function gameOver(ultDamage) {
+function gameOver(ultDamage: number): void {
     setButtons(false);
     Explanation.showExplanation(Hp.getCurrentHp(), Hp.getMaximumHp(), ultDamage);
     Explanation.showUI();
 }
 
-function initializeButtons() {
+function initializeButtons(): void {
     yesButton.setAttribute("disabled", "");
     noButton.setAttribute("disabled", "");
 
@@ -101,7 +101,7 @@ function initializeButtons() {
     }
 }
 
-function setButtons(bool) {
+function setButtons(bool: boolean): void {
     if (bool) {
         yesButton.removeAttribute("disabled");
         noButton.removeAttribute("disabled");
@@ -111,7 +111,7 @@ function setButtons(bool) {
     }
 }
 
-function back() {
+function back(): void {
     Help.show();
     footer.classList.remove("d-none");
     Timer.stopTimer();

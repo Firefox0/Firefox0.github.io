@@ -1,8 +1,8 @@
 import * as Storage from "./storage";
 
-let body: HTMLElement = document.getElementsByTagName("body")[0];
-let cardBodies: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("card-body") as HTMLCollectionOf<HTMLElement>;
-let startButton: HTMLElement = document.getElementById("startButton")!;
+const body: HTMLElement = document.getElementsByTagName("body")[0];
+const cardBodies: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("card-body") as HTMLCollectionOf<HTMLElement>;
+const startButton: HTMLElement = document.getElementById("startButton")!;
 let currentTheme;
 
 export function getTheme(): number {
