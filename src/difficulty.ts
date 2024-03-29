@@ -7,7 +7,7 @@ export function getDifficulty(): number {
 }
 
 function setDifficulty(): void {
-    Storage.set("difficulty", String(difficulty));
+    Storage.setDifficulty(difficulty);
 }
 
 export function newDifficulty(value): void {
@@ -16,7 +16,7 @@ export function newDifficulty(value): void {
 }
 
 (() => {
-    difficulty = Number(Storage.get("difficulty"));
+    difficulty = Number(Storage.getDifficulty());
     if (!(difficulty >= 0)) {
         difficulty = 1;
     }

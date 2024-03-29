@@ -1,6 +1,5 @@
 import * as Animations from "./animations";
 import * as Storage from "./storage";
-import * as Settings from "./settings";
 import * as Difficulty from "./difficulty";
 
 let highscoreElement: HTMLElement = document.getElementById("highscore")!;
@@ -51,7 +50,8 @@ export function updateHighscore(score?: number): void {
     } else {
         disableButton();
     }
-    Storage.setHighscore(score, String(Difficulty.getDifficulty()));
+    
+    Storage.setHighscore(score, Difficulty.getDifficulty());
 }
 
 function enableButton(): void {
