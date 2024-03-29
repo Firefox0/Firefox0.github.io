@@ -50,6 +50,10 @@ export function randomizeUltLevel(): void {
     updateUltLevel(newUltLevel);
 }
 
+export function reset(): void {
+    updateUltLevel(0);
+}
+
 (() => {
     ultLevelAnimation = Animations.upAndDown(ultLevelElement);
 })();

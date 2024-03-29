@@ -88,7 +88,6 @@ function initializeButtons() {
     };
 
     backButton.onclick = () => {
-        footer.classList.remove("d-none");
         back();
     }
 
@@ -111,6 +110,7 @@ function setButtons(bool) {
 }
 
 function back() {
+    footer.classList.remove("d-none");
     Timer.stopTimer();
     Timer.resetTimer();
     Score.updateScore(0);
@@ -120,6 +120,7 @@ function back() {
     setButtons(false);
     Hp.hideHpBar();
     Explanation.hideUI();
+    Ultimate.reset();
 }
 
 (() => {
