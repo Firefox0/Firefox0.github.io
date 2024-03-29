@@ -33,8 +33,11 @@ function detectWord(word: string, callback: Function): void {
         },
         "2": () => Controller.noClick(),
         "Enter": () => {
-            Controller.startClick();
-            Explanation.click();
+            if (Controller.startButtonVisible()) {
+                Controller.startClick();
+            } else if (Explanation.explanationVisible()) {
+                Explanation.click();
+            }
         },
         "r": () => {Score.updateHighscore(0);}
     });

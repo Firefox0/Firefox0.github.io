@@ -25,3 +25,7 @@ export function click(): void {
 export function getButton(): HTMLElement {
     return explanationButtonElement;
 }
+
+export function explanationVisible(): boolean {
+    return !explanationRow.classList.contains("d-none");
+}

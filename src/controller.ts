@@ -25,6 +25,16 @@ export function startClick(): void {
     startButton.click();
 }
 
+export function newGame(): void {
+    Score.updateScore(0);
+    setButtons(true);
+    nextRound();
+}
+
+export function startButtonVisible(): boolean {
+    return !startButton.classList.contains("d-none");
+}
+
 function progress(answer: boolean): void {
     Timer.stopTimer();
     Timer.increaseOffset(0.25);
@@ -47,12 +57,6 @@ function nextRound(): void {
 
     Timer.resetTimer();
     Timer.startTimer(() => gameOver(Ultimate.calculateUltDamage(Hp.getCurrentHp(), Hp.getMaximumHp())));
-}
-
-export function newGame(): void {
-    Score.updateScore(0);
-    setButtons(true);
-    nextRound();
 }
 
 function gameOver(ultDamage: number): void {
