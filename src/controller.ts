@@ -5,6 +5,7 @@ import * as Hp from "./hp";
 import * as Explanation from "./explanation";
 import * as Settings from "./settings";
 import * as Difficulty from "./difficulty";
+import * as Help from "./help";
 
 let yesButton: HTMLElement= document.getElementById("yes")!;
 let noButton: HTMLElement = document.getElementById("no")!;
@@ -79,6 +80,7 @@ function initializeButtons() {
     }
 
     startButton.onclick = () => {
+        Help.hide();
         Settings.hideButton();
         footer.classList.add("d-none");
         startButton.classList.add("d-none");
@@ -110,6 +112,7 @@ function setButtons(bool) {
 }
 
 function back() {
+    Help.show();
     footer.classList.remove("d-none");
     Timer.stopTimer();
     Timer.resetTimer();
