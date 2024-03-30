@@ -6,9 +6,12 @@
     transition: none !important;
 }
 
-#startButton {
-    width: 750px;
+#game {
+    max-width: 750px;
     height: 150px;
+}
+
+#startButton {
     font-size: 50px;
 }
 

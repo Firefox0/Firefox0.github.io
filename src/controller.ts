@@ -89,7 +89,7 @@ function initializeButtons(): void {
         footer.classList.add("d-none");
         startButton.classList.add("d-none");
         Hp.showHpBar();
-        backButton.classList.remove("invisible");
+        backButton.classList.remove("d-none");
         newGame();
     };
 
@@ -121,7 +121,7 @@ function back(): void {
     Timer.stopTimer();
     Timer.resetTimer();
     Score.updateScore(0);
-    backButton.classList.add("invisible");
+    backButton.classList.add("d-none");
     startButton.classList.remove("d-none");
     Settings.showButton();
     setButtons(false);
@@ -131,6 +131,5 @@ function back(): void {
 }
 
 (() => {
-    backButton.classList.add("invisible");
     initializeButtons();
 })();

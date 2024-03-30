@@ -3,8 +3,6 @@ import * as Ultimate from "./ultimate";
 
 let currentHp: number = 0;
 let maximumHp: number = 0;
-let width: number = 750;
-let height: number = 150;
 const canvas: any = document.getElementById("hpBar")!;
 const context: any = canvas.getContext("2d");
 
@@ -24,7 +22,7 @@ export function getMaximumHp(): number {
 }
 
 function drawHpBar(): void {
-    context.rect(0, 0, width, height);
+    context.rect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
 }
     
 function updateHpBar(): void {
@@ -34,7 +32,7 @@ function updateHpBar(): void {
     
     let visibleLineAmount: number = Math.trunc(currentHp / 100);
     let totalLineAmount: number = Math.trunc(maximumHp / 100);
-    let step: number = canvas.width / totalLineAmount;
+    let step: number = canvas.offsetWidth / totalLineAmount;
 
     drawHpColors(visibleLineAmount, totalLineAmount, step);
     drawHpLines(visibleLineAmount, step);
@@ -75,8 +73,8 @@ function drawRectFill(x: number, y: number, width: number, height: number, color
 }
 
 function drawHpColors(visibleLineAmount: number, totalLineAmount: number, step: number): void {
-    drawRectGradient(0, 1, visibleLineAmount * step, canvas.height, ["#bf616a", "#dd4f52", "#870a0e"], Direction.Down);
-    drawRectFill(visibleLineAmount * step, 1, (totalLineAmount - visibleLineAmount) * step, height, "black");
+    drawRectGradient(0, 1, visibleLineAmount * step, canvas.offsetHeight, ["#bf616a", "#dd4f52", "#870a0e"], Direction.Down);
+    drawRectFill(visibleLineAmount * step, 1, (totalLineAmount - visibleLineAmount) * step, canvas.offsetHeight, "black");
 }
 
 function drawHpLines(visibleLineAmount: number, step: number): void {
@@ -85,9 +83,9 @@ function drawHpLines(visibleLineAmount: number, step: number): void {
         let currentStep = i * step;
         context.moveTo(currentStep, 2);
         if (i % 10 === 0) {
-            context.lineTo(currentStep, canvas.height);
+            context.lineTo(currentStep, canvas.offsetHeight);
         } else {
-            context.lineTo(currentStep, canvas.height / 2);
+            context.lineTo(currentStep, canvas.offsetHeight / 2);
         }
     }
     context.closePath();
@@ -133,7 +131,7 @@ export function hideHpBar(): void {
 }
 
 (() => {
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
     drawHpBar();
 })();
