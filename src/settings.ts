@@ -53,9 +53,9 @@ function initializeButtons(): void {
     }
 
     applyButton.onclick = () => {
-        Score.loadHighscore();
-        backupSettings();
         saveSettings();
+        backupSettings();
+        Score.loadHighscore();
         closeModal();
     }
 

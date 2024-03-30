@@ -23,14 +23,6 @@ export function loadHighscore(): void {
     updateHighscore(highscore);
 }
 
-function resetHighscore(): void {
-    if (highscore === 0) {
-        return;
-    }
-
-    updateHighscore(0);
-}
-
 export function updateScore(newScore: number): void {
     currentScore = newScore;
     scoreElement.innerText = String(newScore);
@@ -40,6 +32,10 @@ export function updateScore(newScore: number): void {
 export function updateHighscore(score?: number): void {
     if (score === undefined) {
         score = currentScore;
+    }
+    
+    if (score < highscore) {
+        return;
     }
 
     highscore = score;
@@ -52,6 +48,14 @@ export function updateHighscore(score?: number): void {
     }
     
     Storage.setHighscore(score, Difficulty.getDifficulty());
+}
+
+function resetHighscore(): void {
+    if (highscore === 0) {
+        return;
+    }
+
+    updateHighscore(0);
 }
 
 function enableButton(): void {
