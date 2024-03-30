@@ -28,6 +28,7 @@ export function startClick(): void {
 export function newGame(): void {
     Score.updateScore(0);
     setButtons(true);
+    Timer.restoreTimer();
     nextRound();
 }
 
