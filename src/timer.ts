@@ -1,42 +1,61 @@
 const timerBar: HTMLElement = document.getElementById("timerBar")!;
-let intervalId: any = null;
 let barWidth: number = 100;
-let offset: number = 1;
+let start: DOMHighResTimeStamp | undefined = undefined;
+let stop: boolean = false;
+const maxDuration: number = 5;
+const minDuration: number = 1;
+let duration: number = maxDuration;
+let requestID: number | null = null;
 
 export function startTimer(callback: Function): void {
-    intervalId = setInterval(() => updateTimerBar(callback), 1000 / 60);
+    stop = false;
+    requestAnimationFrame((e) => updateTimerBar(e, callback));
 }
 
 export function stopTimer(): void {
-    resetInterval();
+    if (requestID !== null) {
+        cancelAnimationFrame(requestID);
+    }
+    stop = true;
 }
 
 export function resetTimer(): void {
-    offset = 1;
     barWidth = 100;
     timerBar.style.width = "100%";
 }
 
-export function increaseOffset(offset: number): void {
-    offset += offset;
+export function restoreTimer(): void {
+    start = undefined;
+    duration = maxDuration;
+    resetTimer();
 }
 
-function resetInterval(): void {
-    if (intervalId === null) {
+export function decreaseDuration(value: number): void {
+    duration -= value;
+    if (duration < minDuration) {
+        duration = minDuration;
+    }
+}
+
+function updateTimerBar(step: DOMHighResTimeStamp, callback: Function): void {
+    if (start === undefined) {
+        start = step;
+    }
+
+    barWidth -= (step - start) / (10 * duration);
+    timerBar.style.width = barWidth + "%";
+    start = step;
+
+    if (stop) {
         return;
     }
-    clearInterval(intervalId);
-    intervalId = null;
-}
-
-function updateTimerBar(callback: Function): void {
-    barWidth -= offset;
-    timerBar.style.width = barWidth + "%";
-
+  
     if (barWidth <= 0) {
-        stopTimer();
         callback();
+        return;
     }
+
+    requestID = requestAnimationFrame((e) => updateTimerBar(e, callback));
 }
 
 (() => {

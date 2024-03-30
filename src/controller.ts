@@ -37,12 +37,13 @@ export function startButtonVisible(): boolean {
 
 function progress(answer: boolean): void {
     Timer.stopTimer();
-    Timer.increaseOffset(0.25);
     
     let currentHp: number = Hp.getCurrentHp();
     let maximumHp: number = Hp.getMaximumHp();
     let ultDamage: number = Ultimate.calculateUltDamage(currentHp, maximumHp);
     if ((ultDamage >= currentHp) === answer) {
+        Timer.decreaseDuration(0.25);
+        Timer.resetTimer();
         Score.incrementScore();
         nextRound();
     } else {
@@ -55,7 +56,6 @@ function nextRound(): void {
     Ultimate.randomizeUltLevel();
     Hp.newHealth(difficulty);
 
-    Timer.resetTimer();
     Timer.startTimer(() => gameOver(Ultimate.calculateUltDamage(Hp.getCurrentHp(), Hp.getMaximumHp())));
 }
 
@@ -101,6 +101,7 @@ function initializeButtons(): void {
     explanationButton.onclick = () => {
         Explanation.hideUI();
         Score.updateHighscore();
+        Timer.restoreTimer();
         newGame();
     }
 }
