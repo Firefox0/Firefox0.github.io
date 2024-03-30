@@ -6,7 +6,7 @@
     transition: none !important;
 }
 
-#game {
+#game, #ultCard {
     height: 150px;
 }
 
@@ -20,6 +20,10 @@ body {
 
 .card {
     background-color: #4c566a;
+}
+
+.card-body {
+    border-radius: 20%;
 }
 
 h1, h5, .card-title, button, #title {
