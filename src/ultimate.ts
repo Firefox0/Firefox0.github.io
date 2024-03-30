@@ -1,9 +1,9 @@
 import * as Random from "./random";
-import * as Animations from "./animations";
 
-const ultLevelElement: HTMLElement = document.getElementById("ultLevel")!;
 let ultLevel: number = 0;
-let ultLevelAnimation: any = null;
+let circles: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("circle") as HTMLCollectionOf<HTMLElement>;
+const circleSelectedColor: string = "#fcfc00";
+const circleDeselectedColor: string = "black";
 
 export function getUltLevel(): number {
     return ultLevel;
@@ -37,8 +37,20 @@ export function calculateMaximumHp(currentHp: number, finalHp: number): number {
 
 function updateUltLevel(newUltLevel: number): void {
     ultLevel = newUltLevel;
-    ultLevelElement.innerText = String(newUltLevel);
-    ultLevelAnimation.play();
+    resetCircles();
+    selectCircles();
+}
+
+function resetCircles() {
+    for (let i = 0; i < circles.length; i++) {
+        circles[i].style.backgroundColor = circleDeselectedColor;
+    }
+}
+
+function selectCircles() {
+    for (let i = 0; i < ultLevel; i++) {
+        circles[i].style.backgroundColor = circleSelectedColor;
+    }
 }
 
 export function randomizeUltLevel(): void {
@@ -53,7 +65,3 @@ export function randomizeUltLevel(): void {
 export function reset(): void {
     updateUltLevel(0);
 }
-
-(() => {
-    ultLevelAnimation = Animations.upAndDown(ultLevelElement);
-})();
