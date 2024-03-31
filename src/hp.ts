@@ -104,7 +104,7 @@ function drawHpLines(visibleLineAmount: number, step: number): void {
     let amountThickLines: number = 0;
     let amountThinLines: number = 0;
     for (let i = 1; i <= visibleLineAmount; i++) {
-        let currentStep = i * step + thickLineWidth * amountThickLines + thinLineWidth * amountThinLines;
+        let currentStep: number = i * step + thickLineWidth * amountThickLines + thinLineWidth * amountThinLines;
         context.moveTo(currentStep + 0.5, 1);
         if (i % 10 === 0) {
             drawRectFill(currentStep, 1, thickLineWidth, canvas.offsetHeight, "black");
