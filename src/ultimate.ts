@@ -29,7 +29,7 @@ export function calculateMaximumHp(currentHp: number, finalHp: number): number {
         case 2:
             return (currentHp - finalHp - 300) / 0.3 + currentHp;
         case 3:
-            return (currentHp - finalHp - 450) / 3.5 + currentHp;
+            return (currentHp - finalHp - 450) / 0.35 + currentHp;
         default:
             return 0;
     }
