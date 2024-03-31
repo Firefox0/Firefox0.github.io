@@ -6,7 +6,7 @@
     transition: none !important;
 }
 
-#game, #ultCard {
+#gameRow, #game, #ultCard {
     height: 150px;
 }
 

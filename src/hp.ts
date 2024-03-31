@@ -5,6 +5,8 @@ let currentHp: number = 0;
 let maximumHp: number = 0;
 const canvas: any = document.getElementById("hpBar")!;
 const context: any = canvas.getContext("2d");
+const thickLineWidth: number = 5;
+const thinLineWidth: number = 2;
 
 enum Direction {
     Up,
@@ -21,6 +23,19 @@ export function getMaximumHp(): number {
     return maximumHp;
 }
 
+export function newHealth(difficulty: number): void {
+    generateHealth(difficulty);
+    updateHpBar();
+}
+
+export function showHpBar(): void {
+    canvas.classList.remove("d-none");
+}
+
+export function hideHpBar(): void {
+    canvas.classList.add("d-none");
+}
+
 function drawHpBar(): void {
     context.rect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
 }
@@ -30,11 +45,13 @@ function updateHpBar(): void {
         return;
     }
     
-    let visibleLineAmount: number = Math.trunc(currentHp / 100);
-    let totalLineAmount: number = Math.trunc(maximumHp / 100);
-    let step: number = canvas.offsetWidth / totalLineAmount;
+    const dividedHp: number = currentHp / 100;
+    const visibleLineAmount: number = Math.trunc(dividedHp);
+    const restPercentage: number = dividedHp % 1;
+    const totalLineAmount: number = Math.trunc(maximumHp / 100);
+    const step: number = Math.trunc(canvas.offsetWidth / totalLineAmount);
 
-    drawHpColors(visibleLineAmount, totalLineAmount, step);
+    drawHpColors(visibleLineAmount, step, restPercentage);
     drawHpLines(visibleLineAmount, step);
 }
 
@@ -72,20 +89,29 @@ function drawRectFill(x: number, y: number, width: number, height: number, color
     context.fillRect(x, y, width, height);
 }
 
-function drawHpColors(visibleLineAmount: number, totalLineAmount: number, step: number): void {
-    drawRectGradient(0, 1, visibleLineAmount * step, canvas.offsetHeight, ["#bf616a", "#dd4f52", "#870a0e"], Direction.Down);
-    drawRectFill(visibleLineAmount * step, 1, (totalLineAmount - visibleLineAmount) * step, canvas.offsetHeight, "black");
+function drawHpColors(visibleLineAmount: number, step: number, rest: number): void {
+    const amountThick: number = Math.trunc(visibleLineAmount / 10);
+    const amountThin: number = visibleLineAmount - amountThick;
+    const visibleWidth: number = visibleLineAmount * step + amountThick * thickLineWidth + amountThin * thinLineWidth + step * rest;
+    const invisibleWidth: number = canvas.offsetWidth - visibleWidth;
+    
+    drawRectGradient(0, 1, visibleWidth, canvas.offsetHeight, ["#bf616a", "#dd4f52", "#870a0e"], Direction.Down);
+    drawRectFill(visibleWidth, 1, invisibleWidth, canvas.offsetHeight, "black");
 }
 
 function drawHpLines(visibleLineAmount: number, step: number): void {
     context.beginPath();
+    let amountThickLines: number = 0;
+    let amountThinLines: number = 0;
     for (let i = 1; i <= visibleLineAmount; i++) {
-        let currentStep = i * step;
-        context.moveTo(currentStep, 2);
+        let currentStep = i * step + thickLineWidth * amountThickLines + thinLineWidth * amountThinLines;
+        context.moveTo(currentStep + 0.5, 1);
         if (i % 10 === 0) {
-            context.lineTo(currentStep, canvas.offsetHeight);
+            drawRectFill(currentStep, 1, thickLineWidth, canvas.offsetHeight, "black");
+            amountThickLines++;
         } else {
-            context.lineTo(currentStep, canvas.offsetHeight / 2);
+            drawRectFill(currentStep, 1, thinLineWidth, canvas.offsetHeight / 2, "black");
+            amountThinLines++;
         }
     }
     context.closePath();
@@ -114,19 +140,6 @@ function generateHealth(difficulty: number): void {
 
     currentHp = tempCurrentHp + finalHp;
     maximumHp = Ultimate.calculateMaximumHp(currentHp, finalHp);
-}
-
-export function newHealth(difficulty: number): void {
-    generateHealth(difficulty);
-    updateHpBar();
-}
-
-export function showHpBar(): void {
-    canvas.classList.remove("d-none");
-}
-
-export function hideHpBar(): void {
-    canvas.classList.add("d-none");
 }
 
 (() => {

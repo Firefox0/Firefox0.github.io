@@ -1,7 +1,7 @@
 export function getRandomInt(min: number, max: number): number {
-    return Math.floor(min + Math.random() * (max + 1 - min));
+    return Math.trunc(min + Math.random() * (max + 1 - min));
 }
 
 export function coinflip(): boolean {
-    return Math.floor(Math.random() * 2) === 0;
+    return Math.trunc(Math.random() * 2) === 0;
 }
