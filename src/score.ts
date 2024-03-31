@@ -16,7 +16,7 @@ export function incrementScore(): void {
 
 export function loadHighscore(): void {
     let highscore = Storage.getHighscore(Difficulty.getDifficulty());
-    if (highscore === null || highscore == 0) {
+    if (highscore === null) {
         highscore = 0;
     }
 
@@ -29,17 +29,16 @@ export function updateScore(newScore: number): void {
     scoreAnimation.play();
 }
 
-export function updateHighscore(score?: number): void {
-    if (score === undefined) {
-        score = currentScore;
+export function updateHighscore(newHighscore?: number): void {
+    if (newHighscore === undefined) {
+        newHighscore = currentScore;
+        if (newHighscore < highscore) {
+            return;
+        }
     }
     
-    if (score < highscore) {
-        return;
-    }
-
-    highscore = score;
-    highscoreElement.innerText = String(score);
+    highscore = newHighscore;
+    highscoreElement.innerText = String(newHighscore);
     highscoreAnimation.play();
     if (highscore > 0) {
         enableButton();
@@ -47,7 +46,7 @@ export function updateHighscore(score?: number): void {
         disableButton();
     }
     
-    Storage.setHighscore(score, Difficulty.getDifficulty());
+    Storage.setHighscore(newHighscore, Difficulty.getDifficulty());
 }
 
 function resetHighscore(): void {

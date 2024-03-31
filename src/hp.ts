@@ -113,12 +113,8 @@ function generateHealth(difficulty: number): void {
             break;
     }
 
-    currentHp = tempCurrentHp;
+    currentHp = tempCurrentHp + finalHp;
     maximumHp = Ultimate.calculateMaximumHp(currentHp, finalHp);
-    console.log("currentHp:", currentHp, " maximumHP:", maximumHp);
-    if (currentHp >= maximumHp) {
-        console.log("OOPSIE");
-    }
 }
 
 export function newHealth(difficulty: number): void {

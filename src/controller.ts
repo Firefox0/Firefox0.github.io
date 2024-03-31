@@ -102,6 +102,7 @@ function initializeButtons(): void {
     explanationButton.onclick = () => {
         Explanation.hideUI();
         Score.updateHighscore();
+        Score.updateScore(0);
         Timer.restoreTimer();
         newGame();
     }
