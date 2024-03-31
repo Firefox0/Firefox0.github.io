@@ -94,9 +94,8 @@ function drawHpLines(visibleLineAmount: number, step: number): void {
 
 function generateHealth(difficulty: number): void {
     let tempCurrentHp = 0;
-    difficulty++;
-    difficulty *= 2;
-    let finalHp = Random.getRandomInt(Math.floor(1000 / difficulty), Math.floor(2000 / difficulty));
+    difficulty = Math.pow(2, difficulty);
+    let finalHp = Random.getRandomInt(Math.floor(400 / difficulty), Math.floor(800 / difficulty));
     if (Random.coinflip()) {
         finalHp *= -1;
     }
