@@ -95,7 +95,7 @@ function drawHpColors(visibleLineAmount: number, step: number, rest: number): vo
     const visibleWidth: number = visibleLineAmount * step + amountThick * thickLineWidth + amountThin * thinLineWidth + step * rest;
     const invisibleWidth: number = canvas.offsetWidth - visibleWidth;
     
-    drawRectGradient(0, 1, visibleWidth, canvas.offsetHeight, ["#bf616a", "#dd4f52", "#870a0e"], Direction.Down);
+    drawRectGradient(0, 1, visibleWidth, canvas.offsetHeight, ["#f48d84", "#c64135", "#8e0b00"], Direction.Down);
     drawRectFill(visibleWidth, 1, invisibleWidth, canvas.offsetHeight, "black");
 }
 
