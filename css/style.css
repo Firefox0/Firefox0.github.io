@@ -6,7 +6,7 @@
     transition: none !important;
 }
 
-#gameRow, #game, #ultCard {
+#gameRow {
     height: 150px;
 }
 
@@ -20,6 +20,7 @@ body {
 
 .card {
     background-color: #434c5e;
+    border: none;
 }
 
 .card-body {
