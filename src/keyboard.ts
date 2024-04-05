@@ -2,6 +2,24 @@ import * as MainUI from "./mainUI";
 import * as Score from "./score";
 import * as Explanation from "./explanation";
 
+export function initialize(): void {
+    addListeners({
+        "1": () => {
+            MainUI.yesClick();
+        },
+        "2": () => MainUI.noClick(),
+        "Enter": () => {
+            if (MainUI.startButtonVisible()) {
+                MainUI.startClick();
+            } else if (Explanation.explanationVisible()) {
+                Explanation.click();
+            }
+        },
+        "r": () => {Score.updateHighscore(0);}
+    });
+    detectWord("demacia", () => Score.updateHighscore(Number.MAX_VALUE));
+}
+
 function addListeners(dict: object): void {
     document.onkeydown = (e) => {
         for (let key in dict) {
@@ -26,20 +44,3 @@ function detectWord(word: string, callback: Function): void {
     }
 }
 
-export function initialize(): void {
-    addListeners({
-        "1": () => {
-            MainUI.yesClick();
-        },
-        "2": () => MainUI.noClick(),
-        "Enter": () => {
-            if (MainUI.startButtonVisible()) {
-                MainUI.startClick();
-            } else if (Explanation.explanationVisible()) {
-                Explanation.click();
-            }
-        },
-        "r": () => {Score.updateHighscore(0);}
-    });
-    detectWord("demacia", () => Score.updateHighscore(Number.MAX_VALUE));
-}

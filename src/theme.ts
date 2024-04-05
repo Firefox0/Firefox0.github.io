@@ -19,7 +19,7 @@ export function changeTheme(theme: number): void {
             newTheme("sanguine", "#c33d0f", "#55452e");
             break;
         case 2:
-            newTheme("deserttrooper", "#fae5ad", "#86a4ad");
+            newTheme("deserttrooper", "#9c5d33", "#86a4ad");
             break;
         case 3:
             newTheme("commando", "#41512b", "#bea028");
@@ -28,7 +28,7 @@ export function changeTheme(theme: number): void {
             newTheme("dreadknight", "#708bb6", "#9a6b7e");
             break;
         case 5:
-            newTheme("rugged", "#bfbfbd", "#836b54");
+            newTheme("rugged", "#4e5862", "#836b54");
             break;
         case 6:
             newTheme("steellegion", "#373737", "#744a30");
@@ -37,7 +37,7 @@ export function changeTheme(theme: number): void {
             newTheme("rogueadmiral", "#503221", "#2d2231");
             break;
         case 8:
-            newTheme("warringkingdoms", "#f8d37a", "#da4040");
+            newTheme("warringkingdoms", "#a26331", "#da4040");
             break;
         case 9:
             newTheme("godking", "#5c4744", "#9cdcee");

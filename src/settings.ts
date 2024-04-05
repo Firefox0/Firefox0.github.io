@@ -22,7 +22,7 @@ const difficultyButtons: HTMLElement[] = [
     document.getElementById("difficultyEasyButton")!,
     document.getElementById("difficultyMediumButton")!,
     document.getElementById("difficultyHardButton")!,
-    document.getElementById("difficultyRisteButton")!
+    document.getElementById("difficultyExtremeButton")!
 ];
 
 const themeButtons: HTMLElement[] = [

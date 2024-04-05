@@ -3,13 +3,13 @@ const title: HTMLElement = document.getElementById("title")!;
 function difficultyToText(difficulty: number): string {
     switch (difficulty) {
         case 0:
-            return "QMaxGaren";
+            return "Easy";
         case 1:
             return "Medium";
         case 2:
-            return "Riste";
+            return "Hard";
         case 3:
-            return "Erislash";
+            return "Extreme";
         default:
             return "";
     }

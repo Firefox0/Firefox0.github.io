@@ -5,6 +5,7 @@ import * as Hp from "./hp";
 import * as Explanation from "./explanation";
 import * as Difficulty from "./difficulty";
 import * as MainUI from "./mainUI";
+import * as Keyboard from "./keyboard";
 
 export function yesButtonClicked(): void {
     if (MainUI.isYesDisabled()) {
@@ -68,8 +69,6 @@ function gameOver(ultDamage: number): void {
 }
 
 function initializeButtons(): void {
-    MainUI.disableDecisionButtons();
-
     let explanationButton: HTMLElement = Explanation.getButton();
     explanationButton.onclick = () => {
         Explanation.hideUI();
@@ -101,4 +100,5 @@ function back(): void {
 
 (() => {
     initializeButtons();
+    Keyboard.initialize();
 })();
