@@ -4,7 +4,6 @@ import * as Difficulty from "./difficulty";
 import * as Theme from "./theme";
 import * as Cursor from "./cursor";
 
-const settingsButton: HTMLElement = document.getElementById("settingsButton")!;
 const modal: HTMLElement = document.getElementById("exampleModal")!;
 const modalCloseButton: HTMLElement = document.getElementById("modalCloseButton")!;
 const applyButton: HTMLElement = document.getElementById("modalApplyButton")!;
@@ -27,8 +26,21 @@ const difficultyButtons: HTMLElement[] = [
 ];
 
 const themeButtons: HTMLElement[] = [
-    document.getElementById("themeNordRegular")!,
-    document.getElementById("themeNordDark")!
+    document.getElementById("themeGarenDefault")!,
+    document.getElementById("themeGarenSanguine")!,
+    document.getElementById("themeGarenDeserttrooper")!,
+    document.getElementById("themeGarenCommando")!,
+    document.getElementById("themeGarenDreadknight")!,
+    document.getElementById("themeGarenRugged")!,
+    document.getElementById("themeGarenSteellegion")!,
+    document.getElementById("themeGarenRogueadmiral")!,
+    document.getElementById("themeGarenWarringkingdoms")!,
+    document.getElementById("themeGarenGodking")!,
+    document.getElementById("themeGarenDemaciavice")!,
+    document.getElementById("themeGarenMechakingdoms")!,
+    document.getElementById("themeGarenPrestige")!,
+    document.getElementById("themeGarenBattleacademia")!,
+    document.getElementById("themeGarenMythmaker")!
 ];
 
 const cursorButtons: HTMLElement[] = [
@@ -41,12 +53,12 @@ function closeModal(): void {
     modal.style.display = "";
 }
 
-function initializeButtons(): void {
-    settingsButton.onclick = () => {
-        modal.classList.add("show");
-        modal.style.display = "block";
-    }
+export function settingsButtonClicked() {
+    modal.classList.add("show");
+    modal.style.display = "block";
+}
 
+function initializeButtons(): void {
     modalCloseButton.onclick = () => {
         restoreSettings();
         closeModal();
@@ -62,6 +74,7 @@ function initializeButtons(): void {
     buttonsInit(themeButtons, currentThemeSelection, () => {
         themeHandler();
     });
+
     buttonsInit(difficultyButtons, currentDifficultySelection, () => {
         difficultyHandler();
     });
@@ -88,14 +101,6 @@ function selectButton(buttons: HTMLElement[], index: number): void {
 
 function deselectButton(buttons: HTMLElement[], index: number): void {
     buttons[index].classList.remove("btn-chosen");
-}
-
-export function showButton(): void {
-    settingsButton.classList.remove("invisible");
-}
-
-export function hideButton(): void {
-    settingsButton.classList.add("invisible");
 }
 
 function backupSettings(): void {

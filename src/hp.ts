@@ -146,4 +146,5 @@ function generateHealth(difficulty: number): void {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     drawHpBar();
+    hideHpBar();
 })();

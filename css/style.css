@@ -15,25 +15,19 @@
 }
 
 body {
-    background-color: #434c5e;
+    background-size: cover;
 }
 
 .card {
-    background-color: #434c5e;
     border: none;
-}
-
-.card-body {
-    border-radius: 20%;
 }
 
 h1, h5, .card-title, button, #title {
     color: #eceff4 !important;
 }
 
-.btn-primary {
-    background-color: #81a1c1 !important;
-    border-color: #81a1c1 !important;
+#hpBar {
+    outline: 0.25rem solid white;
 }
 
 .btn-danger {
@@ -49,11 +43,6 @@ h1, h5, .card-title, button, #title {
 .btn-info {
     background-color: #5e81ac !important;
     border-color: #5e81ac !important;
-}
-
-.btn-primary:hover {
-    background-color: #6d8dad !important;
-    border-color: #6d8dad !important;
 }
 
 .btn-danger:hover {

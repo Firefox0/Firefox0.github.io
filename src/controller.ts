@@ -3,26 +3,31 @@ import * as Timer from "./timer";
 import * as Score from "./score";
 import * as Hp from "./hp";
 import * as Explanation from "./explanation";
-import * as Settings from "./settings";
 import * as Difficulty from "./difficulty";
-import * as Help from "./help";
+import * as MainUI from "./mainUI";
 
-const yesButton: HTMLElement= document.getElementById("yes")!;
-const noButton: HTMLElement = document.getElementById("no")!;
-const startButton: HTMLElement = document.getElementById("startButton")!;
-const backButton: HTMLElement = document.getElementById("backButton")!;
-const footer: HTMLElement = document.getElementById("footer")!;
-
-export function yesClick(): void {
-    yesButton.click();
+export function yesButtonClicked(): void {
+    if (MainUI.isYesDisabled()) {
+        return;
+    }
+    progress(true);
 }
 
-export function noClick(): void {
-    noButton.click();
+export function noButtonClicked(): void {
+    if (MainUI.isNoDisabled()) {
+        return;
+    }
+    progress(false);
 }
 
-export function startClick(): void {
-    startButton.click();
+export function startButtonClicked(): void {
+    MainUI.showGamePage();
+    Hp.showHpBar();
+    newGame();
+}
+
+export function backButtonClicked(): void {
+    back();
 }
 
 export function newGame(): void {
@@ -30,10 +35,6 @@ export function newGame(): void {
     setButtons(true);
     Timer.restoreTimer();
     nextRound();
-}
-
-export function startButtonVisible(): boolean {
-    return !startButton.classList.contains("d-none");
 }
 
 function progress(answer: boolean): void {
@@ -67,36 +68,7 @@ function gameOver(ultDamage: number): void {
 }
 
 function initializeButtons(): void {
-    yesButton.setAttribute("disabled", "");
-    noButton.setAttribute("disabled", "");
-
-    yesButton.onclick = () => {
-        if (yesButton.hasAttribute("disabled")) {
-            return;
-        }
-        progress(true);
-    }
-        
-    noButton.onclick = () => {
-        if (noButton.hasAttribute("disabled")) {
-            return;
-        }
-        progress(false);
-    }
-
-    startButton.onclick = () => {
-        Help.hide();
-        Settings.hideButton();
-        footer.classList.add("d-none");
-        startButton.classList.add("d-none");
-        Hp.showHpBar();
-        backButton.classList.remove("d-none");
-        newGame();
-    };
-
-    backButton.onclick = () => {
-        back();
-    }
+    MainUI.disableDecisionButtons();
 
     let explanationButton: HTMLElement = Explanation.getButton();
     explanationButton.onclick = () => {
@@ -110,23 +82,17 @@ function initializeButtons(): void {
 
 function setButtons(bool: boolean): void {
     if (bool) {
-        yesButton.removeAttribute("disabled");
-        noButton.removeAttribute("disabled");
+        MainUI.enableDecisionButtons();
     } else {
-        yesButton.setAttribute("disabled", "");
-        noButton.setAttribute("disabled", "");
+        MainUI.disableDecisionButtons();
     }
 }
 
 function back(): void {
-    Help.show();
-    footer.classList.remove("d-none");
+    MainUI.showMainPage();
     Timer.stopTimer();
     Timer.resetTimer();
     Score.updateScore(0);
-    backButton.classList.add("d-none");
-    startButton.classList.remove("d-none");
-    Settings.showButton();
     setButtons(false);
     Hp.hideHpBar();
     Explanation.hideUI();

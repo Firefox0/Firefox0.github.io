@@ -1,4 +1,4 @@
-import * as Controller from "./controller";
+import * as MainUI from "./mainUI";
 import * as Score from "./score";
 import * as Explanation from "./explanation";
 
@@ -26,15 +26,15 @@ function detectWord(word: string, callback: Function): void {
     }
 }
 
-(() => {
+export function initialize(): void {
     addListeners({
         "1": () => {
-            Controller.yesClick();
+            MainUI.yesClick();
         },
-        "2": () => Controller.noClick(),
+        "2": () => MainUI.noClick(),
         "Enter": () => {
-            if (Controller.startButtonVisible()) {
-                Controller.startClick();
+            if (MainUI.startButtonVisible()) {
+                MainUI.startClick();
             } else if (Explanation.explanationVisible()) {
                 Explanation.click();
             }
@@ -42,4 +42,4 @@ function detectWord(word: string, callback: Function): void {
         "r": () => {Score.updateHighscore(0);}
     });
     detectWord("demacia", () => Score.updateHighscore(Number.MAX_VALUE));
-})();
+}
