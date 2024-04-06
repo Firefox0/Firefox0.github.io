@@ -42,7 +42,7 @@ export function changeTheme(theme: number): void {
             newTheme("warringkingdoms", "#a26331", "#da4040");
             break;
         case 9:
-            newTheme("godking", "#5c4744", "#9cdcee");
+            newTheme("godking", "#5c4744", "#8bc4d3");
             break;
         case 10:
             newTheme("demaciavice", "#10c3e5", "#e442ee");
