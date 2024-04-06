@@ -22,7 +22,6 @@ const backgroundImages: string[] = [
     "../img/GarenBackground/prestigemechakingdoms.png",
     "../img/GarenBackground/battleacademia.png",
     "../img/GarenBackground/mythmaker.png",
-
 ]
 
 let currentTheme;
@@ -38,49 +37,49 @@ export function getTheme(): number {
 export function changeTheme(theme: number): void {
     switch (theme) {
         case 0:
-            newTheme("default", "#c6936f", "#314598");
+            newTheme(theme, "#c6936f", "#314598");
             break;
         case 1:
-            newTheme("sanguine", "#c33d0f", "#55452e");
+            newTheme(theme, "#c33d0f", "#55452e");
             break;
         case 2:
-            newTheme("deserttrooper", "#9c5d33", "#86a4ad");
+            newTheme(theme, "#9c5d33", "#86a4ad");
             break;
         case 3:
-            newTheme("commando", "#41512b", "#bea028");
+            newTheme(theme, "#41512b", "#bea028");
             break;
         case 4:
-            newTheme("dreadknight", "#708bb6", "#9a6b7e");
+            newTheme(theme, "#708bb6", "#9a6b7e");
             break;
         case 5:
-            newTheme("rugged", "#4e5862", "#836b54");
+            newTheme(theme, "#4e5862", "#836b54");
             break;
         case 6:
-            newTheme("steellegion", "#373737", "#744a30");
+            newTheme(theme, "#373737", "#744a30");
             break;
         case 7:
-            newTheme("rogueadmiral", "#503221", "#2d2231");
+            newTheme(theme, "#503221", "#2d2231");
             break;
         case 8:
-            newTheme("warringkingdoms", "#a26331", "#da4040");
+            newTheme(theme, "#a26331", "#da4040");
             break;
         case 9:
-            newTheme("godking", "#5c4744", "#8bc4d3");
+            newTheme(theme, "#5c4744", "#8bc4d3");
             break;
         case 10:
-            newTheme("demaciavice", "#10c3e5", "#e442ee");
+            newTheme(theme, "#10c3e5", "#e442ee");
             break;
         case 11:
-            newTheme("mechakingdoms", "#685c4d", "#70b6f9");
+            newTheme(theme, "#685c4d", "#70b6f9");
             break;
         case 12:
-            newTheme("prestigemechakingdoms", "#685449", "#f6a15f");
+            newTheme(theme, "#685449", "#f6a15f");
             break;
         case 13:
-            newTheme("battleacademia", "#1c263f", "#f92136");
+            newTheme(theme, "#1c263f", "#f92136");
             break;
         case 14:
-            newTheme("mythmaker", "#d45256", "#948c9b");
+            newTheme(theme, "#d45256", "#948c9b");
             break;
         default:
             return;
@@ -88,8 +87,8 @@ export function changeTheme(theme: number): void {
     currentTheme = theme;
 }
 
-function newTheme(fileName: string, cardColor: string, buttonColor: string): void {
-    body.style.backgroundImage = "url('../img/GarenBackground/" + fileName + ".png')";
+function newTheme(theme: number, cardColor: string, buttonColor: string): void {
+    body.style.backgroundImage = "url('" + backgroundImages[theme] + "')";
     changeCardColors(cardColor);
     changeButtonColors(buttonColor);
     hpBar.style.outlineColor = cardColor; 
