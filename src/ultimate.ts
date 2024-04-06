@@ -10,29 +10,39 @@ export function getUltLevel(): number {
 }
 
 export function calculateUltDamage(currentHp: number, maximumHp: number): number {
+    let damage: number;
     switch (ultLevel) {
         case 1:
-            return 150 + 0.25 * (maximumHp - currentHp);
+            damage = 150 + 0.25 * (maximumHp - currentHp);
+            break;
         case 2:
-            return 300 + 0.30 * (maximumHp - currentHp);
+            damage = 300 + 0.30 * (maximumHp - currentHp);
+            break;
         case 3:
-            return 450 + 0.35 * (maximumHp - currentHp);
+            damage = 450 + 0.35 * (maximumHp - currentHp);
+            break;
         default:
             return 0;
     }
+    return Math.trunc(damage);
 }
 
 export function calculateMaximumHp(currentHp: number, finalHp: number): number {
+    let damage: number;
     switch (ultLevel) {
         case 1:
-            return (currentHp - finalHp - 150) / 0.25 + currentHp;
+            damage = (currentHp - finalHp - 150) / 0.25 + currentHp;
+            break;
         case 2:
-            return (currentHp - finalHp - 300) / 0.3 + currentHp;
+            damage = (currentHp - finalHp - 300) / 0.3 + currentHp;
+            break;
         case 3:
-            return (currentHp - finalHp - 450) / 0.35 + currentHp;
+            damage = (currentHp - finalHp - 450) / 0.35 + currentHp;
+            break;
         default:
             return 0;
     }
+    return Math.trunc(damage);
 }
 
 function updateUltLevel(newUltLevel: number): void {
