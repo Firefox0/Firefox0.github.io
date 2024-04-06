@@ -1,6 +1,5 @@
 import * as MainUI from "./mainUI";
 import * as Score from "./score";
-import * as Explanation from "./explanation";
 
 export function initialize(): void {
     addListeners({
@@ -11,8 +10,8 @@ export function initialize(): void {
         "Enter": () => {
             if (MainUI.startButtonVisible()) {
                 MainUI.startClick();
-            } else if (Explanation.explanationVisible()) {
-                Explanation.click();
+            } else if (MainUI.explanationVisible()) {
+                MainUI.explanationClick();
             }
         },
         "r": () => {Score.updateHighscore(0);}

@@ -9,6 +9,29 @@ const backButton: HTMLElement = document.getElementById("backButton")!;
 const footer: HTMLElement = document.getElementById("footer")!;
 const settingsButton: HTMLElement = document.getElementById("settingsButton")!;
 const helpButton: HTMLElement = document.getElementById("helpButton")!;
+const explanationButton: HTMLElement = document.getElementById("explanationButton")!;
+const explanationRow: HTMLElement = document.getElementById("explanationRow")!;
+const explanationTextElement: HTMLElement = document.getElementById("explanationText")!;
+
+export function showExplanation(): void {
+    explanationRow.classList.remove("d-none");
+}
+
+export function hideExplanation(): void {
+    explanationRow.classList.add("d-none");
+}
+
+export function explanationClick(): void {
+    explanationButton.click();
+}
+
+export function explanationVisible(): boolean {
+    return !explanationRow.classList.contains("d-none");
+}
+
+export function updateExplanation(text: string): void {
+    explanationTextElement.innerHTML = text;
+}
 
 export function enableDecisionButtons(): void {
     yesButton.removeAttribute("disabled");
@@ -67,4 +90,5 @@ export function startButtonVisible(): boolean {
     backButton.onclick = () => Controller.backButtonClicked();
     settingsButton.onclick = () => Settings.settingsButtonClicked();
     helpButton.onclick = () => Help.helpButtonClicked();
+    explanationButton.onclick = () => Controller.explanationClicked();
 })();

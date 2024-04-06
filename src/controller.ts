@@ -31,6 +31,14 @@ export function backButtonClicked(): void {
     back();
 }
 
+export function explanationClicked(): void {
+    MainUI.hideExplanation();
+    Score.updateHighscore();
+    Score.updateScore(0);
+    Timer.restoreTimer();
+    newGame();
+}
+
 export function newGame(): void {
     Score.updateScore(0);
     setButtons(true);
@@ -64,19 +72,9 @@ function nextRound(): void {
 
 function gameOver(ultDamage: number): void {
     setButtons(false);
-    Explanation.showExplanation(Hp.getCurrentHp(), Hp.getMaximumHp(), ultDamage);
-    Explanation.showUI();
-}
-
-function initializeButtons(): void {
-    let explanationButton: HTMLElement = Explanation.getButton();
-    explanationButton.onclick = () => {
-        Explanation.hideUI();
-        Score.updateHighscore();
-        Score.updateScore(0);
-        Timer.restoreTimer();
-        newGame();
-    }
+    let explanation: string = Explanation.getExplanation(Hp.getCurrentHp(), Hp.getMaximumHp(), ultDamage);
+    MainUI.updateExplanation(explanation);
+    MainUI.showExplanation();
 }
 
 function setButtons(bool: boolean): void {
@@ -94,11 +92,10 @@ function back(): void {
     Score.updateScore(0);
     setButtons(false);
     Hp.hideHpBar();
-    Explanation.hideUI();
+    MainUI.hideExplanation();
     Ultimate.reset();
 }
 
 (() => {
-    initializeButtons();
     Keyboard.initialize();
 })();
