@@ -6,6 +6,7 @@ import * as Explanation from "./explanation";
 import * as Difficulty from "./difficulty";
 import * as MainUI from "./mainUI";
 import * as Keyboard from "./keyboard";
+import * as Preloader from "./preloader";
 
 export function yesButtonClicked(): void {
     if (MainUI.isYesDisabled()) {
@@ -97,5 +98,6 @@ function back(): void {
 }
 
 (() => {
+    Preloader.preload();
     Keyboard.initialize();
 })();

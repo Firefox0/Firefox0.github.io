@@ -6,7 +6,30 @@ const cards: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("ca
 const primaryButtons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn-primary") as HTMLCollectionOf<HTMLElement>;
 const hpBar: HTMLElement = Hp.getBar();
 
+const backgroundImages: string[] = [
+    "../img/GarenBackground/default.png",
+    "../img/GarenBackground/sanguine.png",
+    "../img/GarenBackground/deserttrooper.png",
+    "../img/GarenBackground/commando.png",
+    "../img/GarenBackground/dreadknight.png",
+    "../img/GarenBackground/rugged.png",
+    "../img/GarenBackground/steellegion.png",
+    "../img/GarenBackground/rogueadmiral.png",
+    "../img/GarenBackground/warringkingdoms.png",
+    "../img/GarenBackground/godking.png",
+    "../img/GarenBackground/demaciavice.png",
+    "../img/GarenBackground/mechakingdoms.png",
+    "../img/GarenBackground/prestigemechakingdoms.png",
+    "../img/GarenBackground/battleacademia.png",
+    "../img/GarenBackground/mythmaker.png",
+
+]
+
 let currentTheme;
+
+export function getBackgroundImages(): string[] {
+    return backgroundImages;
+}
 
 export function getTheme(): number {
     return currentTheme;
