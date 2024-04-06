@@ -28,6 +28,7 @@ h1, h5, .card-title, button, #title {
 
 #hpBar {
     outline: 0.25rem solid white;
+    outline-offset: -1px;
 }
 
 .btn-danger {
