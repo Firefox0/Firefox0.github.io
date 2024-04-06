@@ -36,6 +36,10 @@ export function hideHpBar(): void {
     canvas.classList.add("d-none");
 }
 
+export function getBar(): HTMLElement {
+    return canvas;
+}
+
 function drawHpBar(): void {
     context.rect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
 }

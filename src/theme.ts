@@ -1,8 +1,10 @@
 import * as Storage from "./storage";
+import * as Hp from "./hp";
 
 const body: HTMLElement = document.getElementsByTagName("body")[0];
 const cards: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("card") as HTMLCollectionOf<HTMLElement>;
 const primaryButtons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn-primary") as HTMLCollectionOf<HTMLElement>;
+const hpBar: HTMLElement = Hp.getBar();
 
 let currentTheme;
 
@@ -64,13 +66,10 @@ export function changeTheme(theme: number): void {
 }
 
 function newTheme(fileName: string, cardColor: string, buttonColor: string): void {
-    changeBackground(fileName);
+    body.style.backgroundImage = "url('../img/GarenBackground/" + fileName + ".png')";
     changeCardColors(cardColor);
     changeButtonColors(buttonColor);
-}
-
-function changeBackground(fileName: string): void {
-    body.style.backgroundImage = "url('../img/GarenBackground/" + fileName + ".png')";
+    hpBar.style.outlineColor = cardColor; 
 }
 
 function changeCardColors(color: string): void {
