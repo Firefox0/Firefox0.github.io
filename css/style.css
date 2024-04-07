@@ -1,5 +1,6 @@
 .btn {
     width: 100px;
+    border: 0.25rem solid;
 }
 
 #timerBar {
@@ -20,7 +21,7 @@ body {
 }
 
 .card {
-    border: none;
+    outline: 0.25rem solid;
 }
 
 h1, h5, .card-title, button, #title {
@@ -49,18 +50,28 @@ h1, h5, .card-title, button, #title {
 }
 
 .btn-danger:hover {
-    background-color: #c4424f !important;
-    border-color: #c4424f !important;
+    background-color: #f67481 !important;
+    border-color: #f67481 !important;
 }
 
 .btn-success:hover {
-    background-color: #8dc15e !important;
-    border-color: #8dc15e !important;
+    background-color: #bff390 !important;
+    border-color: #bff390 !important;
 }
 
 .btn-info:hover {
     background-color: #4a6d98 !important;
     border-color: #4a6d98 !important;
+}
+
+.btn-success:active {
+    background-color: #5b8f2c !important;
+    border-color: #5b8f2c !important;
+}
+
+.btn-danger:active {
+    background-color: #92101d !important;
+    border-color: #92101d !important;
 }
 
 .progress-bar {

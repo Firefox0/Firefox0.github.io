@@ -92,48 +92,66 @@ function newTheme(theme: number, cardColor: string, buttonColor: string): void {
     body.style.backgroundImage = "url('" + backgroundImages[theme] + "')";
     hpBar.style.outlineColor = cardColor;
     ultImage.style.outlineColor = buttonColor;
-    changeCardColors(cardColor);
-    changeButtonColors(buttonColor);
+    changeCardColors(cardColor, buttonColor);
+    changeButtonColors(buttonColor, cardColor);
 }
 
-function changeCardColors(color: string): void {
+function changeCardColors(color: string, borderColor: string): void {
     for (let i = 0; i < cards.length; i++) {
         cards[i].style.backgroundColor = color;
+        cards[i].style.outlineColor = borderColor;
     }
 }
 
-function changeButtonColors(color: string): void {
+function changeButtonColors(color: string, borderColor: string): void {
     for (let i = 0; i < primaryButtons.length; i++) {
         let button = primaryButtons[i];
         button.style.backgroundColor = color;
-        button.style.borderColor = color;
+        button.style.borderColor = borderColor;
         button.addEventListener("mouseenter", () => {
             let changedColor = changeColor(color, 50);
             button.style.backgroundColor = changedColor;
-            button.style.borderColor = changedColor;
+            button.style.borderColor = borderColor;
+        });
+        button.addEventListener("mousedown", () => {
+            let changedColor = changeColor(color, -50);
+            button.style.backgroundColor = changedColor;
+            button.style.borderColor = borderColor;
         });
         button.addEventListener("mouseleave", () => {
             button.style.backgroundColor = color;
-            button.style.borderColor = color;
+            button.style.borderColor = borderColor;
         })
     }
 }
 
+function hexToInt(hex: string): number {
+    return parseInt("0x" + hex);
+}
+
+function applyColorOffset(color: number, offset: number): string {
+    let applied: number = Math.max(0, Math.round(Math.min(255, color + offset)));
+    if (applied === 0) {
+        return "00";
+    }
+    return applied.toString(16);
+}
+
 function changeColor(color: string, offset: number): string {
     color = color.slice(1);
-    let r = color.slice(0, 2);
-    let g = color.slice(2, 4);
-    let b = color.slice(4, 6);
+    let r: string = color.slice(0, 2);
+    let g: string = color.slice(2, 4);
+    let b: string = color.slice(4, 6);
 
-    let rInt = parseInt("0x" + r);
-    let gInt = parseInt("0x" + g);
-    let bInt = parseInt("0x" + b);
+    let rInt: number = hexToInt(r);
+    let gInt: number = hexToInt(g);
+    let bInt: number = hexToInt(b);
 
-    let rApplied = Math.round(Math.min(255, rInt + offset));
-    let gApplied = Math.round(Math.min(255, gInt + offset));
-    let bApplied = Math.round(Math.min(255, bInt + offset));
+    let rApplied: string = applyColorOffset(rInt, offset);
+    let gApplied: string = applyColorOffset(gInt, offset);
+    let bApplied: string = applyColorOffset(bInt, offset);
 
-    return "#" + rApplied.toString(16) + gApplied.toString(16) + bApplied.toString(16);
+    return "#" + rApplied + gApplied + bApplied;
 }
 
 export function saveTheme(): void {
