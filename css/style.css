@@ -34,13 +34,13 @@ h1, h5, .card-title, button, #title {
 }
 
 .btn-danger {
-    background-color: #bf616a !important;
-    border-color: #bf616a !important;
+    background-color: #c4424f !important;
+    border-color: #c4424f !important;
 }
 
 .btn-success {
-    background-color: #a3be8c !important;
-    border-color: #a3be8c !important;
+    background-color: #8dc15e !important;
+    border-color: #8dc15e !important;
 }
 
 .btn-info {
@@ -49,13 +49,13 @@ h1, h5, .card-title, button, #title {
 }
 
 .btn-danger:hover {
-    background-color: #ab4d56 !important;
-    border-color: #ab4d56 !important;
+    background-color: #c4424f !important;
+    border-color: #c4424f !important;
 }
 
 .btn-success:hover {
-    background-color: #8faa78 !important;
-    border-color: #8faa78 !important;
+    background-color: #8dc15e !important;
+    border-color: #8dc15e !important;
 }
 
 .btn-info:hover {
@@ -103,13 +103,18 @@ h1, h5, .card-title, button, #title {
 #ultImage {
     max-width: 64px;
     width: 100%;
+    outline: 0.25rem solid;
+    border-radius: 0.5%;
 }
 
-.circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #000000;
-    opacity: 0.3;
-    display: inline-block;
+.rounded-circle {
+    background-color: black;
+    height: 100%;
+    width: 25%;
+    min-width: 50px;
+}
+
+#circleContainer {
+    max-height: 50px;
+    min-width: 175px;
 }

@@ -1,8 +1,8 @@
 import * as Random from "./random";
 
 let ultLevel: number = 0;
-let circles: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("circle") as HTMLCollectionOf<HTMLElement>;
-const circleSelectedColor: string = "#fcfc00";
+let circles: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("rounded-circle") as HTMLCollectionOf<HTMLElement>;
+const circleSelectedColor: string = "linear-gradient(#e5e1bc, #bc934b, #af8528)";
 const circleDeselectedColor: string = "black";
 
 export function getUltLevel(): number {
@@ -59,7 +59,7 @@ function resetCircles() {
 
 function selectCircles() {
     for (let i = 0; i < ultLevel; i++) {
-        circles[i].style.backgroundColor = circleSelectedColor;
+        circles[i].style.background = circleSelectedColor;
     }
 }
 

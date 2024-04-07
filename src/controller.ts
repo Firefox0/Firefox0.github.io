@@ -1,10 +1,10 @@
+import * as MainUI from "./mainUI";
 import * as Ultimate from "./ultimate";
 import * as Timer from "./timer";
 import * as Score from "./score";
 import * as Hp from "./hp";
 import * as Explanation from "./explanation";
 import * as Difficulty from "./difficulty";
-import * as MainUI from "./mainUI";
 import * as Keyboard from "./keyboard";
 import * as Preloader from "./preloader";
 

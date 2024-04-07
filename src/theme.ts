@@ -5,6 +5,7 @@ const body: HTMLElement = document.getElementsByTagName("body")[0];
 const cards: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("card") as HTMLCollectionOf<HTMLElement>;
 const primaryButtons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn-primary") as HTMLCollectionOf<HTMLElement>;
 const hpBar: HTMLElement = Hp.getBar();
+const ultImage: HTMLElement = document.getElementById("ultImage")!;
 
 const backgroundImages: string[] = [
     "../img/GarenBackground/default.png",
@@ -89,9 +90,10 @@ export function changeTheme(theme: number): void {
 
 function newTheme(theme: number, cardColor: string, buttonColor: string): void {
     body.style.backgroundImage = "url('" + backgroundImages[theme] + "')";
+    hpBar.style.outlineColor = cardColor;
+    ultImage.style.outlineColor = buttonColor;
     changeCardColors(cardColor);
     changeButtonColors(buttonColor);
-    hpBar.style.outlineColor = cardColor; 
 }
 
 function changeCardColors(color: string): void {
