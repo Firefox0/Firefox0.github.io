@@ -84,6 +84,8 @@ export function startButtonVisible(): boolean {
 }
 
 (() => {
+    disableDecisionButtons();
+
     yesButton.onclick = () => Controller.yesButtonClicked();
     noButton.onclick = () => Controller.noButtonClicked();
     startButton.onclick = () => Controller.startButtonClicked();
