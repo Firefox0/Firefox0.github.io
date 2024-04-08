@@ -100,15 +100,6 @@ h1, h5, .card-title, button, #title {
 
 .btn-chosen {
     background-color: #000000 !important;
-    border-color: #000000 !important;
-}
-
-#discordName {
-    color: white;
-}
-
-#discordIcon {
-    color: white;
 }
 
 #ultImage {
@@ -128,4 +119,12 @@ h1, h5, .card-title, button, #title {
 #circleContainer {
     max-height: 50px;
     min-width: 175px;
+}
+
+#discordName, #discordIcon, .modal-body p, .modal-title {
+    color: white !important;
+}
+
+.modal-content {
+    background-color: black;
 }
