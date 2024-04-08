@@ -21,7 +21,7 @@ body {
 }
 
 .card {
-    outline: 0.25rem solid;
+    border: 0.25rem solid;
 }
 
 h1, h5, .card-title, button, #title {

@@ -99,7 +99,7 @@ function newTheme(theme: number, cardColor: string, buttonColor: string): void {
 function changeCardColors(color: string, borderColor: string): void {
     for (let i = 0; i < cards.length; i++) {
         cards[i].style.backgroundColor = color;
-        cards[i].style.outlineColor = borderColor;
+        cards[i].style.borderColor = borderColor;
     }
 }
 
