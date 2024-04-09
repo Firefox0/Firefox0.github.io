@@ -5,7 +5,7 @@ let currentHp: number = 0;
 let maximumHp: number = 0;
 const canvas: any = document.getElementById("hpBar")!;
 const context: any = canvas.getContext("2d");
-const thickLineWidth: number = 5;
+const thickLineWidth: number = 4;
 const thinLineWidth: number = 2;
 
 enum Direction {
@@ -51,11 +51,15 @@ function updateHpBar(): void {
     
     const dividedHp: number = currentHp / 100;
     const visibleLineAmount: number = Math.trunc(dividedHp);
-    const restPercentage: number = dividedHp % 1;
     const totalLineAmount: number = Math.trunc(maximumHp / 100);
+    
     const step: number = Math.trunc(canvas.offsetWidth / totalLineAmount);
 
-    drawHpColors(visibleLineAmount, step, restPercentage);
+    const restPercentage: number = dividedHp % 1;
+    const visibleWidth: number = (visibleLineAmount + restPercentage) * step;
+    const invisibleWidth: number = canvas.offsetWidth - visibleWidth;
+
+    drawHpColors(visibleWidth, invisibleWidth);
     drawHpLines(visibleLineAmount, step);
 }
 
@@ -93,29 +97,20 @@ function drawRectFill(x: number, y: number, width: number, height: number, color
     context.fillRect(x, y, width, height);
 }
 
-function drawHpColors(visibleLineAmount: number, step: number, rest: number): void {
-    const amountThick: number = Math.trunc(visibleLineAmount / 10);
-    const amountThin: number = visibleLineAmount - amountThick;
-    const visibleWidth: number = visibleLineAmount * step + amountThick * thickLineWidth + amountThin * thinLineWidth + step * rest;
-    const invisibleWidth: number = canvas.offsetWidth - visibleWidth;
-    
+function drawHpColors(visibleWidth: number, invisibleWidth: number): void {    
     drawRectGradient(0, 0, visibleWidth, canvas.offsetHeight, ["#f48d84", "#c64135", "#8e0b00"], Direction.Down);
     drawRectFill(visibleWidth, 0, invisibleWidth, canvas.offsetHeight, "black");
 }
 
 function drawHpLines(visibleLineAmount: number, step: number): void {
     context.beginPath();
-    let amountThickLines: number = 0;
-    let amountThinLines: number = 0;
     for (let i = 1; i <= visibleLineAmount; i++) {
-        let currentStep: number = i * step + thickLineWidth * amountThickLines + thinLineWidth * amountThinLines;
-        context.moveTo(currentStep + 0.5, 1);
+        let currentStep: number = i * step;
+        context.moveTo(currentStep, 1);
         if (i % 10 === 0) {
-            drawRectFill(currentStep, 0, thickLineWidth, canvas.offsetHeight, "black");
-            amountThickLines++;
+            drawRectFill(currentStep - thickLineWidth / 2, 0, thickLineWidth, canvas.offsetHeight, "black");
         } else {
-            drawRectFill(currentStep, 0, thinLineWidth, canvas.offsetHeight / 2, "black");
-            amountThinLines++;
+            drawRectFill(currentStep - thinLineWidth / 2, 0, thinLineWidth, canvas.offsetHeight / 2, "black");
         }
     }
     context.closePath();
@@ -125,7 +120,7 @@ function drawHpLines(visibleLineAmount: number, step: number): void {
 function generateHealth(difficulty: number): void {
     let tempCurrentHp = 0;
     difficulty = Math.pow(2, difficulty);
-    let finalHp = Random.getRandomInt(Math.floor(400 / difficulty), Math.floor(800 / difficulty));
+    let finalHp = Random.getRandomInt(Math.trunc(300 / difficulty), Math.trunc(450 / difficulty));
     if (Random.coinflip()) {
         finalHp *= -1;
     }
@@ -142,7 +137,7 @@ function generateHealth(difficulty: number): void {
             break;
     }
 
-    currentHp = tempCurrentHp + finalHp;
+    currentHp = tempCurrentHp;
     maximumHp = Ultimate.calculateMaximumHp(currentHp, finalHp);
 }
 
