@@ -8,6 +8,7 @@ const primaryButtons: HTMLCollectionOf<HTMLElement> = document.getElementsByClas
 const hpBar: HTMLElement = Hp.getBar();
 const ultImage: HTMLElement = document.getElementById("ultImage")!;
 const timerBar: HTMLElement = Timer.getBar();
+const progressBar: HTMLElement = document.getElementById("progressBar")!;
 
 const backgroundImages: string[] = [
     "../img/GarenBackground/default.png",
@@ -95,6 +96,7 @@ function newTheme(theme: number, cardColor: string, buttonColor: string): void {
     hpBar.style.borderColor = cardColor;
     ultImage.style.outlineColor = buttonColor;
     timerBar.style.backgroundColor = buttonColor;
+    progressBar.style.borderColor = cardColor;
     changeCardColors(cardColor, buttonColor);
     changeButtonColors(buttonColor, cardColor);
 }

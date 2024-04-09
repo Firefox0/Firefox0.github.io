@@ -82,6 +82,11 @@ h1, h5, .card-title, button, #title {
     width: 100%;
 }
 
+#progressBar {
+    border: 0.25rem solid;
+    height: 25px;
+}
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
