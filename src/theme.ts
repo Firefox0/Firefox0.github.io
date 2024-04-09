@@ -25,7 +25,7 @@ const backgroundImages: string[] = [
     "../img/GarenBackground/mythmaker.png",
 ]
 
-let currentTheme;
+let currentTheme: number;
 
 export function getBackgroundImages(): string[] {
     return backgroundImages;
@@ -131,8 +131,8 @@ function hexToInt(hex: string): number {
 
 function applyColorOffset(color: number, offset: number): string {
     let applied: number = Math.max(0, Math.round(Math.min(255, color + offset)));
-    if (applied === 0) {
-        return "00";
+    if (applied < 10) {
+        return "0" + applied;
     }
     return applied.toString(16);
 }

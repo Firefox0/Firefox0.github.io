@@ -1,4 +1,4 @@
-body {
+html, body {
     height: 100%;
 }
 
@@ -58,8 +58,8 @@ h1, h5, .card-title, button, #title {
 }
 
 .btn-success:hover {
-    background-color: #bff390 !important;
-    border-color: #bff390 !important;
+    background-color: #b1e285 !important;
+    border-color: #b1e285 !important;
 }
 
 .btn-info:hover {
