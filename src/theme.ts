@@ -90,7 +90,7 @@ export function changeTheme(theme: number): void {
 
 function newTheme(theme: number, cardColor: string, buttonColor: string): void {
     body.style.backgroundImage = "url('" + backgroundImages[theme] + "')";
-    hpBar.style.outlineColor = cardColor;
+    hpBar.style.borderColor = cardColor;
     ultImage.style.outlineColor = buttonColor;
     changeCardColors(cardColor, buttonColor);
     changeButtonColors(buttonColor, cardColor);

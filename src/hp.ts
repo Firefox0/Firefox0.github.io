@@ -99,8 +99,8 @@ function drawHpColors(visibleLineAmount: number, step: number, rest: number): vo
     const visibleWidth: number = visibleLineAmount * step + amountThick * thickLineWidth + amountThin * thinLineWidth + step * rest;
     const invisibleWidth: number = canvas.offsetWidth - visibleWidth;
     
-    drawRectGradient(0, 1, visibleWidth, canvas.offsetHeight, ["#f48d84", "#c64135", "#8e0b00"], Direction.Down);
-    drawRectFill(visibleWidth, 1, invisibleWidth, canvas.offsetHeight, "black");
+    drawRectGradient(0, 0, visibleWidth, canvas.offsetHeight, ["#f48d84", "#c64135", "#8e0b00"], Direction.Down);
+    drawRectFill(visibleWidth, 0, invisibleWidth, canvas.offsetHeight, "black");
 }
 
 function drawHpLines(visibleLineAmount: number, step: number): void {
@@ -111,10 +111,10 @@ function drawHpLines(visibleLineAmount: number, step: number): void {
         let currentStep: number = i * step + thickLineWidth * amountThickLines + thinLineWidth * amountThinLines;
         context.moveTo(currentStep + 0.5, 1);
         if (i % 10 === 0) {
-            drawRectFill(currentStep, 1, thickLineWidth, canvas.offsetHeight, "black");
+            drawRectFill(currentStep, 0, thickLineWidth, canvas.offsetHeight, "black");
             amountThickLines++;
         } else {
-            drawRectFill(currentStep, 1, thinLineWidth, canvas.offsetHeight / 2, "black");
+            drawRectFill(currentStep, 0, thinLineWidth, canvas.offsetHeight / 2, "black");
             amountThinLines++;
         }
     }
@@ -147,8 +147,14 @@ function generateHealth(difficulty: number): void {
 }
 
 (() => {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    let computedStyle = getComputedStyle(canvas);
+    
+    let borderX = parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderRightWidth);
+    let borderY = parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth);    
+
+    canvas.width = canvas.offsetWidth - borderX;
+    canvas.height = canvas.offsetHeight - borderY;
+
     drawHpBar();
     hideHpBar();
 })();
