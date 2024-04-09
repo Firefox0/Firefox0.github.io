@@ -43,7 +43,7 @@ export function changeTheme(theme: number): void {
             newTheme(theme, "#c6936f", "#314598");
             break;
         case 1:
-            newTheme(theme, "#c33d0f", "#55452e");
+            newTheme(theme, "#c33d0f", "#3d3935");
             break;
         case 2:
             newTheme(theme, "#9c5d33", "#86a4ad");
