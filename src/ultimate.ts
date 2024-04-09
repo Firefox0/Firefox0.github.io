@@ -3,7 +3,6 @@ import * as Random from "./random";
 let ultLevel: number = 0;
 let circles: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("rounded-circle") as HTMLCollectionOf<HTMLElement>;
 const circleSelectedColor: string = "linear-gradient(#e5e1bc, #bc934b, #af8528)";
-const circleDeselectedColor: string = "black";
 
 export function getUltLevel(): number {
     return ultLevel;
@@ -53,7 +52,7 @@ function updateUltLevel(newUltLevel: number): void {
 
 function resetCircles() {
     for (let i = 0; i < circles.length; i++) {
-        circles[i].style.backgroundColor = circleDeselectedColor;
+        circles[i].style.background = "";
     }
 }
 
