@@ -51,6 +51,7 @@ function updateTimerBar(step: DOMHighResTimeStamp, callback: Function): void {
     }
   
     if (barWidth <= 0) {
+        timerBar.style.width = "0%";
         callback();
         return;
     }
