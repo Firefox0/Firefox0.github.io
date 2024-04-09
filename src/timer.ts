@@ -7,6 +7,10 @@ const minDuration: number = 1;
 let duration: number = maxDuration;
 let requestID: number | null = null;
 
+export function getBar(): HTMLElement {
+    return timerBar;
+}
+
 export function startTimer(callback: Function): void {
     stop = false;
     requestAnimationFrame((e) => updateTimerBar(e, callback));

@@ -1,11 +1,13 @@
 import * as Storage from "./storage";
 import * as Hp from "./hp";
+import * as Timer from "./timer";
 
 const body: HTMLElement = document.getElementsByTagName("body")[0];
 const cards: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("card") as HTMLCollectionOf<HTMLElement>;
 const primaryButtons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn-primary") as HTMLCollectionOf<HTMLElement>;
 const hpBar: HTMLElement = Hp.getBar();
 const ultImage: HTMLElement = document.getElementById("ultImage")!;
+const timerBar: HTMLElement = Timer.getBar();
 
 const backgroundImages: string[] = [
     "../img/GarenBackground/default.png",
@@ -92,6 +94,7 @@ function newTheme(theme: number, cardColor: string, buttonColor: string): void {
     body.style.backgroundImage = "url('" + backgroundImages[theme] + "')";
     hpBar.style.borderColor = cardColor;
     ultImage.style.outlineColor = buttonColor;
+    timerBar.style.backgroundColor = buttonColor;
     changeCardColors(cardColor, buttonColor);
     changeButtonColors(buttonColor, cardColor);
 }
