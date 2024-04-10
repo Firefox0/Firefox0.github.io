@@ -71,16 +71,18 @@ function initializeButtons(): void {
         closeModal();
     }
 
-    buttonsInit(themeButtons, currentThemeSelection, () => {
+    changeGarenHead(themeButtons, currentThemeSelection, () => {
         themeHandler();
     });
 
     buttonsInit(difficultyButtons, currentDifficultySelection, () => {
         difficultyHandler();
     });
+
     buttonsInit(cursorButtons, currentCursorSelection, () => {
         cursorHandler();
     });
+
 }
 
 function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector, 
@@ -93,6 +95,26 @@ function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector,
             callback();
         }
     }
+}
+
+function changeGarenHead(buttons: HTMLElement[], currentSelectionObject: Selector, 
+                         callback: Function): void {
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].onclick = () => {
+            deselectThemeButton(currentSelectionObject.value);
+            selectThemeButton(i);
+            currentSelectionObject.value = i;
+            callback();
+        }
+    }
+}
+
+function selectThemeButton(index: number): void {
+    themeButtons[index].style.borderColor = "black";
+}
+
+function deselectThemeButton(index: number): void {
+    themeButtons[index].style.borderColor = "";
 }
 
 function selectButton(buttons: HTMLElement[], index: number): void {
@@ -150,7 +172,7 @@ function cursorHandler(): void {
 
 (() => {
     currentThemeSelection.value = Theme.getTheme();
-    selectButton(themeButtons, currentThemeSelection.value);
+    selectThemeButton(currentThemeSelection.value);
 
     currentDifficultySelection.value = Difficulty.getDifficulty();
     selectButton(difficultyButtons, currentDifficultySelection.value);
