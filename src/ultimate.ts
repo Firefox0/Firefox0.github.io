@@ -14,7 +14,7 @@ export function calculateUltDamage(currentHp: number, maximumHp: number): number
             damage = 150 + 0.25 * (maximumHp - currentHp);
             break;
         case 2:
-            damage = 300 + 0.30 * (maximumHp - currentHp);
+            damage = 300 + 0.3 * (maximumHp - currentHp);
             break;
         case 3:
             damage = 450 + 0.35 * (maximumHp - currentHp);
