@@ -22,7 +22,8 @@ const difficultyButtons: HTMLElement[] = [
     document.getElementById("difficultyEasyButton")!,
     document.getElementById("difficultyMediumButton")!,
     document.getElementById("difficultyHardButton")!,
-    document.getElementById("difficultyExtremeButton")!
+    document.getElementById("difficultyExtremeButton")!,
+    document.getElementById("difficultyInsaneButton")!
 ];
 
 const themeButtons: HTMLElement[] = [
@@ -71,7 +72,7 @@ function initializeButtons(): void {
         closeModal();
     }
 
-    changeGarenHead(themeButtons, currentThemeSelection, () => {
+    buttonsInit(themeButtons, currentThemeSelection, () => {
         themeHandler();
     });
 
@@ -97,32 +98,12 @@ function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector,
     }
 }
 
-function changeGarenHead(buttons: HTMLElement[], currentSelectionObject: Selector, 
-                         callback: Function): void {
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].onclick = () => {
-            deselectThemeButton(currentSelectionObject.value);
-            selectThemeButton(i);
-            currentSelectionObject.value = i;
-            callback();
-        }
-    }
-}
-
-function selectThemeButton(index: number): void {
-    themeButtons[index].style.borderColor = "black";
-}
-
-function deselectThemeButton(index: number): void {
-    themeButtons[index].style.borderColor = "";
-}
-
 function selectButton(buttons: HTMLElement[], index: number): void {
-    buttons[index].classList.add("btn-chosen");
+    buttons[index].style.borderColor = "white";
 }
 
 function deselectButton(buttons: HTMLElement[], index: number): void {
-    buttons[index].classList.remove("btn-chosen");
+    buttons[index].style.borderColor = "";
 }
 
 function backupSettings(): void {
@@ -172,7 +153,7 @@ function cursorHandler(): void {
 
 (() => {
     currentThemeSelection.value = Theme.getTheme();
-    selectThemeButton(currentThemeSelection.value);
+    selectButton(themeButtons, currentThemeSelection.value);
 
     currentDifficultySelection.value = Difficulty.getDifficulty();
     selectButton(difficultyButtons, currentDifficultySelection.value);

@@ -23,8 +23,7 @@ export function updateCursor(value: number): void {
             path = "../misc/modern.cur";
             break;
         default:
-            path = "";
-            break;
+            return;
     }
 
     let fullString = "cursor: url('" + path + "'), auto;"
@@ -34,6 +33,8 @@ export function updateCursor(value: number): void {
             buttons[i].style.cssText += fullString;
         };
     }
+    
+    cursor = value;
 }
 
 (() => {

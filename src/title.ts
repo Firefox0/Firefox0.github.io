@@ -3,13 +3,15 @@ const title: HTMLElement = document.getElementById("title")!;
 function difficultyToText(difficulty: number): string {
     switch (difficulty) {
         case 0:
-            return "Easy";
+            return "Easy😃";
         case 1:
-            return "Medium";
+            return "Medium😌";
         case 2:
-            return "Hard";
+            return "Hard😐";
         case 3:
-            return "Extreme";
+            return "Extreme😡";
+        case 4:
+            return "Insane😈";
         default:
             return "";
     }
