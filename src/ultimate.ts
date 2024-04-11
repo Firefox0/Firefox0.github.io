@@ -2,7 +2,6 @@ import * as Random from "./random";
 
 let ultLevel: number = 0;
 let circles: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("circle") as HTMLCollectionOf<HTMLElement>;
-const circleSelectedColor: string = "linear-gradient(#e5e1bc, #bc934b, #af8528)";
 
 export function getUltLevel(): number {
     return ultLevel;
