@@ -118,13 +118,6 @@ h1, h5, .card-title, button, #title {
     border-radius: 0.5%;
 }
 
-.rounded-circle {
-    background-color: black;
-    height: 100%;
-    width: 25%;
-    min-width: 50px;
-}
-
 #circleContainer {
     max-height: 50px;
     min-width: 175px;
