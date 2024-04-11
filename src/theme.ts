@@ -68,13 +68,13 @@ export function changeTheme(theme: number): void {
             newTheme(theme, "#a26331", "#da4040");
             break;
         case 9:
-            newTheme(theme, "#5c4744", "#8bc4d3");
+            newTheme(theme, "#5c4744", "#51a7bc");
             break;
         case 10:
             newTheme(theme, "#10c3e5", "#e442ee");
             break;
         case 11:
-            newTheme(theme, "#685c4d", "#70b6f9");
+            newTheme(theme, "#685c4d", "#5ea4e5");
             break;
         case 12:
             newTheme(theme, "#685449", "#f6a15f");
