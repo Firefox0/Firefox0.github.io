@@ -3,7 +3,7 @@ let barWidth: number = 100;
 let start: DOMHighResTimeStamp | undefined = undefined;
 let stop: boolean = false;
 const maxDuration: number = 5;
-const minDuration: number = 1;
+const minDuration: number = 1.5;
 let duration: number = maxDuration;
 let requestID: number | null = null;
 
