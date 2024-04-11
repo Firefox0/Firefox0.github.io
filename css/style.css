@@ -130,6 +130,12 @@ h1, h5, .card-title, button, #title {
     min-width: 175px;
 }
 
+#circleContainer img {
+    height: 100%;
+    width: 50px;
+    padding: 0;
+}
+
 #discordName, #discordIcon, .modal-body p, .modal-title {
     color: white !important;
 }
