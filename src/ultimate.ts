@@ -51,13 +51,13 @@ function updateUltLevel(newUltLevel: number): void {
 
 function resetCircles() {
     for (let i = 0; i < circles.length; i++) {
-        circles[i].setAttribute("src", "../img/UltimateCircles/black_circle_3d.png");
+        circles[i].setAttribute("src", "../img/UltimateCircles/black_circle_color.svg");
     }
 }
 
 function selectCircles() {
     for (let i = 0; i < ultLevel; i++) {
-        circles[i].setAttribute("src", "../img/UltimateCircles/yellow_circle_3d.png");
+        circles[i].setAttribute("src", "../img/UltimateCircles/yellow_circle_color.svg");
     }
 }
 
