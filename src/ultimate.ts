@@ -43,6 +43,24 @@ export function calculateMaximumHp(currentHp: number, finalHp: number): number {
     return Math.trunc(damage);
 }
 
+export function calculateCurrentHp(maximumHp: number, finalHp: number): number {
+    let currentHp: number;
+    switch (ultLevel) {
+        case 1:
+            currentHp = (150 + 0.25 * maximumHp + finalHp) / 1.25
+            break;
+        case 2:
+            currentHp = (300 + 0.3 * maximumHp + finalHp) / 1.3
+            break;
+        case 3:
+            currentHp = (450 + 0.35 * maximumHp + finalHp) / 1.35;
+            break;
+        default:
+            return 0;
+    }
+    return Math.trunc(currentHp);
+}
+
 function updateUltLevel(newUltLevel: number): void {
     ultLevel = newUltLevel;
     resetCircles();

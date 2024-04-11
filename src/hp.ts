@@ -117,28 +117,52 @@ function drawHpLines(visibleLineAmount: number, step: number): void {
     context.stroke();
 }
 
-function generateHealth(difficulty: number): void {
-    let tempCurrentHp = 0;
-    difficulty = Math.pow(2, difficulty);
-    let finalHp = Random.getRandomInt(Math.trunc(300 / difficulty), Math.trunc(450 / difficulty));
+function generateHealth(difficulty: number): void {    
+    let low: number;
+    let max: number;
+    switch (difficulty) {
+        case 0:
+            low = 200;
+            max = 250;
+            break;
+        case 1:
+            low = 150;
+            max = 200;
+            break;
+        case 2:
+            low = 100;
+            max = 150;
+            break;
+        case 3:
+            low = 50;
+            max = 100;
+            break;
+        case 4:
+            low = 25;
+            max = 50;
+            break;
+        default:
+            return;
+    }
+
+    let finalHp: number = Random.getRandomInt(low, max);
     if (Random.coinflip()) {
         finalHp *= -1;
     }
 
     switch(Ultimate.getUltLevel()) {
         case 1:
-            tempCurrentHp = Random.getRandomInt(500, 2000);
+            maximumHp = Random.getRandomInt(1250, 2250);
             break;
         case 2:
-            tempCurrentHp = Random.getRandomInt(1000, 2500);
+            maximumHp = Random.getRandomInt(2250, 3250);
             break;
         case 3:
-            tempCurrentHp = Random.getRandomInt(1500, 3000);
+            maximumHp = Random.getRandomInt(3250, 6000);
             break;
     }
 
-    currentHp = tempCurrentHp;
-    maximumHp = Ultimate.calculateMaximumHp(currentHp, finalHp);
+    currentHp = Ultimate.calculateCurrentHp(maximumHp, finalHp);
 }
 
 (() => {
