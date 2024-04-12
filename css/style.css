@@ -54,15 +54,15 @@ body {
     border: 0.25rem solid;
 }
 
-h1, h5, .card-title, button, #title, p {
+h1, h5, button, #title, p {
     color: #eceff4 !important;
 }
 
 .card-text {
     font-family: "LeagueOfLegendsMediumFont";
     font-size: 25px;
-    margin: 0;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5rem;
 }
 
 #hpBar {
