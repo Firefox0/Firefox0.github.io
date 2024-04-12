@@ -17,10 +17,10 @@ export function updateCursor(value: number): void {
 
     switch (value) {
         case 0:
-            path = "../misc/legacy.cur";
+            path = "../cursors/legacy.cur";
             break;
         case 1:
-            path = "../misc/modern.cur";
+            path = "../cursors/modern.cur";
             break;
         default:
             return;
