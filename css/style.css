@@ -9,6 +9,11 @@
     src: url("../fonts/BeaufortforLOL-Bold.ttf");
 }
 
+@font-face {
+    font-family: "LeagueOfLegendsMediumFont";
+    src: url("../fonts/BeaufortforLOL-Medium.ttf");
+}
+
 html, body {
     height: 100%;
     overflow: hidden;
@@ -54,8 +59,8 @@ h1, h5, .card-title, button, #title, p {
 }
 
 .card-text {
-    font-family: "LeagueOfLegendsBoldFont";
-    font-size: 20px;
+    font-family: "LeagueOfLegendsMediumFont";
+    font-size: 25px;
     margin: 0;
     margin-bottom: 0.25rem;
 }
@@ -186,4 +191,10 @@ p {
 
 .setting-title {
     font-size: 18px
+}
+
+#explanationText span {
+    font-family: "LeagueOfLegendsMediumFont";
+    font-size: 23px;
+    line-height: 1.5rem;
 }

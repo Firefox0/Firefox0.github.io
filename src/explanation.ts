@@ -1,7 +1,7 @@
 export function getExplanation(currentHp: number, maximumHp: number, ultDamage: number): string {
-    return `CORRECT ANSWER: ${(ultDamage >= currentHp) ? "👍" : "👎"} <br>
-            MAXIMUM HP: ${Math.trunc(maximumHp)} <br>
-            CURRENT HP: ${currentHp} <br>
-            ULT DAMAGE: ${Math.trunc(ultDamage)} <br>
-            REMAINING HP: ${Math.trunc(currentHp - ultDamage)}`
+    return `CORRECT ANSWER: <span>${(ultDamage >= currentHp) ? "👍" : "👎"}</span><br>
+            MAXIMUM HP: <span>${Math.trunc(maximumHp)}</span><br>
+            CURRENT HP: <span>${currentHp}</span><br>
+            ULT DAMAGE: <span>${Math.trunc(ultDamage)}</span><br>
+            REMAINING HP: <span>${Math.trunc(currentHp - ultDamage)}</span>`
 }
