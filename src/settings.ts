@@ -7,6 +7,9 @@ import * as Cursor from "./cursor";
 const modal: HTMLElement = document.getElementById("exampleModal")!;
 const modalCloseButton: HTMLElement = document.getElementById("modalCloseButton")!;
 const applyButton: HTMLElement = document.getElementById("modalApplyButton")!;
+const themeButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#themeButtons img")!;
+const difficultyButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#difficultyButtons img")!;
+const cursorButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#cursorButtons img")!;
 
 interface Selector {
     [value: string]: number
@@ -15,48 +18,16 @@ interface Selector {
 let currentThemeSelection: Selector = {value: -1};
 let currentDifficultySelection: Selector = {value: -1};
 let currentCursorSelection: Selector = {value: -1};
-
 let tempSettings: number[] = [];
-
-const difficultyButtons: HTMLElement[] = [
-    document.getElementById("difficultyEasyButton")!,
-    document.getElementById("difficultyMediumButton")!,
-    document.getElementById("difficultyHardButton")!,
-    document.getElementById("difficultyExtremeButton")!,
-    document.getElementById("difficultyInsaneButton")!
-];
-
-const themeButtons: HTMLElement[] = [
-    document.getElementById("themeGarenDefault")!,
-    document.getElementById("themeGarenSanguine")!,
-    document.getElementById("themeGarenDeserttrooper")!,
-    document.getElementById("themeGarenCommando")!,
-    document.getElementById("themeGarenDreadknight")!,
-    document.getElementById("themeGarenRugged")!,
-    document.getElementById("themeGarenSteellegion")!,
-    document.getElementById("themeGarenRogueadmiral")!,
-    document.getElementById("themeGarenWarringkingdoms")!,
-    document.getElementById("themeGarenGodking")!,
-    document.getElementById("themeGarenDemaciavice")!,
-    document.getElementById("themeGarenMechakingdoms")!,
-    document.getElementById("themeGarenPrestige")!,
-    document.getElementById("themeGarenBattleacademia")!,
-    document.getElementById("themeGarenMythmaker")!
-];
-
-const cursorButtons: HTMLElement[] = [
-    document.getElementById("cursorLegacy")!,
-    document.getElementById("cursorModern")!
-]
-
-function closeModal(): void {
-    modal.classList.remove("show");
-    modal.style.display = "";
-}
 
 export function settingsButtonClicked() {
     modal.classList.add("show");
     modal.style.display = "block";
+}
+
+function closeModal(): void {
+    modal.classList.remove("show");
+    modal.style.display = "";
 }
 
 function initializeButtons(): void {
@@ -86,7 +57,7 @@ function initializeButtons(): void {
 
 }
 
-function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector, 
+function buttonsInit(buttons: NodeListOf<HTMLElement>, currentSelectionObject: Selector, 
                      callback: Function): void {
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].onclick = () => {
@@ -98,11 +69,11 @@ function buttonsInit(buttons: HTMLElement[], currentSelectionObject: Selector,
     }
 }
 
-function selectButton(buttons: HTMLElement[], index: number): void {
+function selectButton(buttons: any, index: number): void {
     buttons[index].style.borderColor = "white";
 }
 
-function deselectButton(buttons: HTMLElement[], index: number): void {
+function deselectButton(buttons: any, index: number): void {
     buttons[index].style.borderColor = "";
 }
 
@@ -153,15 +124,13 @@ function cursorHandler(): void {
 
 (() => {
     currentThemeSelection.value = Theme.getTheme();
-    selectButton(themeButtons, currentThemeSelection.value);
-
     currentDifficultySelection.value = Difficulty.getDifficulty();
-    selectButton(difficultyButtons, currentDifficultySelection.value);
-
     currentCursorSelection.value = Cursor.getCursor();
+    
+    selectButton(themeButtons, currentThemeSelection.value);
+    selectButton(difficultyButtons, currentDifficultySelection.value);
     selectButton(cursorButtons, currentCursorSelection.value);
 
     backupSettings();
-
     initializeButtons();
 })();
