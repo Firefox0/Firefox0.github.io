@@ -1,6 +1,26 @@
+
+@font-face {
+    font-family: "LeagueOfLegendsRegularFont";
+    src: url("../fonts/BeaufortforLOL-Regular.ttf");
+}
+
+@font-face {
+    font-family: "LeagueOfLegendsBoldFont";
+    src: url("../fonts/BeaufortforLOL-Bold.ttf");
+}
+
 html, body {
     height: 100%;
     overflow: hidden;
+    font-family: "LeagueOfLegendsRegularFont";
+}
+
+h1, h5, #title, .settings-title {
+    font-family: "LeagueOfLegendsBoldFont";
+}
+
+#title {
+    text-transform: uppercase;
 }
 
 .btn {
@@ -29,8 +49,15 @@ body {
     border: 0.25rem solid;
 }
 
-h1, h5, .card-title, button, #title {
+h1, h5, .card-title, button, #title, p {
     color: #eceff4 !important;
+}
+
+.card-text {
+    font-family: "LeagueOfLegendsBoldFont";
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 0.25rem;
 }
 
 #hpBar {
@@ -103,7 +130,7 @@ h1, h5, .card-title, button, #title {
     color: #2e3440 !important;
 }
 
-.modal-body > p {
+p {
     font-size: large;
 }
 

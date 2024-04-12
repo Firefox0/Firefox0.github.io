@@ -16,12 +16,12 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-header justify-content-center">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Settings</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">SETTINGS</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modalCloseButton"></button>
                     </div>
                     <div class="modal-body">
                         <div class="my-2">
-                            <p class="setting-title">Difficulty</p>
+                            <h5 class="setting-title">DIFFICULTY</h5>
                             <div id="difficultyButtons">
                                 <img id="difficultyEasyButton" class="garen-head" src="../img/EmojiFaces/happy-face.png">
                                 <img id="difficultyMediumButton" class="garen-head" src="../img/EmojiFaces/relieved-face.png">
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="my-2">
-                            <p class="setting-title">Theme</p>
+                            <h5 class="setting-title">THEME</h5>
                             <div id="themeButtons">
                                 <img id="themeGarenDefault" class="garen-head" src="../img/GarenHeads/default.png">
                                 <img id="themeGarenSanguine" class="garen-head" src="../img/GarenHeads/sanguine.png">
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="my-2">
-                            <p class="setting-title">Cursor</p>
+                            <h5 class="setting-title">CURSOR</h5>
                             <div id="cursorButtons">
                                 <img id="cursorLegacy" class="garen-head" src="../img/CursorImages/legacy.png">
                                 <img id="cursorModern" class="garen-head" src="../img/CursorImages/modern.png">
@@ -72,22 +72,28 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-header justify-content-center">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Help</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">HELP</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="helpModalClose"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Keyboard Controls:<br>
-                            1 - Execute (Yes)<br>
-                            2 - Execute (No)<br>
-                            r - Reset Highscore<br>
+                        <h5>KEYBOARD CONTROLS</h5>
+                        <p>
+                            1 - Execute 👍<br>
+                            2 - Execute 👎<br>
+                            R - Reset Highscore<br>
                             Enter - Start Game<br>
                         </p>
+                        <h5>SECRET</h5>
                         <p>There is a hidden easter egg.<br>
                            Can you find it?
                         </p>
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-primary btn-sm" id="helpModalCloseButton">Close</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="helpModalCloseButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                            </svg>
+                        </button>
                     </div>
                     </div>
                 </div>
@@ -120,10 +126,10 @@
                 <div class="col-auto">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Score</h5>
-                            <h5 id="score" class="card-text">0</h5>
-                            <h5 class="card-title">Highscore</h5>
-                            <h5 id="highscore" class="card-text"></h5>
+                            <h5 class="card-title">SCORE</h5>
+                            <p id="score" class="card-text">0</p>
+                            <h5 class="card-title">HIGHSCORE</h5>
+                            <p id="highscore" class="card-text"></p>
                             <button id="resetHighscoreButton" type="button" class="btn btn-primary" style="width: 175px;" disabled>
                                 <img src="../img/recycling_symbol_color.svg" width="30px" height="30px">
                             </button>
@@ -148,7 +154,7 @@
                 </div>
                 <div class="col-7 col-sm-7 col-md-7 col-lg-6 col-xl-6 h-100">
                     <div id="game" class="w-100 h-100">
-                        <button id="startButton" type="button" class="btn btn-primary w-100 h-100">Start</button>
+                        <button id="startButton" type="button" class="btn btn-primary w-100 h-100">START</button>
                         <canvas id="hpBar" class="w-100 h-100"></canvas>
                     </div>
                 </div>
@@ -165,7 +171,7 @@
                 <div class="col-auto">
                     <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title">Execute?</h5>
+                          <h5 class="card-title">EXECUTE?</h5>
                           <button class="btn btn-success btn-sm" id="yes" type="button" disabled>
                             <img src="../img/thumbs_up_color_default.svg" width="25px" height="25px">
                           </button>
@@ -197,7 +203,7 @@
                             <svg id="discordIcon" xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-discord white" viewBox="0 0 16 16">
                                 <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
                             </svg>
-                            <p id="discordName" class="white my-1">64123n</p>
+                            <h5 id="discordName" class="white my-1">64123n</h5>
                         </div>
                     </div>
                 </div>
