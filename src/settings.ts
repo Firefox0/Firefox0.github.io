@@ -54,7 +54,6 @@ function initializeButtons(): void {
     buttonsInit(cursorButtons, currentCursorSelection, () => {
         cursorHandler();
     });
-
 }
 
 function buttonsInit(buttons: NodeListOf<HTMLElement>, currentSelectionObject: Selector, 
@@ -122,7 +121,7 @@ function cursorHandler(): void {
     Cursor.updateCursor(currentCursorSelection.value);
 }
 
-(() => {
+export function init(): void {
     currentThemeSelection.value = Theme.getTheme();
     currentDifficultySelection.value = Difficulty.getDifficulty();
     currentCursorSelection.value = Cursor.getCursor();
@@ -130,7 +129,7 @@ function cursorHandler(): void {
     selectButton(themeButtons, currentThemeSelection.value);
     selectButton(difficultyButtons, currentDifficultySelection.value);
     selectButton(cursorButtons, currentCursorSelection.value);
-
+    
     backupSettings();
     initializeButtons();
-})();
+}

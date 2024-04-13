@@ -1,12 +1,14 @@
 import * as Random from "./random";
 import * as Ultimate from "./ultimate";
+import { Application, Graphics, FillGradient } from 'pixi.js';
 
 let currentHp: number = 0;
 let maximumHp: number = 0;
-const canvas: any = document.getElementById("hpBar")!;
-const context: any = canvas.getContext("2d");
 const thickLineWidth: number = 4;
 const thinLineWidth: number = 2;
+let app: Application = new Application();
+let graphics: Graphics = new Graphics();
+let canvas: any = document.getElementById("hpBar");
 
 enum Direction {
     Up,
@@ -24,24 +26,22 @@ export function getMaximumHp(): number {
 }
 
 export function newHealth(difficulty: number): void {
+    graphics.clear();
     generateHealth(difficulty);
     updateHpBar();
+    app.stage.addChild(graphics);
 }
 
 export function showHpBar(): void {
-    canvas.classList.remove("d-none");
+    app.canvas.classList.remove("d-none");
 }
 
 export function hideHpBar(): void {
-    canvas.classList.add("d-none");
+    app.canvas.classList.add("d-none");
 }
 
 export function getBar(): HTMLElement {
-    return canvas;
-}
-
-function drawHpBar(): void {
-    context.rect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+    return app.canvas;
 }
     
 function updateHpBar(): void {
@@ -49,15 +49,11 @@ function updateHpBar(): void {
         return;
     }
     
-    const dividedHp: number = currentHp / 100;
-    const visibleLineAmount: number = Math.trunc(dividedHp);
-    const totalLineAmount: number = Math.trunc(maximumHp / 100);
-    
-    const step: number = Math.trunc(canvas.offsetWidth / totalLineAmount);
-
-    const restPercentage: number = dividedHp % 1;
-    const visibleWidth: number = (visibleLineAmount + restPercentage) * step;
-    const invisibleWidth: number = canvas.offsetWidth - visibleWidth;
+    const visibleLineAmount: number = currentHp / 100;
+    const totalLineAmount: number = maximumHp / 100;
+    const step: number = canvas.width / totalLineAmount;
+    const visibleWidth: number = visibleLineAmount * step;
+    const invisibleWidth: number = canvas.width - visibleWidth;
 
     drawHpColors(visibleWidth, invisibleWidth);
     drawHpLines(visibleLineAmount, step);
@@ -65,56 +61,56 @@ function updateHpBar(): void {
 
 function drawRectGradient(x: number, y: number, width: number, height: number, 
                           colors: string[], direction: Direction): void {
-    let gradient: any = null;
+    const colorStops = colors;
+    let gradientFill;
 
     switch (direction) {
         case Direction.Up:
-            gradient = context.createLinearGradient(0, height, 0, 0);
+            gradientFill = new FillGradient(0, height, 0, 0);
             break;
         case Direction.Right:
-            gradient = context.createLinearGradient(0, 0, height, 0);
+            gradientFill = new FillGradient(0, 0, height, 0);
             break;
         case Direction.Down:
-            gradient = context.createLinearGradient(0, 0, 0, height);
+            gradientFill = new FillGradient(0, 0, 0, height);
             break;
         case Direction.Left:
-            gradient = context.createLinearGradient(height, 0, 0, 0);
+            gradientFill = new FillGradient(height, 0, 0, 0);
             break;
         default:
-            gradient = context.createLinearGradient(0, 0, 0, 0);
-            break;
+            return;
     }
 
-    for (let i = 0; i < colors.length; i++) {
-        gradient.addColorStop(i / (colors.length - 1), colors[i]);
-    }
+    colorStops.forEach((number, index) =>
+    {
+        const ratio = index / colorStops.length;
 
-    drawRectFill(x, y, width, height, gradient);
+        gradientFill.addColorStop(ratio, number);
+    });
+
+    drawRectFill(x, y, width, height, gradientFill);
 }
 
 function drawRectFill(x: number, y: number, width: number, height: number, color: string): void {
-    context.fillStyle = color;
-    context.fillRect(x, y, width, height);
+    graphics
+        .rect(x, y, width, height)
+        .fill(color);
 }
 
 function drawHpColors(visibleWidth: number, invisibleWidth: number): void {    
-    drawRectGradient(0, 0, visibleWidth, canvas.offsetHeight, ["#f48d84", "#c64135", "#8e0b00"], Direction.Down);
-    drawRectFill(visibleWidth, 0, invisibleWidth, canvas.offsetHeight, "black");
+    drawRectGradient(0, 0, visibleWidth, canvas.height, ["#f48d84", "#c64135", "#8e0b00"], Direction.Down);
+    drawRectFill(visibleWidth, 0, invisibleWidth, canvas.height, "black");
 }
 
 function drawHpLines(visibleLineAmount: number, step: number): void {
-    context.beginPath();
     for (let i = 1; i <= visibleLineAmount; i++) {
-        let currentStep: number = i * step;
-        context.moveTo(currentStep, 1);
+        let currentStep = i * step;
         if (i % 10 === 0) {
-            drawRectFill(currentStep - thickLineWidth / 2, 0, thickLineWidth, canvas.offsetHeight, "black");
+            drawRectFill(currentStep - thickLineWidth / 2, 0, thickLineWidth, canvas.height, "black");
         } else {
-            drawRectFill(currentStep - thinLineWidth / 2, 0, thinLineWidth, canvas.offsetHeight / 2, "black");
+            drawRectFill(currentStep - thinLineWidth / 2, 0, thinLineWidth, canvas.height / 2, "black");
         }
     }
-    context.closePath();
-    context.stroke();
 }
 
 function generateHealth(difficulty: number): void {    
@@ -165,15 +161,21 @@ function generateHealth(difficulty: number): void {
     currentHp = Ultimate.calculateCurrentHp(maximumHp, finalHp);
 }
 
-(() => {
+export async function init(): Promise<void> {
     let computedStyle = getComputedStyle(canvas);
-    
     let borderX = parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderRightWidth);
     let borderY = parseFloat(computedStyle.borderTopWidth) + parseFloat(computedStyle.borderBottomWidth);    
+    let desiredWidth: number = canvas.offsetWidth - borderX;
+    let desiredHeight: number = canvas.offsetHeight - borderY;
+    
+    await app.init({width: desiredWidth, height: desiredHeight});
+    
+    app.canvas.classList.add("w-100", "h-100", "d-none");
+    app.canvas.width = desiredWidth;
+    app.canvas.height = desiredHeight;    
+    app.canvas.style.width = String(desiredWidth);
+    app.canvas.style.height = String(desiredHeight);
 
-    canvas.width = canvas.offsetWidth - borderX;
-    canvas.height = canvas.offsetHeight - borderY;
-
-    drawHpBar();
-    hideHpBar();
-})();
+    canvas.replaceWith(app.canvas);
+    canvas = app.canvas;
+}

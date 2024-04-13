@@ -7,6 +7,9 @@ import * as Explanation from "./explanation";
 import * as Difficulty from "./difficulty";
 import * as Keyboard from "./keyboard";
 import * as Preloader from "./preloader";
+import * as Settings from "./settings";
+import * as Theme from "./theme";
+import * as Tooltip from "./tooltip";
 
 export function yesButtonClicked(): void {
     if (MainUI.isYesDisabled()) {
@@ -97,7 +100,11 @@ function back(): void {
     Ultimate.reset();
 }
 
-(() => {
+(async () => {
+    await Hp.init();
+    Theme.init();
+    Settings.init();
     Preloader.preload();
     Keyboard.initialize();
+    Tooltip.init();
 })();
