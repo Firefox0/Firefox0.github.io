@@ -197,9 +197,15 @@ p {
 #calculationInfo {
     color: white;
     top: 0%;
-    left: 80%;
+    left: 100%;
 }
 
 .tooltip-inner {
     max-width: 500px;
+}
+
+#ultImageContainer {
+    width: fit-content;
+    height: fit-content;
+    display: inline-block;
 }
