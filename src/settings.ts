@@ -3,6 +3,7 @@ import * as Score from "./score";
 import * as Difficulty from "./difficulty";
 import * as Theme from "./theme";
 import * as Cursor from "./cursor";
+import * as Animations from "./animations";
 
 const modal: HTMLElement = document.getElementById("exampleModal")!;
 const modalCloseButton: HTMLElement = document.getElementById("modalCloseButton")!;
@@ -60,20 +61,25 @@ function buttonsInit(buttons: NodeListOf<HTMLElement>, currentSelectionObject: S
                      callback: Function): void {
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].onclick = () => {
-            deselectButton(buttons, currentSelectionObject.value);
-            selectButton(buttons, i);
+            if (currentSelectionObject.value === i) {
+                return;
+            }
+            deselectButton(buttons[currentSelectionObject.value]);
+            selectButton(buttons[i]);
             currentSelectionObject.value = i;
             callback();
         }
     }
 }
 
-function selectButton(buttons: any, index: number): void {
-    buttons[index].style.borderColor = "white";
+function selectButton(button: HTMLElement): void {
+    button.style.borderColor = "white";
+    Animations.settingsContentActivate(button).play();
 }
 
-function deselectButton(buttons: any, index: number): void {
-    buttons[index].style.borderColor = "";
+function deselectButton(button: HTMLElement): void {
+    button.style.borderColor = "";
+    Animations.settingsContentDeactivate(button).play();
 }
 
 function backupSettings(): void {
@@ -91,17 +97,17 @@ function saveSettings(): void {
 }
 
 function restoreSettings(): void {
-    deselectButton(themeButtons, currentThemeSelection.value);
-    deselectButton(difficultyButtons, currentDifficultySelection.value);
-    deselectButton(cursorButtons, currentCursorSelection.value);
+    deselectButton(themeButtons[currentThemeSelection.value]);
+    deselectButton(difficultyButtons[currentDifficultySelection.value]);
+    deselectButton(cursorButtons[currentCursorSelection.value]);
 
     [currentThemeSelection.value, 
     currentDifficultySelection.value,
     currentCursorSelection.value] = tempSettings;
 
-    selectButton(themeButtons, currentThemeSelection.value);
-    selectButton(difficultyButtons, currentDifficultySelection.value);
-    selectButton(cursorButtons, currentCursorSelection.value);
+    selectButton(themeButtons[currentThemeSelection.value]);
+    selectButton(difficultyButtons[currentDifficultySelection.value]);
+    selectButton(cursorButtons[currentCursorSelection.value]);
 
     themeHandler();
     difficultyHandler();
@@ -126,9 +132,9 @@ export function init(): void {
     currentDifficultySelection.value = Difficulty.getDifficulty();
     currentCursorSelection.value = Cursor.getCursor();
     
-    selectButton(themeButtons, currentThemeSelection.value);
-    selectButton(difficultyButtons, currentDifficultySelection.value);
-    selectButton(cursorButtons, currentCursorSelection.value);
+    selectButton(themeButtons[currentThemeSelection.value]);
+    selectButton(difficultyButtons[currentDifficultySelection.value]);
+    selectButton(cursorButtons[currentCursorSelection.value]);
     
     backupSettings();
     initializeButtons();

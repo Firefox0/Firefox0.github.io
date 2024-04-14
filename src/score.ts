@@ -7,8 +7,8 @@ const resetButton = document.getElementById("resetHighscoreButton")!;
 const scoreElement: HTMLElement = document.getElementById("score")!;
 let highscore: number = 0;
 let currentScore: number = 0;
-let scoreAnimation: any = null;
-let highscoreAnimation: any = null;
+let scoreAnimation: Animation;
+let highscoreAnimation: Animation;
 
 export function incrementScore(): void {
     updateScore(currentScore + 1);

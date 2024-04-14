@@ -1,6 +1,7 @@
 import * as Controller from "./controller";
 import * as Settings from "./settings";
 import * as Help from "./help";
+import * as Animations from "./animations";
 
 const yesButton: HTMLElement= document.getElementById("yes")!;
 const noButton: HTMLElement = document.getElementById("no")!;
@@ -12,6 +13,9 @@ const helpButton: HTMLElement = document.getElementById("helpButton")!;
 const explanationButton: HTMLElement = document.getElementById("explanationButton")!;
 const explanationRow: HTMLElement = document.getElementById("explanationRow")!;
 const explanationTextElement: HTMLElement = document.getElementById("explanationText")!;
+
+let executeYesAnimation: Animation;
+let executeNoAnimation: Animation;
 
 export function showExplanation(): void {
     explanationRow.classList.remove("d-none");
@@ -85,9 +89,16 @@ export function startButtonVisible(): boolean {
 
 (() => {
     disableDecisionButtons();
-
-    yesButton.onclick = () => Controller.yesButtonClicked();
-    noButton.onclick = () => Controller.noButtonClicked();
+    executeYesAnimation = Animations.inAndOut(yesButton);
+    executeNoAnimation = Animations.inAndOut(noButton);
+    yesButton.onclick = () => {
+        executeYesAnimation.play();
+        Controller.yesButtonClicked();
+    }
+    noButton.onclick = () => {
+        executeNoAnimation.play();
+        Controller.noButtonClicked();
+    }
     startButton.onclick = () => Controller.startButtonClicked();
     backButton.onclick = () => Controller.backButtonClicked();
     settingsButton.onclick = () => Settings.settingsButtonClicked();
