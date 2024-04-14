@@ -19,11 +19,11 @@ export function inAndOut(element: Element): Animation {
             element,
             [
             { transform: "scale(1)" },
-            { transform: "scale(0.85)" },
-            { transform: "scale(1.15)" },
+            { transform: "scale(0.9)" },
+            { transform: "scale(1.1)" },
             { transform: "scale(1)"}
             ],
-            { duration: 150 }
+            { duration: 200 }
         ),
         document.timeline
     );
