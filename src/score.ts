@@ -40,10 +40,10 @@ export function updateHighscore(newHighscore?: number): void {
     highscore = newHighscore;
     highscoreElement.innerText = String(newHighscore);
     highscoreAnimation.play();
-    if (highscore > 0) {
-        enableButton();
+    if (highscore === 0) {
+        disableButton()
     } else {
-        disableButton();
+        enableButton();
     }
     
     Storage.setHighscore(newHighscore, Difficulty.getDifficulty());

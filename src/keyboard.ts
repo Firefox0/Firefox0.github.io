@@ -1,6 +1,10 @@
 import * as MainUI from "./mainUI";
 import * as Score from "./score";
 
+const wordObject: object = {};
+let buffer: string = "";
+let longestString: number = 0;
+
 export function initialize(): void {
     addListeners({
         "1": () => {
@@ -16,12 +20,14 @@ export function initialize(): void {
         },
         "r": () => {Score.updateHighscore(0);}
     });
-    detectWord("demacia", () => Score.updateHighscore(Number.MAX_VALUE));
+
+    detectWord("demacia", () => Score.updateHighscore(999999999));
+    detectWord("darius", () => Score.updateHighscore(-999999999));
 }
 
 function addListeners(dict: object): void {
     document.onkeydown = (e) => {
-        for (let key in dict) {
+        for (const key in dict) {
             if (e.key === key) {
                 dict[key]();
             }
@@ -30,16 +36,31 @@ function addListeners(dict: object): void {
 }
 
 function detectWord(word: string, callback: Function): void {
-    let buffer = "";
+    wordObject[word] = callback;
+    if (word.length > longestString) {
+        longestString = word.length;
+    }
+
+    if (Object.keys(wordObject).length > 1) {
+        return;
+    }
+
     document.onkeyup = (e) => {
-        buffer += e.key;
-        if (buffer.length > word.length) {
-            buffer = buffer.substring(buffer.length - word.length);
+        if (e.key.length > 1) {
+            return;
         }
-        if (buffer === word) {
-            callback();
-            detectWord(word, callback);
+
+        buffer += e.key;
+        if (buffer.length > longestString) {
+            buffer = buffer.substring(1);
+        }
+
+        for (const key in wordObject) {
+            if (buffer.includes(key)) {
+                buffer = "";
+                wordObject[key]();
+                break;
+            }
         }
     }
 }
-
