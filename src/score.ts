@@ -36,6 +36,10 @@ export function updateHighscore(newHighscore?: number): void {
             return;
         }
     }
+
+    if (newHighscore === highscore) {
+        return;
+    }
     
     highscore = newHighscore;
     highscoreElement.innerText = String(newHighscore);
