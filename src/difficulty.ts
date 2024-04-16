@@ -1,25 +1,22 @@
-import * as Storage from "./storage";
-import * as Title from "./title";
+const title: HTMLElement = document.getElementById("title")!;
 
-let difficulty: number;
-
-export function getDifficulty(): number {
-    return difficulty;
-}
-
-export function saveDifficulty(): void {
-    Storage.setDifficulty(difficulty);
-}
-
-export function newDifficulty(value): void {
-    difficulty = value;
-    saveDifficulty();
-}
-
-(() => {
-    difficulty = Number(Storage.getDifficulty());
-    if (!(difficulty >= 0)) {
-        difficulty = 1;
+function difficultyToText(difficulty: number): string {
+    switch (difficulty) {
+        case 0:
+            return "Easy😃";
+        case 1:
+            return "Medium😌";
+        case 2:
+            return "Hard😐";
+        case 3:
+            return "Extreme😡";
+        case 4:
+            return "Insane😈";
+        default:
+            return "";
     }
-    Title.refreshTitle(difficulty);
-})();
+}
+
+export function refreshTitle(difficulty: number): void {
+    title.innerText = `Garen Ult Trainer (${difficultyToText(difficulty)})`;
+}

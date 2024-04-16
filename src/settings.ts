@@ -1,4 +1,4 @@
-import * as Title from "./title";
+import * as SettingsPresenter from "./settingsPresenter";
 import * as Score from "./score";
 import * as Difficulty from "./difficulty";
 import * as Theme from "./theme";
@@ -92,7 +92,7 @@ function backupSettings(): void {
 
 function saveSettings(): void {
     Theme.saveTheme();
-    Difficulty.saveDifficulty();
+    SettingsPresenter.saveDifficulty();
     Cursor.saveCursor();
 }
 
@@ -119,8 +119,8 @@ function themeHandler(): void {
 }
 
 function difficultyHandler(): void {
-    Title.refreshTitle(currentDifficultySelection.value);
-    Difficulty.newDifficulty(currentDifficultySelection.value);
+    Difficulty.refreshTitle(currentDifficultySelection.value);
+    SettingsPresenter.newDifficulty(currentDifficultySelection.value);
 }
 
 function cursorHandler(): void {
@@ -129,7 +129,7 @@ function cursorHandler(): void {
 
 export function init(): void {
     currentThemeSelection.value = Theme.getTheme();
-    currentDifficultySelection.value = Difficulty.getDifficulty();
+    currentDifficultySelection.value = SettingsPresenter.getDifficulty();
     currentCursorSelection.value = Cursor.getCursor();
     
     selectButton(themeButtons[currentThemeSelection.value]);

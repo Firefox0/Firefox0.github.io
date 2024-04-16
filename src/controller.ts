@@ -4,12 +4,12 @@ import * as Timer from "./timer";
 import * as Score from "./score";
 import * as Hp from "./hp";
 import * as Explanation from "./explanation";
-import * as Difficulty from "./difficulty";
 import * as Keyboard from "./keyboard";
 import * as Preloader from "./preloader";
 import * as Settings from "./settings";
 import * as Theme from "./theme";
 import * as Tooltip from "./tooltip";
+import * as Storage from "./storage";
 
 export function keyPressed(key: string): void {
     switch (key) {
@@ -105,7 +105,7 @@ function progress(answer: boolean): void {
 }
 
 function nextRound(): void {
-    let difficulty = Difficulty.getDifficulty();
+    let difficulty = Storage.getDifficulty() ?? 0;
     Ultimate.randomizeUltLevel();
     Hp.newHealth(difficulty);
 

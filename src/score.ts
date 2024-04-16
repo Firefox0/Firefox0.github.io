@@ -1,6 +1,5 @@
 import * as Animations from "./animations";
 import * as Storage from "./storage";
-import * as Difficulty from "./difficulty";
 
 const highscoreElement: HTMLElement = document.getElementById("highscore")!;
 const resetButton = document.getElementById("resetHighscoreButton")!;
@@ -15,7 +14,7 @@ export function incrementScore(): void {
 }
 
 export function loadHighscore(): void {
-    let highscore = Storage.getHighscore(Difficulty.getDifficulty());
+    let highscore = Storage.getHighscore(Storage.getDifficulty() ?? 0);
     if (highscore === null) {
         highscore = 0;
     }
@@ -50,7 +49,7 @@ export function updateHighscore(newHighscore?: number): void {
         enableButton();
     }
     
-    Storage.setHighscore(newHighscore, Difficulty.getDifficulty());
+    Storage.setHighscore(newHighscore, Storage.getDifficulty() ?? 0);
 }
 
 function resetHighscore(): void {
