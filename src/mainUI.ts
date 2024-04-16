@@ -96,7 +96,6 @@ export function backButtonVisible(): boolean {
     executeYesAnimation = Animations.inAndOut(yesButton);
     executeNoAnimation = Animations.inAndOut(noButton);
     yesButton.onclick = () => {
-        yesClick();
         executeYesAnimation.play();
         Controller.yesButtonClicked();
     }

@@ -53,6 +53,7 @@ export function noButtonClicked(): void {
     if (MainUI.isNoDisabled()) {
         return;
     }
+    MainUI.noClick();
     progress(false);
 }
 
