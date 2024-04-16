@@ -11,6 +11,41 @@ import * as Settings from "./settings";
 import * as Theme from "./theme";
 import * as Tooltip from "./tooltip";
 
+export function keyPressed(key: string): void {
+    switch (key) {
+        case "1":
+            yesButtonClicked();
+            break;
+        case "2":
+            noButtonClicked();
+            break;
+        case "Enter":
+            if (MainUI.startButtonVisible()) {
+                MainUI.startClick();
+            } else if (MainUI.explanationVisible()) {
+                MainUI.explanationClick();
+            }
+            break;
+        case "r":
+            Score.updateHighscore(0);
+            break;
+        case "Escape":
+            backButtonClicked();
+            break;
+    }
+}
+
+export function detectedWord(word: string): void {
+    switch (word) {
+        case "demacia":
+            Score.updateHighscore(999999999);
+            break;
+        case "darius":
+            Score.updateHighscore(-999999999);
+            break;
+    }
+}
+
 export function yesButtonClicked(): void {
     if (MainUI.isYesDisabled()) {
         return;
@@ -32,6 +67,9 @@ export function startButtonClicked(): void {
 }
 
 export function backButtonClicked(): void {
+    if (!MainUI.backButtonVisible()) {
+        return;
+    }
     back();
 }
 

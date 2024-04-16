@@ -87,6 +87,10 @@ export function startButtonVisible(): boolean {
     return !startButton.classList.contains("d-none");
 }
 
+export function backButtonVisible(): boolean {
+    return !backButton.classList.contains("d-none");
+}
+
 (() => {
     disableDecisionButtons();
     executeYesAnimation = Animations.inAndOut(yesButton);

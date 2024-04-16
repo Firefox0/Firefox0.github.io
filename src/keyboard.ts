@@ -1,47 +1,28 @@
-import * as MainUI from "./mainUI";
-import * as Score from "./score";
+import * as Controller from "./controller";
 
-const wordObject: object = {};
+const words: string[] = [];
 let buffer: string = "";
-let longestString: number = 0;
+let maxBufferLength: number = 0;
 
 export function initialize(): void {
-    addListeners({
-        "1": () => {
-            MainUI.yesClick();
-        },
-        "2": () => MainUI.noClick(),
-        "Enter": () => {
-            if (MainUI.startButtonVisible()) {
-                MainUI.startClick();
-            } else if (MainUI.explanationVisible()) {
-                MainUI.explanationClick();
-            }
-        },
-        "r": () => {Score.updateHighscore(0);}
-    });
-
-    detectWord("demacia", () => Score.updateHighscore(999999999));
-    detectWord("darius", () => Score.updateHighscore(-999999999));
+    addKeyListener();
+    detectWord("demacia");
+    detectWord("darius");
 }
 
-function addListeners(dict: object): void {
+function addKeyListener(): void {
     document.onkeydown = (e) => {
-        for (const key in dict) {
-            if (e.key === key) {
-                dict[key]();
-            }
-        }
+        Controller.keyPressed(e.key);
     } 
 }
 
-function detectWord(word: string, callback: Function): void {
-    wordObject[word] = callback;
-    if (word.length > longestString) {
-        longestString = word.length;
+function detectWord(word: string): void {
+    words.push(word);
+    if (word.length > maxBufferLength) {
+        maxBufferLength = word.length;
     }
 
-    if (Object.keys(wordObject).length > 1) {
+    if (words.length > 1) {
         return;
     }
 
@@ -51,14 +32,14 @@ function detectWord(word: string, callback: Function): void {
         }
 
         buffer += e.key;
-        if (buffer.length > longestString) {
+        if (buffer.length > maxBufferLength) {
             buffer = buffer.substring(1);
         }
 
-        for (const key in wordObject) {
+        for (const key in words) {
             if (buffer.includes(key)) {
                 buffer = "";
-                wordObject[key]();
+                Controller.detectedWord(key);
                 break;
             }
         }
