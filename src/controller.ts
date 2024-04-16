@@ -4,11 +4,6 @@ import * as Timer from "./timer";
 import * as Score from "./score";
 import * as Hp from "./hp";
 import * as Explanation from "./explanation";
-import * as Keyboard from "./keyboard";
-import * as Preloader from "./preloader";
-import * as Settings from "./settings";
-import * as Theme from "./theme";
-import * as Tooltip from "./tooltip";
 import * as Storage from "./storage";
 
 export function keyPressed(key: string): void {
@@ -50,6 +45,7 @@ export function yesButtonClicked(): void {
     if (MainUI.isYesDisabled()) {
         return;
     }
+    MainUI.yesClick();
     progress(true);
 }
 
@@ -138,11 +134,6 @@ function back(): void {
     Ultimate.reset();
 }
 
-(async () => {
+export async function init(): Promise<void> {
     await Hp.init();
-    Theme.init();
-    Settings.init();
-    Preloader.preload();
-    Keyboard.initialize();
-    Tooltip.init();
-})();
+}

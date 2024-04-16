@@ -1,4 +1,3 @@
-import * as Storage from "./storage";
 import * as Hp from "./hp";
 import * as Timer from "./timer";
 
@@ -29,14 +28,8 @@ const backgroundImages: string[] = [
     "../img/GarenBackground/mythmaker.png",
 ]
 
-let currentTheme: number;
-
 export function getBackgroundImages(): string[] {
     return backgroundImages;
-}
-
-export function getTheme(): number {
-    return currentTheme;
 }
 
 export function changeTheme(theme: number): void {
@@ -89,11 +82,6 @@ export function changeTheme(theme: number): void {
         default:
             return;
     }
-    currentTheme = theme;
-}
-
-export function saveTheme(): void {
-    Storage.setTheme(currentTheme);
 }
 
 function newTheme(theme: number, cardColor: string, buttonColor: string): void {
@@ -164,8 +152,7 @@ function changeColor(color: string, offset: number): string {
     return "#" + rApplied + gApplied + bApplied;
 }
 
-export function init(): void {
+export function init(value: number): void {
     hpBar = Hp.getBar();
-    currentTheme = Storage.getTheme() ?? 0;
-    changeTheme(currentTheme);
+    changeTheme(value);
 }

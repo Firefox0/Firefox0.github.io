@@ -1,8 +1,5 @@
 import * as SettingsPresenter from "./settingsPresenter";
 import * as Score from "./score";
-import * as Difficulty from "./difficulty";
-import * as Theme from "./theme";
-import * as Cursor from "./cursor";
 import * as Animations from "./animations";
 
 const modal: HTMLElement = document.getElementById("exampleModal")!;
@@ -91,9 +88,9 @@ function backupSettings(): void {
 }
 
 function saveSettings(): void {
-    Theme.saveTheme();
-    SettingsPresenter.saveDifficulty();
-    Cursor.saveCursor();
+    SettingsPresenter.saveSettings(currentThemeSelection.value,
+                                   currentDifficultySelection.value, 
+                                   currentCursorSelection.value);
 }
 
 function restoreSettings(): void {
@@ -115,22 +112,21 @@ function restoreSettings(): void {
 }
 
 function themeHandler(): void {
-    Theme.changeTheme(currentThemeSelection.value);
+    SettingsPresenter.themeHandler(currentThemeSelection.value);
 }
 
 function difficultyHandler(): void {
-    Difficulty.refreshTitle(currentDifficultySelection.value);
-    SettingsPresenter.newDifficulty(currentDifficultySelection.value);
+    SettingsPresenter.difficultyHandler(currentDifficultySelection.value);
 }
 
 function cursorHandler(): void {
-    Cursor.updateCursor(currentCursorSelection.value);
+    SettingsPresenter.cursorHandler(currentCursorSelection.value);
 }
 
 export function init(): void {
-    currentThemeSelection.value = Theme.getTheme();
+    currentThemeSelection.value = SettingsPresenter.getTheme();
     currentDifficultySelection.value = SettingsPresenter.getDifficulty();
-    currentCursorSelection.value = Cursor.getCursor();
+    currentCursorSelection.value = SettingsPresenter.getCursor();
     
     selectButton(themeButtons[currentThemeSelection.value]);
     selectButton(difficultyButtons[currentDifficultySelection.value]);
