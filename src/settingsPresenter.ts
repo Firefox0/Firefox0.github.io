@@ -3,7 +3,6 @@ import * as Theme from "./theme";
 import * as Difficulty from "./difficulty";
 import * as Cursor from "./cursor";
 import * as Settings from "./settings";
-import * as Score from "./score";
 
 let theme: number;
 let difficulty: number;
@@ -20,7 +19,6 @@ export function closeClicked(): void {
 
 export function applyClicked(): void {
     saveSettings();
-    Score.loadHighscore();
     Settings.closeModal();
 }
 

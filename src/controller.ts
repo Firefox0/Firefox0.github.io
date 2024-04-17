@@ -6,6 +6,37 @@ import * as Hp from "./hp";
 import * as Explanation from "./explanation";
 import * as Storage from "./storage";
 
+let highscore: number;
+let currentScore: number = 0;
+
+export function updateScore(newScore: number): void {
+    currentScore = newScore;
+    Score.updateScore(newScore);
+}
+
+export function updateHighscore(newHighscore?: number): void {
+    if (newHighscore === undefined) {
+        newHighscore = currentScore;
+        if (newHighscore < highscore) {
+            return;
+        }
+    }
+
+    if (newHighscore === highscore) {
+        return;
+    }
+    
+    highscore = newHighscore;
+    Score.updateHighscore(newHighscore);
+    Storage.setHighscore(newHighscore, Storage.getDifficulty() ?? 0);
+}
+
+export function resetButtonClicked(): void {
+    highscore = 0;
+    Storage.setHighscore(highscore, Storage.getDifficulty() ?? 0);
+    Score.updateHighscore(highscore);
+}
+
 export function keyPressed(key: string): void {
     switch (key) {
         case "1":
@@ -22,7 +53,7 @@ export function keyPressed(key: string): void {
             }
             break;
         case "r":
-            Score.updateHighscore(0);
+            updateHighscore(0);
             break;
         case "Escape":
             backButtonClicked();
@@ -33,10 +64,10 @@ export function keyPressed(key: string): void {
 export function detectedWord(word: string): void {
     switch (word) {
         case "demacia":
-            Score.updateHighscore(999999999);
+            updateHighscore(999999999);
             break;
         case "darius":
-            Score.updateHighscore(-999999999);
+            updateHighscore(-999999999);
             break;
     }
 }
@@ -72,14 +103,14 @@ export function backButtonClicked(): void {
 
 export function explanationClicked(): void {
     MainUI.hideExplanation();
-    Score.updateHighscore();
-    Score.updateScore(0);
+    updateHighscore();
+    updateScore(0);
     Timer.restoreTimer();
     newGame();
 }
 
 export function newGame(): void {
-    Score.updateScore(0);
+    updateScore(0);
     setButtons(true);
     Timer.restoreTimer();
     nextRound();
@@ -94,7 +125,8 @@ function progress(answer: boolean): void {
     if ((ultDamage >= currentHp) === answer) {
         Timer.decreaseDuration(0.25);
         Timer.resetTimer();
-        Score.incrementScore();
+        currentScore++;
+        updateScore(currentScore);
         nextRound();
     } else {
         gameOver(ultDamage);
@@ -128,7 +160,7 @@ function back(): void {
     MainUI.showMainPage();
     Timer.stopTimer();
     Timer.resetTimer();
-    Score.updateScore(0);
+    updateScore(0);
     setButtons(false);
     Hp.hideHpBar();
     MainUI.hideExplanation();
@@ -136,5 +168,7 @@ function back(): void {
 }
 
 export async function init(): Promise<void> {
+    let tempHighscore = Storage.getHighscore(Storage.getDifficulty() ?? 0) ?? 0;
+    updateHighscore(tempHighscore);
     await Hp.init();
 }
