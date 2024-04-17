@@ -25,32 +25,32 @@ function setNumber(key: string, value: number): void {
     set(key, String(value));
 }
 
-export function getHighscore(difficulty: number): number | null {
-    return getNumber(keys.highscore + difficulty);
+export function getHighscore(difficulty: number): number {
+    return getNumber(keys.highscore + difficulty) ?? 0;
 }
 
 export function setHighscore(highscore: number, difficulty: number): void {
     setNumber(keys.highscore + difficulty, highscore);
 }
 
-export function getCursor(): number | null {
-    return getNumber(keys.cursor);
+export function getCursor(): number {
+    return getNumber(keys.cursor) ?? 1;
 }
 
 export function setCursor(value: number): void {
     setNumber(keys.cursor, value);
 }
 
-export function getDifficulty(): number | null {
-    return getNumber(keys.difficulty);
+export function getDifficulty(): number {
+    return getNumber(keys.difficulty) ?? 0;
 }
 
 export function setDifficulty(difficulty: number): void {
     setNumber(keys.difficulty, difficulty);
 }
 
-export function getTheme(): number | null {
-    return getNumber(keys.theme);
+export function getTheme(): number {
+    return getNumber(keys.theme) ?? 0;
 }
 
 export function setTheme(value: number): void {

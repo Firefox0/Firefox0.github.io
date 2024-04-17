@@ -28,12 +28,12 @@ export function updateHighscore(newHighscore?: number): void {
     
     highscore = newHighscore;
     Score.updateHighscore(newHighscore);
-    Storage.setHighscore(newHighscore, Storage.getDifficulty() ?? 0);
+    Storage.setHighscore(newHighscore, Storage.getDifficulty());
 }
 
 export function resetButtonClicked(): void {
     highscore = 0;
-    Storage.setHighscore(highscore, Storage.getDifficulty() ?? 0);
+    Storage.setHighscore(highscore, Storage.getDifficulty());
     Score.updateHighscore(highscore);
 }
 
@@ -134,7 +134,7 @@ function progress(answer: boolean): void {
 }
 
 function nextRound(): void {
-    let difficulty = Storage.getDifficulty() ?? 0;
+    let difficulty = Storage.getDifficulty();
     Ultimate.randomizeUltLevel();
     Hp.newHealth(difficulty);
 
@@ -168,7 +168,7 @@ function back(): void {
 }
 
 export async function init(): Promise<void> {
-    let tempHighscore = Storage.getHighscore(Storage.getDifficulty() ?? 0) ?? 0;
+    let tempHighscore = Storage.getHighscore(Storage.getDifficulty());
     updateHighscore(tempHighscore);
     await Hp.init();
 }

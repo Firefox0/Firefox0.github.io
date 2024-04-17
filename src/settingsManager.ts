@@ -110,9 +110,9 @@ function saveCursor(): void {
 }
 
 export function init(): void {
-    theme = Storage.getTheme() ?? 0;
-    difficulty = Storage.getDifficulty() ?? 0;
-    cursor = Storage.getCursor() ?? 1;
+    theme = Storage.getTheme();
+    difficulty = Storage.getDifficulty();
+    cursor = Storage.getCursor();
     currentThemeSelection = theme;
     currentDifficultySelection = difficulty;
     currentCursorSelection = cursor;
