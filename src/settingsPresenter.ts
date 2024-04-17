@@ -9,9 +9,9 @@ let theme: number;
 let difficulty: number;
 let cursor: number;
 
-let currentThemeSelection: number = -1;
-let currentDifficultySelection: number = -1;
-let currentCursorSelection: number = -1;
+let currentThemeSelection: number;
+let currentDifficultySelection: number;
+let currentCursorSelection: number;
 
 export function closeClicked(): void {
     restoreSettings();
