@@ -1,5 +1,5 @@
-import * as Animations from "./animations";
 import * as Controller from "./controller";
+import * as Animations from "./animations";
 
 const highscoreElement: HTMLElement = document.getElementById("highscore")!;
 const resetButton = document.getElementById("resetHighscoreButton")!;

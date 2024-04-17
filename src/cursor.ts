@@ -1,5 +1,3 @@
-import * as SettingsPresenter from "./settingsPresenter";
-
 const body: HTMLBodyElement = document.getElementsByTagName("body")[0]!;
 const buttons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn") as HTMLCollectionOf<HTMLElement>;
 
