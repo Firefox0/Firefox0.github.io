@@ -3,6 +3,7 @@ import * as Theme from "./theme";
 import * as Difficulty from "./difficulty";
 import * as Cursor from "./cursor";
 import * as Settings from "./settings";
+import * as Score from "./score";
 
 let theme: number;
 let difficulty: number;
@@ -11,6 +12,17 @@ let cursor: number;
 let currentThemeSelection: number = -1;
 let currentDifficultySelection: number = -1;
 let currentCursorSelection: number = -1;
+
+export function closeClicked(): void {
+    restoreSettings();
+    Settings.closeModal();
+}
+
+export function applyClicked(): void {
+    saveSettings();
+    Score.loadHighscore();
+    Settings.closeModal();
+}
 
 export function restoreSettings(): void {
     Settings.deselectButton(Settings.themeButtons[currentThemeSelection]);
@@ -28,10 +40,6 @@ export function restoreSettings(): void {
     themeHandler();
     difficultyHandler();
     cursorHandler();
-}
-
-export function backupSettings(): void {
-    
 }
 
 export function getThemeSelection(): number {
