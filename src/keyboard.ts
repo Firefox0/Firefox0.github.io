@@ -36,10 +36,10 @@ function detectWord(word: string): void {
             buffer = buffer.substring(1);
         }
 
-        for (const key in words) {
-            if (buffer.includes(key)) {
+        for (const word of words) {
+            if (buffer.includes(word)) {
                 buffer = "";
-                Controller.detectedWord(key);
+                Controller.detectedWord(word);
                 break;
             }
         }

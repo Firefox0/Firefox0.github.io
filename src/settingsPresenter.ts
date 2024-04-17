@@ -8,10 +8,60 @@ let theme: number;
 let difficulty: number;
 let cursor: number;
 
-export function saveSettings(themeValue: number, difficultyValue: number, cursorValue: number): void {
-    saveTheme(themeValue);
-    saveDifficulty(difficultyValue);
-    saveCursor(cursorValue);
+let currentThemeSelection: number = -1;
+let currentDifficultySelection: number = -1;
+let currentCursorSelection: number = -1;
+
+export function restoreSettings(): void {
+    Settings.deselectButton(Settings.themeButtons[currentThemeSelection]);
+    Settings.deselectButton(Settings.difficultyButtons[currentDifficultySelection]);
+    Settings.deselectButton(Settings.cursorButtons[currentCursorSelection]);
+
+    currentThemeSelection = theme;
+    currentDifficultySelection = difficulty;
+    currentCursorSelection = cursor;
+
+    Settings.selectButton(Settings.themeButtons[currentThemeSelection]);
+    Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection]);
+    Settings.selectButton(Settings.cursorButtons[currentCursorSelection]);
+
+    themeHandler();
+    difficultyHandler();
+    cursorHandler();
+}
+
+export function backupSettings(): void {
+    
+}
+
+export function getThemeSelection(): number {
+    return currentThemeSelection;
+}
+
+export function getDifficultySelection(): number {
+    return currentDifficultySelection;
+}
+
+export function getCursorSelection(): number {
+    return currentCursorSelection;
+}
+
+export function setThemeSelection(value: number) {
+    currentThemeSelection = value;
+}
+
+export function setDifficultySelection(value: number) {
+    currentDifficultySelection = value;
+}
+
+export function setCursorSelection(value: number) {
+    currentCursorSelection = value;
+}
+
+export function saveSettings(): void {
+    saveTheme();
+    saveDifficulty();
+    saveCursor();
 }
 
 export function getTheme(): number {
@@ -26,30 +76,30 @@ export function getCursor(): number {
     return cursor;
 }
 
-export function themeHandler(value: number): void {
-    Theme.changeTheme(value);
+export function themeHandler(): void {
+    Theme.changeTheme(currentThemeSelection);
 }
 
-export function difficultyHandler(value: number): void {
-    Difficulty.refreshTitle(value);
+export function difficultyHandler(): void {
+    Difficulty.refreshTitle(currentDifficultySelection);
 }
 
-export function cursorHandler(value: number): void {
-    Cursor.updateCursor(value);
+export function cursorHandler(): void {
+    Cursor.updateCursor(currentCursorSelection);
 }
 
-function saveTheme(value: number): void {
-    theme = value;
-    Storage.setTheme(value);
+function saveTheme(): void {
+    theme = currentThemeSelection;
+    Storage.setTheme(theme);
 }
 
-function saveDifficulty(value: number): void {
-    difficulty = value;
+function saveDifficulty(): void {
+    difficulty = currentDifficultySelection;
     Storage.setDifficulty(difficulty);
 }
 
-function saveCursor(value: number): void {
-    cursor = value;
+function saveCursor(): void {
+    cursor = currentCursorSelection;
     Storage.setCursor(cursor);
 }
 
@@ -57,6 +107,9 @@ export function init(): void {
     theme = Storage.getTheme() ?? 0;
     difficulty = Storage.getDifficulty() ?? 0;
     cursor = Storage.getCursor() ?? 1;
+    currentThemeSelection = theme;
+    currentDifficultySelection = difficulty;
+    currentCursorSelection = cursor;
     Theme.init(theme);
     Difficulty.refreshTitle(difficulty);
     Cursor.init(cursor);
