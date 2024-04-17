@@ -4,7 +4,7 @@ import * as Storage from "./storage";
 const highscoreElement: HTMLElement = document.getElementById("highscore")!;
 const resetButton = document.getElementById("resetHighscoreButton")!;
 const scoreElement: HTMLElement = document.getElementById("score")!;
-let highscore: number = 0;
+let highscore: number;
 let currentScore: number = 0;
 let scoreAnimation: Animation;
 let highscoreAnimation: Animation;
