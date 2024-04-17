@@ -1,4 +1,4 @@
-import * as SettingsPresenter from "./settingsPresenter";
+import * as SettingsManager from "./settingsManager";
 import * as Animations from "./animations";
 
 export const themeButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#themeButtons img")!;
@@ -25,9 +25,9 @@ export function deselectButton(button: HTMLElement): void {
 }
 
 export function init(): void {    
-    selectButton(themeButtons[SettingsPresenter.getTheme()]);
-    selectButton(difficultyButtons[SettingsPresenter.getDifficulty()]);
-    selectButton(cursorButtons[SettingsPresenter.getCursor()]);
+    selectButton(themeButtons[SettingsManager.getTheme()]);
+    selectButton(difficultyButtons[SettingsManager.getDifficulty()]);
+    selectButton(cursorButtons[SettingsManager.getCursor()]);
     
     initializeButtons();
 }
@@ -38,18 +38,18 @@ export function closeModal(): void {
 }
 
 function initializeButtons(): void {
-    modalCloseButton.onclick = SettingsPresenter.closeClicked;
+    modalCloseButton.onclick = SettingsManager.closeClicked;
 
-    applyButton.onclick = SettingsPresenter.applyClicked;
+    applyButton.onclick = SettingsManager.applyClicked;
 
-    buttonsInit(themeButtons, SettingsPresenter.getThemeSelection, 
-                SettingsPresenter.setThemeSelection, SettingsPresenter.themeHandler);
+    buttonsInit(themeButtons, SettingsManager.getThemeSelection, 
+                SettingsManager.setThemeSelection, SettingsManager.themeHandler);
 
-    buttonsInit(difficultyButtons, SettingsPresenter.getDifficultySelection,
-                SettingsPresenter.setDifficultySelection, SettingsPresenter.difficultyHandler);
+    buttonsInit(difficultyButtons, SettingsManager.getDifficultySelection,
+                SettingsManager.setDifficultySelection, SettingsManager.difficultyHandler);
 
-    buttonsInit(cursorButtons, SettingsPresenter.getCursorSelection,
-                SettingsPresenter.setCursorSelection, SettingsPresenter.cursorHandler);
+    buttonsInit(cursorButtons, SettingsManager.getCursorSelection,
+                SettingsManager.setCursorSelection, SettingsManager.cursorHandler);
 }
 
 function buttonsInit(buttons: NodeListOf<HTMLElement>, getCallback: Function,

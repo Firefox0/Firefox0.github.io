@@ -1,5 +1,5 @@
-import * as Controller from "./controller";
-import * as SettingsPresenter from "./settingsPresenter";
+import * as Manager from "./manager";
+import * as SettingsManager from "./settingsManager";
 import * as Keyboard from "./keyboard";
 import * as Preloader from "./preloader";
 import * as Tooltip from "./tooltip";
@@ -7,8 +7,8 @@ import * as Tooltip from "./tooltip";
 (async () => {
     Preloader.preload();
 
-    await Controller.init();
-    SettingsPresenter.init();
+    await Manager.init();
+    SettingsManager.init();
     
     Keyboard.initialize();
     Tooltip.init();

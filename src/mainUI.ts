@@ -1,4 +1,4 @@
-import * as Controller from "./controller";
+import * as Manager from "./manager";
 import * as Settings from "./settings";
 import * as Help from "./help";
 import * as Animations from "./animations";
@@ -97,15 +97,15 @@ export function backButtonVisible(): boolean {
     executeNoAnimation = Animations.inAndOut(noButton);
     yesButton.onclick = () => {
         executeYesAnimation.play();
-        Controller.yesButtonClicked();
+        Manager.yesButtonClicked();
     }
     noButton.onclick = () => {
         executeNoAnimation.play();
-        Controller.noButtonClicked();
+        Manager.noButtonClicked();
     }
-    startButton.onclick = () => Controller.startButtonClicked();
-    backButton.onclick = () => Controller.backButtonClicked();
+    startButton.onclick = () => Manager.startButtonClicked();
+    backButton.onclick = () => Manager.backButtonClicked();
     settingsButton.onclick = () => Settings.settingsButtonClicked();
     helpButton.onclick = () => Help.helpButtonClicked();
-    explanationButton.onclick = () => Controller.explanationClicked();
+    explanationButton.onclick = () => Manager.explanationClicked();
 })();

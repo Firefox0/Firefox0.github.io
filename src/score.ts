@@ -1,4 +1,4 @@
-import * as Controller from "./controller";
+import * as Manager from "./manager";
 import * as Animations from "./animations";
 
 const highscoreElement: HTMLElement = document.getElementById("highscore")!;
@@ -32,7 +32,7 @@ function disableButton(): void {
 }
 
 (() => {
-    document.getElementById("resetHighscoreButton")!.onclick = Controller.resetButtonClicked;
+    document.getElementById("resetHighscoreButton")!.onclick = Manager.resetButtonClicked;
     scoreAnimation = Animations.upAndDown(scoreElement);
     highscoreAnimation = Animations.upAndDown(highscoreElement);
 })();

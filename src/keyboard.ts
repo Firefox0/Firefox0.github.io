@@ -1,4 +1,4 @@
-import * as Controller from "./controller";
+import * as Manager from "./manager";
 
 const words: string[] = [];
 let buffer: string = "";
@@ -12,7 +12,7 @@ export function initialize(): void {
 
 function addKeyListener(): void {
     document.onkeydown = (e) => {
-        Controller.keyPressed(e.key);
+        Manager.keyPressed(e.key);
     } 
 }
 
@@ -39,7 +39,7 @@ function detectWord(word: string): void {
         for (const word of words) {
             if (buffer.includes(word)) {
                 buffer = "";
-                Controller.detectedWord(word);
+                Manager.detectedWord(word);
                 break;
             }
         }
