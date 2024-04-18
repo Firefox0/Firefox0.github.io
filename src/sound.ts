@@ -15,6 +15,10 @@ const incorrectSounds: string[] = [
 
 let audio: HTMLAudioElement = new Audio();
 
+export function getSoundPaths(): string[] {
+    return [...correctSounds, ...incorrectSounds]
+}
+
 export function stop(): void {
     if (audio.paused) {
         return;

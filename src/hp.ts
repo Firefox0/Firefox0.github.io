@@ -81,8 +81,7 @@ function drawRectGradient(x: number, y: number, width: number, height: number,
             return;
     }
 
-    colorStops.forEach((number, index) =>
-    {
+    colorStops.forEach((number, index) => {
         const ratio = index / colorStops.length;
 
         gradientFill.addColorStop(ratio, number);
