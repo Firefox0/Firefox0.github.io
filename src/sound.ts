@@ -9,7 +9,7 @@ const correctSounds: string[] = [
     "hit-4.mp3",
 ]
 
-const falseSounds: string[] = [
+const incorrectSounds: string[] = [
     "death.mp3"
 ]
 
@@ -23,13 +23,13 @@ export function stop(): void {
 }
 
 export function correctPlay(): void {
-    let randomIndex: number = Random.getRandomInt(0, correctSounds.length - 1);
+    let randomIndex: number = Random.randomIndex(correctSounds.length);
     audio.src = basePath + "correct/" + correctSounds[randomIndex];
     audio.play();
 }
 
 export function incorrectPlay(): void {
-    let randomIndex: number = Random.getRandomInt(0, falseSounds.length - 1);
-    audio.src = basePath + "incorrect/" + falseSounds[randomIndex];
+    let randomIndex: number = Random.randomIndex(incorrectSounds.length);
+    audio.src = basePath + "incorrect/" + incorrectSounds[randomIndex];
     audio.play();
 }
