@@ -5,6 +5,7 @@ import * as Score from "./score";
 import * as Hp from "./hp";
 import * as Explanation from "./explanation";
 import * as Storage from "./storage";
+import * as Sound from "./sound";
 
 let highscore: number;
 let currentScore: number = 0;
@@ -40,11 +41,12 @@ export function resetButtonClicked(): void {
 export function keyPressed(key: string): void {
     switch (key) {
         case "1":
-            yesButtonClicked();
+            MainUI.yesClick();
             break;
         case "2":
-            noButtonClicked();
+            MainUI.noClick();
             break;
+        case " ":
         case "Enter":
             if (MainUI.startButtonVisible()) {
                 MainUI.startClick();
@@ -73,18 +75,10 @@ export function detectedWord(word: string): void {
 }
 
 export function yesButtonClicked(): void {
-    if (MainUI.isYesDisabled()) {
-        return;
-    }
-    MainUI.yesClick();
     progress(true);
 }
 
 export function noButtonClicked(): void {
-    if (MainUI.isNoDisabled()) {
-        return;
-    }
-    MainUI.noClick();
     progress(false);
 }
 
@@ -110,6 +104,7 @@ export function explanationClicked(): void {
 }
 
 export function newGame(): void {
+    Sound.stop();
     updateScore(0);
     setButtons(true);
     Timer.restoreTimer();
@@ -123,6 +118,7 @@ function progress(answer: boolean): void {
     let maximumHp: number = Hp.getMaximumHp();
     let ultDamage: number = Ultimate.calculateUltDamage(currentHp, maximumHp);
     if ((ultDamage >= currentHp) === answer) {
+        Sound.correctPlay();
         Timer.decreaseDuration(0.25);
         Timer.resetTimer();
         currentScore++;
@@ -142,6 +138,7 @@ function nextRound(): void {
 }
 
 function gameOver(ultDamage: number): void {
+    Sound.incorrectPlay();
     setButtons(false);
     let explanation: string = Explanation.getExplanation(Hp.getCurrentHp(), Hp.getMaximumHp(), ultDamage);
     MainUI.updateExplanation(explanation);
