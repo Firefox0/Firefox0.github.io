@@ -3,6 +3,7 @@ import * as Theme from "./theme";
 import * as Difficulty from "./difficulty";
 import * as Cursor from "./cursor";
 import * as Settings from "./settings";
+import * as Manager from "./manager";
 
 let theme: number;
 let difficulty: number;
@@ -88,6 +89,7 @@ export function themeHandler(): void {
 
 export function difficultyHandler(): void {
     Difficulty.refreshTitle(currentDifficultySelection);
+    Manager.difficultyChanged(currentDifficultySelection);
 }
 
 export function cursorHandler(): void {

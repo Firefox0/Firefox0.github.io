@@ -62,7 +62,3 @@ function updateTimerBar(step: DOMHighResTimeStamp, callback: Function): void {
 
     requestID = requestAnimationFrame((e) => updateTimerBar(e, callback));
 }
-
-(() => {
-    timerBar.style.transition = "none";
-})();

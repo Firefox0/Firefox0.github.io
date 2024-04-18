@@ -40,7 +40,7 @@ export function incorrectPlay(): void {
     audio.play();
 }
 
-(() => {
+export function init(): void {
     for (let i = 0; i < correctSounds.length; i++) {
         correctSounds[i] = basePath + correctFolder + correctSounds[i];
     }
@@ -48,4 +48,4 @@ export function incorrectPlay(): void {
     for (let i = 0; i < incorrectSounds.length; i++) {
         incorrectSounds[i] = basePath + incorrectFolder + incorrectSounds[i];
     }
-})();
+}

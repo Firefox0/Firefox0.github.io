@@ -97,7 +97,7 @@ export function backButtonVisible(): boolean {
     return !backButton.classList.contains("d-none");
 }
 
-(() => {
+export function init(): void {
     disableDecisionButtons();
     executeYesAnimation = Animations.inAndOut(yesButton);
     executeNoAnimation = Animations.inAndOut(noButton);
@@ -114,4 +114,4 @@ export function backButtonVisible(): boolean {
     settingsButton.onclick = () => Settings.settingsButtonClicked();
     helpButton.onclick = () => Help.helpButtonClicked();
     explanationButton.onclick = () => Manager.explanationClicked();
-})();
+}

@@ -4,7 +4,7 @@ const words: string[] = [];
 let buffer: string = "";
 let maxBufferLength: number = 0;
 
-export function initialize(): void {
+export function init(): void {
     addKeyListener();
     detectWord("demacia");
     detectWord("darius");

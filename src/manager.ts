@@ -10,6 +10,11 @@ import * as Sound from "./sound";
 let highscore: number;
 let currentScore: number = 0;
 
+export function difficultyChanged(difficulty: number): void {
+    highscore = Storage.getHighscore(difficulty);
+    Score.updateHighscore(highscore);
+}
+
 export function updateScore(newScore: number): void {
     currentScore = newScore;
     Score.updateScore(newScore);

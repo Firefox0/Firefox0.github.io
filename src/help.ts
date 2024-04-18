@@ -22,6 +22,6 @@ function initializeButtons(): void {
     }
 }
 
-(() => {
+export function init(): void {
     initializeButtons();
-})();
+}

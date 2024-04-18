@@ -13,7 +13,7 @@ export function updateScore(newScore: number): void {
     scoreAnimation.play();
 }
 
-export function updateHighscore(newHighscore?: number): void {
+export function updateHighscore(newHighscore: number): void {
     highscoreElement.innerText = String(newHighscore);
     highscoreAnimation.play();
     if (newHighscore === 0) {
@@ -31,8 +31,8 @@ function disableButton(): void {
     resetButton.setAttribute("disabled", "");
 }
 
-(() => {
+export function init(): void {
     document.getElementById("resetHighscoreButton")!.onclick = Manager.resetButtonClicked;
     scoreAnimation = Animations.upAndDown(scoreElement);
     highscoreAnimation = Animations.upAndDown(highscoreElement);
-})();
+}
