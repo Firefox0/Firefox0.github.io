@@ -72,16 +72,10 @@ export function isNoDisabled(): boolean {
 }
 
 export function yesClick(): void {
-    if (isYesDisabled()) {
-        return;
-    }
     yesButton.click();
 }
 
 export function noClick(): void {
-    if (isNoDisabled()) {
-        return;
-    }
     noButton.click();
 }
 

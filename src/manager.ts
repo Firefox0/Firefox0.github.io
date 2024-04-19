@@ -35,7 +35,21 @@ export enum Direction {
     Down
 }
 
-export function escapePressed(): void {
+export function yesClick(): void {
+    if (MainUI.isYesDisabled()) {
+        return;
+    }
+    MainUI.yesClick();
+}
+
+export function noClick(): void {
+    if (MainUI.isNoDisabled()) {
+        return;
+    }
+    MainUI.noClick();
+}
+
+export function escapePress(): void {
     if (Settings.isSettingsDisplayed()) {
         Settings.closeModal();
         return;
@@ -256,14 +270,16 @@ export function updateHighscore(newHighscore?: number): void {
 export function keyPressed(key: string): void {
     switch (key) {
         case "1":
-            MainUI.yesClick();
+            yesClick();
             break;
         case "2":
-            MainUI.noClick();
+            noClick();
             break;
         case " ":
         case "Enter":
-            if (MainUI.startButtonVisible() && !Settings.isSettingsDisplayed() && !Help.isHelpDisplayed()) {
+            if (MainUI.startButtonVisible() && 
+                !Settings.isSettingsDisplayed() && 
+                !Help.isHelpDisplayed()) {
                 MainUI.startClick();
             } else if (MainUI.explanationVisible()) {
                 MainUI.explanationClick();
@@ -278,7 +294,7 @@ export function keyPressed(key: string): void {
             break;
         case "Escape":
             if (mainPageDisplayed) {
-                escapePressed();
+                escapePress();
                 return;
             }
             backButtonClicked();
