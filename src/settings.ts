@@ -1,8 +1,8 @@
 import * as Manager from "./manager";
 import * as Animations from "./animations";
 
-export const themeButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#themeButtons img")!;
 export const difficultyButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#difficultyButtons img")!;
+export const themeButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#themeButtons img")!;
 export const cursorButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#cursorButtons img")!;
 
 const modal: HTMLElement = document.getElementById("exampleModal")!;
@@ -18,8 +18,11 @@ export function settingsButtonClicked() {
     modal.style.display = "block";
 }
 
-export function selectButton(button: HTMLElement): void {
-    button.style.borderColor = "white";
+export function selectButton(button: HTMLElement, color?: string): void {
+    if (color === undefined) {
+        color = "white";
+    }
+    button.style.borderColor = color;
     Animations.settingsContentActivate(button).play();
 }
 
@@ -46,28 +49,23 @@ function initializeButtons(): void {
 
     applyButton.onclick = Manager.applyClicked;
 
-    buttonsInit(themeButtons, Manager.getThemeSelection, 
-                Manager.setThemeSelection, Manager.themeHandler);
+    buttonsInit(difficultyButtons, (i) => {
+        Manager.selectNewDifficultyButton(i);
+    });
 
-    buttonsInit(difficultyButtons, Manager.getDifficultySelection,
-                Manager.setDifficultySelection, Manager.difficultyHandler);
+    buttonsInit(themeButtons, (i) => {
+        Manager.selectNewThemeButton(i);
+    });
 
-    buttonsInit(cursorButtons, Manager.getCursorSelection,
-                Manager.setCursorSelection, Manager.cursorHandler);
+    buttonsInit(cursorButtons, (i) => {
+        Manager.selectNewCursorButton(i);
+    });
 }
 
-function buttonsInit(buttons: NodeListOf<HTMLElement>, getCallback: Function,
-                    setCallback: Function, callback: Function): void {
+function buttonsInit(buttons: NodeListOf<HTMLElement>, callback: Function): void {
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].onclick = () => {
-            let currentSelection: number = getCallback();
-            if (currentSelection === i) {
-                return;
-            }
-            deselectButton(buttons[currentSelection]);
-            selectButton(buttons[i]);
-            setCallback(i);
-            callback();
+            callback(i);
         }
     }
 }

@@ -105,7 +105,7 @@ export function init(): void {
     }
     startButton.onclick = () => Manager.startButtonClicked();
     backButton.onclick = () => Manager.backButtonClicked();
-    settingsButton.onclick = () => Settings.settingsButtonClicked();
-    helpButton.onclick = () => Help.helpButtonClicked();
+    settingsButton.onclick = () => Manager.settingsClick();
+    helpButton.onclick = () => Manager.helpClick();
     explanationButton.onclick = () => Manager.explanationClicked();
 }

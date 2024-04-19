@@ -24,6 +24,7 @@ let cursor: number;
 let currentDifficultySelection: number;
 let currentThemeSelection: number;
 let currentCursorSelection: number;
+let recentlySelectedElement: HTMLElement;
 
 let currentRow: number = 0;
 const maxRows: number = 2;
@@ -51,7 +52,7 @@ export function noClick(): void {
 
 export function escapePress(): void {
     if (Settings.isSettingsDisplayed()) {
-        Settings.closeModal();
+        closeClicked();
         return;
     }
 
@@ -67,14 +68,26 @@ export function escapePress(): void {
 }
 
 export function settingsClick(): void {
-    if (!mainPageDisplayed || Help.isHelpDisplayed()) {
+    if (!mainPageDisplayed || Help.isHelpDisplayed() || Settings.isSettingsDisplayed()) {
         return;
     }
     Settings.settingsButtonClicked();
+    switch (currentRow) {
+        case 0:
+            recentlySelectedElement = Settings.difficultyButtons[currentDifficultySelection];
+            break;
+        case 1:
+            recentlySelectedElement = Settings.themeButtons[currentThemeSelection];
+            break;
+        case 2:
+            recentlySelectedElement = Settings.cursorButtons[currentCursorSelection];
+            break;
+    }
+    Settings.selectButton(recentlySelectedElement, "red");
 }
 
 export function helpClick(): void {
-    if (!mainPageDisplayed || Settings.isSettingsDisplayed()) {
+    if (!mainPageDisplayed || Settings.isSettingsDisplayed() || Help.isHelpDisplayed()) {
         return;
     }
     Help.helpButtonClicked();
@@ -87,44 +100,96 @@ export function chooseBykey(direction: Direction): void {
 
     switch (direction) {
         case Direction.Left:
-            moveSelection(-1);
+            moveSelectionHorizontally(-1);
             break;
         case Direction.Up:
-            currentRow = setbackDecrement(currentRow, maxRows);
+            moveSelectionVertically(-1);
             break;
         case Direction.Right:
-            moveSelection(1);
+            moveSelectionHorizontally(1);
             break;
         case Direction.Down:
-            currentRow = setbackIncrement(currentRow, maxRows);
+            moveSelectionVertically(1);
             break;
     }
 }
 
-export function moveSelection(offset: number): void {
+export function moveSelectionHorizontally(offset: number): void {
     switch (currentRow) {
         case 0:
             Settings.deselectButton(Settings.difficultyButtons[currentDifficultySelection]);
             currentDifficultySelection = setbackOperation(currentDifficultySelection, offset, Settings.difficultyButtons.length - 1)
-            Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection]);
-            difficultyHandler();
+            recentlySelectedElement = Settings.difficultyButtons[currentDifficultySelection];
+            Settings.selectButton(recentlySelectedElement, "red");
+            applyDifficulty();
             break;
         case 1:
             Settings.deselectButton(Settings.themeButtons[currentThemeSelection]);
             currentThemeSelection = setbackOperation(currentThemeSelection, offset, Settings.themeButtons.length - 1)
-            Settings.selectButton(Settings.themeButtons[currentThemeSelection]);
-            themeHandler();
+            recentlySelectedElement = Settings.themeButtons[currentThemeSelection];
+            Settings.selectButton(recentlySelectedElement, "red");
+            Theme.changeTheme(currentThemeSelection);
             break;
         case 2:
             Settings.deselectButton(Settings.cursorButtons[currentCursorSelection]);
             currentCursorSelection = setbackOperation(currentCursorSelection, offset, Settings.cursorButtons.length - 1);
-            Settings.selectButton(Settings.cursorButtons[currentCursorSelection]);
-            cursorHandler();
+            recentlySelectedElement = Settings.cursorButtons[currentCursorSelection];
+            Settings.selectButton(recentlySelectedElement, "red");
+            Cursor.updateCursor(currentCursorSelection);
             break;
     }
 }
 
+export function moveSelectionVertically(offset: number): void {
+    if (offset === 0) {
+        return;
+    }
+
+    if (offset > 0) {
+        switch (currentRow) {
+            case 0:
+                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection]);
+                Settings.selectButton(Settings.themeButtons[currentThemeSelection], "red");
+                applyDifficulty();
+                break;
+            case 1:
+                Settings.selectButton(Settings.themeButtons[currentThemeSelection]);
+                Settings.selectButton(Settings.cursorButtons[currentCursorSelection], "red");
+                Theme.changeTheme(currentThemeSelection);
+                break;
+            case 2:
+                Settings.selectButton(Settings.cursorButtons[currentCursorSelection]);
+                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection], "red");
+                Cursor.updateCursor(currentCursorSelection);
+                break;
+        }
+    } else {
+        switch (currentRow) {
+            case 0:
+                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection]);
+                Settings.selectButton(Settings.cursorButtons[currentCursorSelection], "red");
+                applyDifficulty();
+                break;
+            case 1:
+                Settings.selectButton(Settings.themeButtons[currentThemeSelection]);
+                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection], "red");
+                Theme.changeTheme(currentThemeSelection);
+                break;
+            case 2:
+                Settings.selectButton(Settings.cursorButtons[currentCursorSelection]);
+                Settings.selectButton(Settings.themeButtons[currentThemeSelection], "red");
+                Cursor.updateCursor(currentCursorSelection);
+                break;
+        }
+    }
+    currentRow = setbackOperation(currentRow, offset, maxRows);
+}
+
 export function setbackOperation(value: number, operand: number, limit: number): number {
+    if (operand === 0) {
+        return value;
+    }
+
     if (operand < 0) {
         return setbackDecrement(value, limit);
     }
@@ -158,45 +223,9 @@ export function applyClicked(): void {
 }
 
 export function restoreSettings(): void {
-    Settings.deselectButton(Settings.themeButtons[currentThemeSelection]);
-    Settings.deselectButton(Settings.difficultyButtons[currentDifficultySelection]);
-    Settings.deselectButton(Settings.cursorButtons[currentCursorSelection]);
-
-    currentThemeSelection = theme;
-    currentDifficultySelection = difficulty;
-    currentCursorSelection = cursor;
-
-    Settings.selectButton(Settings.themeButtons[currentThemeSelection]);
-    Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection]);
-    Settings.selectButton(Settings.cursorButtons[currentCursorSelection]);
-
-    themeHandler();
-    difficultyHandler();
-    cursorHandler();
-}
-
-export function getThemeSelection(): number {
-    return currentThemeSelection;
-}
-
-export function getDifficultySelection(): number {
-    return currentDifficultySelection;
-}
-
-export function getCursorSelection(): number {
-    return currentCursorSelection;
-}
-
-export function setThemeSelection(value: number) {
-    currentThemeSelection = value;
-}
-
-export function setDifficultySelection(value: number) {
-    currentDifficultySelection = value;
-}
-
-export function setCursorSelection(value: number) {
-    currentCursorSelection = value;
+    selectNewThemeButton(theme);
+    selectNewDifficultyButton(difficulty);
+    selectNewCursorButton(cursor);
 }
 
 export function saveSettings(): void {
@@ -217,16 +246,59 @@ export function getCursor(): number {
     return cursor;
 }
 
-export function themeHandler(): void {
-    Theme.changeTheme(currentThemeSelection);
-}
-
-export function difficultyHandler(): void {
+export function applyDifficulty(): void {
     Difficulty.refreshTitle(currentDifficultySelection);
     difficultyChanged(currentDifficultySelection);
 }
 
-export function cursorHandler(): void {
+export function selectNewDifficultyButton(newIndex: number): void {
+    if (currentDifficultySelection === newIndex) {
+        return;
+    }
+    
+    if (currentRow !== 0) {
+        Settings.selectButton(recentlySelectedElement);
+        currentRow = 0;
+    }
+
+    Settings.deselectButton(Settings.difficultyButtons[currentDifficultySelection]);
+    currentDifficultySelection = newIndex;
+    recentlySelectedElement = Settings.difficultyButtons[currentDifficultySelection];
+    Settings.selectButton(recentlySelectedElement, "red");
+    applyDifficulty();
+}
+
+export function selectNewThemeButton(newIndex: number): void {
+    if (currentThemeSelection === newIndex) {
+        return;
+    }
+
+    if (currentRow !== 1) {
+        Settings.selectButton(recentlySelectedElement);
+        currentRow = 1;
+    } 
+
+    Settings.deselectButton(Settings.themeButtons[currentThemeSelection]);
+    currentThemeSelection = newIndex;
+    recentlySelectedElement = Settings.themeButtons[currentThemeSelection];
+    Settings.selectButton(recentlySelectedElement, "red");
+    Theme.changeTheme(currentThemeSelection);
+}
+
+export function selectNewCursorButton(newIndex: number): void {
+    if (currentCursorSelection === newIndex) {
+        return;
+    }
+
+    if (currentRow !== 2) {
+        Settings.selectButton(recentlySelectedElement);
+        currentRow = 2;
+    }
+
+    Settings.deselectButton(Settings.cursorButtons[currentCursorSelection]);
+    currentCursorSelection = newIndex;
+    recentlySelectedElement = Settings.cursorButtons[currentCursorSelection];
+    Settings.selectButton(recentlySelectedElement, "red");
     Cursor.updateCursor(currentCursorSelection);
 }
 
@@ -274,16 +346,26 @@ export function updateHighscore(newHighscore?: number): void {
 
 export function handleConfirmation(): void {
     if (MainUI.startButtonVisible() && 
-                !Settings.isSettingsDisplayed() && 
-                !Help.isHelpDisplayed()) {
-                MainUI.startClick();
-            } else if (MainUI.explanationVisible()) {
-                MainUI.explanationClick();
-            } else if (Settings.isSettingsDisplayed()) {
-                applyClicked();
-            } else if (Help.isHelpDisplayed()) {
-                Help.closeModal();
-            }
+        !Settings.isSettingsDisplayed() && 
+        !Help.isHelpDisplayed()) {
+        MainUI.startClick();
+        return;
+    } 
+    
+    if (MainUI.explanationVisible()) {
+        MainUI.explanationClick();
+        return;
+    }
+    
+    if (Settings.isSettingsDisplayed()) {
+        applyClicked();
+        return;
+    } 
+    
+    if (Help.isHelpDisplayed()) {
+        Help.closeModal();
+        return;
+    }
 }
 
 export function keyPressed(key: string): void {
