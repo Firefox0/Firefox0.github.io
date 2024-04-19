@@ -59,6 +59,11 @@ export function escapePress(): void {
         Help.closeModal();
         return;
     }
+
+    if (!mainPageDisplayed) {
+        backButtonClicked();
+        return;
+    }
 }
 
 export function settingsClick(): void {
@@ -267,17 +272,8 @@ export function updateHighscore(newHighscore?: number): void {
     Storage.setHighscore(newHighscore, Storage.getDifficulty());
 }
 
-export function keyPressed(key: string): void {
-    switch (key) {
-        case "1":
-            yesClick();
-            break;
-        case "2":
-            noClick();
-            break;
-        case " ":
-        case "Enter":
-            if (MainUI.startButtonVisible() && 
+export function handleConfirmation(): void {
+    if (MainUI.startButtonVisible() && 
                 !Settings.isSettingsDisplayed() && 
                 !Help.isHelpDisplayed()) {
                 MainUI.startClick();
@@ -288,16 +284,25 @@ export function keyPressed(key: string): void {
             } else if (Help.isHelpDisplayed()) {
                 Help.closeModal();
             }
+}
+
+export function keyPressed(key: string): void {
+    switch (key) {
+        case "1":
+            yesClick();
+            break;
+        case "2":
+            noClick();
+            break;
+        case " ":
+        case "Enter":
+            handleConfirmation();
             break;
         case "r":
             updateHighscore(0);
             break;
         case "Escape":
-            if (mainPageDisplayed) {
-                escapePress();
-                return;
-            }
-            backButtonClicked();
+            escapePress();
             break;
         case "s":
             settingsClick();
