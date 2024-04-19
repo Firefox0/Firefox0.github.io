@@ -1,4 +1,4 @@
-import * as SettingsManager from "./settingsManager";
+import * as Manager from "./manager";
 import * as Animations from "./animations";
 
 export const themeButtons: NodeListOf<HTMLElement> = document.querySelectorAll("div#themeButtons img")!;
@@ -8,6 +8,10 @@ export const cursorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
 const modal: HTMLElement = document.getElementById("exampleModal")!;
 const modalCloseButton: HTMLElement = document.getElementById("modalCloseButton")!;
 const applyButton: HTMLElement = document.getElementById("modalApplyButton")!;
+
+export function isSettingsDisplayed(): boolean {
+    return modal.classList.contains("show");
+}
 
 export function settingsButtonClicked() {
     modal.classList.add("show");
@@ -25,9 +29,9 @@ export function deselectButton(button: HTMLElement): void {
 }
 
 export function init(): void {    
-    selectButton(themeButtons[SettingsManager.getTheme()]);
-    selectButton(difficultyButtons[SettingsManager.getDifficulty()]);
-    selectButton(cursorButtons[SettingsManager.getCursor()]);
+    selectButton(themeButtons[Manager.getTheme()]);
+    selectButton(difficultyButtons[Manager.getDifficulty()]);
+    selectButton(cursorButtons[Manager.getCursor()]);
     
     initializeButtons();
 }
@@ -38,18 +42,18 @@ export function closeModal(): void {
 }
 
 function initializeButtons(): void {
-    modalCloseButton.onclick = SettingsManager.closeClicked;
+    modalCloseButton.onclick = Manager.closeClicked;
 
-    applyButton.onclick = SettingsManager.applyClicked;
+    applyButton.onclick = Manager.applyClicked;
 
-    buttonsInit(themeButtons, SettingsManager.getThemeSelection, 
-                SettingsManager.setThemeSelection, SettingsManager.themeHandler);
+    buttonsInit(themeButtons, Manager.getThemeSelection, 
+                Manager.setThemeSelection, Manager.themeHandler);
 
-    buttonsInit(difficultyButtons, SettingsManager.getDifficultySelection,
-                SettingsManager.setDifficultySelection, SettingsManager.difficultyHandler);
+    buttonsInit(difficultyButtons, Manager.getDifficultySelection,
+                Manager.setDifficultySelection, Manager.difficultyHandler);
 
-    buttonsInit(cursorButtons, SettingsManager.getCursorSelection,
-                SettingsManager.setCursorSelection, SettingsManager.cursorHandler);
+    buttonsInit(cursorButtons, Manager.getCursorSelection,
+                Manager.setCursorSelection, Manager.cursorHandler);
 }
 
 function buttonsInit(buttons: NodeListOf<HTMLElement>, getCallback: Function,

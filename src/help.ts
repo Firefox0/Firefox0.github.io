@@ -7,7 +7,11 @@ export function helpButtonClicked(): void {
     modal.style.display = "block";
 }
 
-function closeModal(): void {
+export function isHelpDisplayed(): boolean {
+    return modal.classList.contains("show");
+}
+
+export function closeModal(): void {
     modal.classList.remove("show");
     modal.style.display = "";
 }
