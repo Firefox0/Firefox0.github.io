@@ -1,6 +1,4 @@
 import * as Manager from "./manager";
-import * as Settings from "./settings";
-import * as Help from "./help";
 import * as Animations from "./animations";
 
 const yesButton: HTMLElement= document.getElementById("yes")!;

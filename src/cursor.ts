@@ -1,5 +1,5 @@
 const body: HTMLBodyElement = document.getElementsByTagName("body")[0]!;
-const buttons: HTMLCollectionOf<HTMLElement> = document.getElementsByClassName("btn") as HTMLCollectionOf<HTMLElement>;
+const buttons: NodeListOf<HTMLElement> = document.querySelectorAll(".btn, .btn-close") as NodeListOf<HTMLElement>;
 
 export function updateCursor(value: number): void {
     let path: string;
