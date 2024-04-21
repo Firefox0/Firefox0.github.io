@@ -27,7 +27,6 @@ let currentCursorSelection: number;
 let recentlySelectedElement: HTMLElement;
 
 let currentRow: number = 0;
-const maxRows: number = 2;
 
 export enum Direction {
     Left,
@@ -35,6 +34,14 @@ export enum Direction {
     Right,
     Down
 }
+
+enum Rows {
+    Difficulty,
+    Theme,
+    Cursor
+}
+
+const maxRows: number = Object.keys(Rows).length / 2 - 1;
 
 export function yesClick(): void {
     if (MainUI.isYesDisabled()) {
@@ -73,13 +80,13 @@ export function settingsClick(): void {
     }
     Settings.settingsButtonClicked();
     switch (currentRow) {
-        case 0:
+        case Rows.Difficulty:
             recentlySelectedElement = Settings.difficultyButtons[currentDifficultySelection];
             break;
-        case 1:
+        case Rows.Theme:
             recentlySelectedElement = Settings.themeButtons[currentThemeSelection];
             break;
-        case 2:
+        case Rows.Cursor:
             recentlySelectedElement = Settings.cursorButtons[currentCursorSelection];
             break;
     }
@@ -116,22 +123,22 @@ export function chooseBykey(direction: Direction): void {
 
 export function moveSelectionHorizontally(offset: number): void {
     switch (currentRow) {
-        case 0:
-            Settings.deselectButton(Settings.difficultyButtons[currentDifficultySelection]);
+        case Rows.Difficulty:
+            Settings.deselectButton(recentlySelectedElement);
             currentDifficultySelection = setbackOperation(currentDifficultySelection, offset, Settings.difficultyButtons.length - 1)
             recentlySelectedElement = Settings.difficultyButtons[currentDifficultySelection];
             Settings.selectButton(recentlySelectedElement, "red");
             applyDifficulty();
             break;
-        case 1:
-            Settings.deselectButton(Settings.themeButtons[currentThemeSelection]);
+        case Rows.Theme:
+            Settings.deselectButton(recentlySelectedElement);
             currentThemeSelection = setbackOperation(currentThemeSelection, offset, Settings.themeButtons.length - 1)
             recentlySelectedElement = Settings.themeButtons[currentThemeSelection];
             Settings.selectButton(recentlySelectedElement, "red");
             Theme.changeTheme(currentThemeSelection);
             break;
-        case 2:
-            Settings.deselectButton(Settings.cursorButtons[currentCursorSelection]);
+        case Rows.Cursor:
+            Settings.deselectButton(recentlySelectedElement);
             currentCursorSelection = setbackOperation(currentCursorSelection, offset, Settings.cursorButtons.length - 1);
             recentlySelectedElement = Settings.cursorButtons[currentCursorSelection];
             Settings.selectButton(recentlySelectedElement, "red");
@@ -147,42 +154,42 @@ export function moveSelectionVertically(offset: number): void {
 
     if (offset > 0) {
         switch (currentRow) {
-            case 0:
-                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection]);
-                Settings.selectButton(Settings.themeButtons[currentThemeSelection], "red");
+            case Rows.Difficulty:
+                verticalSelection(Settings.themeButtons[currentThemeSelection]);
                 applyDifficulty();
                 break;
-            case 1:
-                Settings.selectButton(Settings.themeButtons[currentThemeSelection]);
-                Settings.selectButton(Settings.cursorButtons[currentCursorSelection], "red");
+            case Rows.Theme:
+                verticalSelection(Settings.cursorButtons[currentCursorSelection]);
                 Theme.changeTheme(currentThemeSelection);
                 break;
-            case 2:
-                Settings.selectButton(Settings.cursorButtons[currentCursorSelection]);
-                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection], "red");
+            case Rows.Cursor:
+                verticalSelection(Settings.difficultyButtons[currentDifficultySelection]);
                 Cursor.updateCursor(currentCursorSelection);
                 break;
         }
     } else {
         switch (currentRow) {
-            case 0:
-                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection]);
-                Settings.selectButton(Settings.cursorButtons[currentCursorSelection], "red");
+            case Rows.Difficulty:
+                verticalSelection(Settings.cursorButtons[currentCursorSelection]);
                 applyDifficulty();
                 break;
-            case 1:
-                Settings.selectButton(Settings.themeButtons[currentThemeSelection]);
-                Settings.selectButton(Settings.difficultyButtons[currentDifficultySelection], "red");
+            case Rows.Theme:
+                verticalSelection(Settings.difficultyButtons[currentDifficultySelection]);
                 Theme.changeTheme(currentThemeSelection);
                 break;
-            case 2:
-                Settings.selectButton(Settings.cursorButtons[currentCursorSelection]);
-                Settings.selectButton(Settings.themeButtons[currentThemeSelection], "red");
+            case Rows.Cursor:
+                verticalSelection(Settings.themeButtons[currentThemeSelection]);
                 Cursor.updateCursor(currentCursorSelection);
                 break;
         }
     }
     currentRow = setbackOperation(currentRow, offset, maxRows);
+}
+
+function verticalSelection(button: HTMLElement): void {
+    Settings.selectButton(recentlySelectedElement);
+    Settings.selectButton(button, "red");
+    recentlySelectedElement = button;
 }
 
 export function setbackOperation(value: number, operand: number, limit: number): number {
@@ -256,15 +263,9 @@ export function selectNewDifficultyButton(newIndex: number): void {
         return;
     }
     
-    if (currentRow !== 0) {
-        Settings.selectButton(recentlySelectedElement);
-        currentRow = 0;
-    }
-
-    Settings.deselectButton(Settings.difficultyButtons[currentDifficultySelection]);
+    rowCheck(Rows.Difficulty);
+    clickSelection(Settings.difficultyButtons, currentDifficultySelection, newIndex);
     currentDifficultySelection = newIndex;
-    recentlySelectedElement = Settings.difficultyButtons[currentDifficultySelection];
-    Settings.selectButton(recentlySelectedElement, "red");
     applyDifficulty();
 }
 
@@ -273,15 +274,9 @@ export function selectNewThemeButton(newIndex: number): void {
         return;
     }
 
-    if (currentRow !== 1) {
-        Settings.selectButton(recentlySelectedElement);
-        currentRow = 1;
-    } 
-
-    Settings.deselectButton(Settings.themeButtons[currentThemeSelection]);
+    rowCheck(Rows.Theme);
+    clickSelection(Settings.themeButtons, currentThemeSelection, newIndex);
     currentThemeSelection = newIndex;
-    recentlySelectedElement = Settings.themeButtons[currentThemeSelection];
-    Settings.selectButton(recentlySelectedElement, "red");
     Theme.changeTheme(currentThemeSelection);
 }
 
@@ -290,16 +285,23 @@ export function selectNewCursorButton(newIndex: number): void {
         return;
     }
 
-    if (currentRow !== 2) {
-        Settings.selectButton(recentlySelectedElement);
-        currentRow = 2;
-    }
-
-    Settings.deselectButton(Settings.cursorButtons[currentCursorSelection]);
+    rowCheck(Rows.Cursor);
+    clickSelection(Settings.cursorButtons, currentCursorSelection, newIndex);
     currentCursorSelection = newIndex;
-    recentlySelectedElement = Settings.cursorButtons[currentCursorSelection];
-    Settings.selectButton(recentlySelectedElement, "red");
     Cursor.updateCursor(currentCursorSelection);
+}
+
+function rowCheck(rowID: number) {
+    if (currentRow !== rowID) {
+        Settings.selectButton(recentlySelectedElement);
+        currentRow = rowID;
+    }
+}
+
+function clickSelection(buttons: NodeListOf<HTMLElement>, oldIndex: number, newIndex: number): void {
+    Settings.deselectButton(buttons[oldIndex]);
+    recentlySelectedElement = buttons[newIndex];
+    Settings.selectButton(recentlySelectedElement, "red");
 }
 
 function saveTheme(): void {
